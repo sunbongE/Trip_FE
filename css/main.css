@@ -17,3 +17,10 @@ header nav ul {
 header nav ul li {
     margin: 0 20px;
 }
+
+#sec1 {
+    background-image: url('../img/taeho.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: 100;
+}
