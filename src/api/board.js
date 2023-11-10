@@ -2,8 +2,9 @@ import { localAxios } from "@/util/http-commons";
 
 const local = localAxios();
 
-function listArticle(param, success, fail) {
-  local.get(`/board`, { params: param }).then(success).catch(fail);
+function listArticle(success, fail) {
+  local.get(`/board/list`).then(success).catch(fail);
+  // local.get(`/board`, { params: param }).then(success).catch(fail);
 }
 
 function detailArticle(articleno, success, fail) {

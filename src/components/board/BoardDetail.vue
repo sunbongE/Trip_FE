@@ -1,13 +1,31 @@
 <script setup>
-import { useRouter } from 'vue-router'; 
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router';
+import { detailArticle } from "@/api/board";
+
 const router = useRouter();
 const moveList = () => {
-    router.push({name:'article-list'})
+  router.push({ name: 'article-list' })
+}
+const route = useRoute();
+// onMounted(() => {
+//   const articleNo = ref(0);
+//   articleNo.value = route.params.articleno;
+//   getArticle(articleNo.value);
+//   // console.log(articleNo.value)
+// })
+const getArticle = () => {
+  detailArticle(
+    (response) => {
+      console.log(response)
+
+    },
+    (error) => console.log(error))
 }
 </script>
 
 <template>
-<section>
+  <section>
     <article>
       <div id="mentBox">
         <p id="ment">${boardDto.subject}</p>
@@ -16,18 +34,19 @@ const moveList = () => {
         </div>
       </div>
       <form id="articleForm">
-      <div id="formBox">
+        <div id="formBox">
           <label for="userId">작성자 ID</label>
           <input type="text" id="userId" name="userId" disabled required="required" value="${boardDto.userId}">
 
           <label for="content">내용</label>
-          <textarea id="content" name="content" cols="50" rows="20" required="required" readonly>${boardDto.content}</textarea>
+          <textarea id="content" name="content" cols="50" rows="20" required="required"
+            readonly>${boardDto.content}</textarea>
 
-      </div>
-      <div id="btnBox">
+        </div>
+        <div id="btnBox">
           <button type="button" @click='moveList'>목록으로</button>
           <button type="button" id="update-btn">수정하기</button>
-      </div>
+        </div>
       </form>
 
     </article>
@@ -38,17 +57,18 @@ const moveList = () => {
 
 <style scoped>
 #cnt {
-    margin-left: auto;
-    font-size: 1.2em;
-    font-weight: 600;
-    margin-top: 10px;
-    color: #8b95a1;
+  margin-left: auto;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #8b95a1;
 }
 
 
 article>div>div {
-    display: flex;
+  display: flex;
 }
+
 section {
   padding-top: 220px;
   width: 80%;
