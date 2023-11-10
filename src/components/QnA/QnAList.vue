@@ -1,12 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router'; 
-import BoardListItem from './item/BoardListItem.vue';
+import QnAListItem from './item/QnAListItem.vue';
 const router = useRouter();
 
 
-
 const moveWrite = () => {
-    router.push({name:'article-write'})
+    // router.push({name:''})
 }
 
 </script>
@@ -16,14 +15,14 @@ const moveWrite = () => {
     <!-- 게시글 작성 -->
     <article>
       <div id="ment">
-        <h2>여행 정보를 공유해볼까요?</h2>
+        <h2>QnA 목록입니다.</h2>
       </div>
       <div id="subment">
-        <h2>프로 여행러들이 알려주는 여행 꿀팁을 확인하고</h2>
-        <h2>나만의 꿀팁을 공유해보세요.</h2>
+        <h2>질문이 있거나 문의사항 있으면 </h2>
+        <h2>글 남겨주세요.</h2>
       </div>
       <div id="btnBox">
-        <button id="goCreate" @click='moveWrite'>작성하기</button>
+        <button id="goCreate" @click='moveWrite'>문의하기</button>
       </div>
     </article>
     <!-- 게시판 -->
@@ -40,7 +39,7 @@ const moveWrite = () => {
         <tbody>
             <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌
              -->
-   <BoardListItem ></BoardListItem>
+   <QnAListItem ></QnAListItem>
 
         </tbody>
       </table>
