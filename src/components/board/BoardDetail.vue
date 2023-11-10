@@ -8,19 +8,33 @@ const moveList = () => {
   router.push({ name: 'article-list' })
 }
 const route = useRoute();
-// onMounted(() => {
-//   const articleNo = ref(0);
-//   articleNo.value = route.params.articleno;
-//   getArticle(articleNo.value);
-//   // console.log(articleNo.value)
-// })
+const articleNo = ref(0);
+onMounted(() => {
+  articleNo.value = route.params.articleno;
+  getArticle(articleNo.value);
+  // console.log(articleNo.value)
+})
+const article = ref({
+  articleNo: 0,
+  content: "",
+  hit: 0,
+  registerTime: "",
+  subject: "",
+  userId: ""
+})
 const getArticle = () => {
   detailArticle(
-    (response) => {
-      console.log(response)
-
+    articleNo.value,
+    ({ data }) => {
+      article.value.articleNo = data.articleNo;
+      article.value.content = data.content;
+      article.value.hit = data.hit;
+      article.value.registerTime = data.registerTime;
+      article.value.subject = data.subject;
+      article.value.userId = data.userId;
     },
-    (error) => console.log(error))
+    (error) => console.log(error)
+  )
 }
 </script>
 
@@ -28,19 +42,19 @@ const getArticle = () => {
   <section>
     <article>
       <div id="mentBox">
-        <p id="ment">${boardDto.subject}</p>
+        <p id="ment">{{ article.subject }}</p>
         <div>
-          <span id="subment">${boardDto.registerTime}</span><span id="cnt">조회수 : ${boardDto.hit}</span>
+          <span id="subment">{{ article.registerTime }}</span><span id="cnt">조회수 : {{ article.hit }}</span>
         </div>
       </div>
       <form id="articleForm">
         <div id="formBox">
           <label for="userId">작성자 ID</label>
-          <input type="text" id="userId" name="userId" disabled required="required" value="${boardDto.userId}">
+          <input type="text" id="userId" name="userId" disabled required="required" :value="article.userId">
 
           <label for="content">내용</label>
           <textarea id="content" name="content" cols="50" rows="20" required="required"
-            readonly>${boardDto.content}</textarea>
+            readonly>{{ article.content }}</textarea>
 
         </div>
         <div id="btnBox">
