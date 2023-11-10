@@ -26,9 +26,14 @@ const router = createRouter({
           component: ()=> import("@/components/member/MemberLoginView.vue")
         },
         {
-          path: "help",
-          name:"help",
-          component: ()=> import("@/components/member/MemberHelpView.vue")
+          path: "findid",
+          name:"findid",
+          component: ()=> import("@/components/member/MemberFindIdView.vue")
+        },
+        {
+          path: "findpw",
+          name:"findpw",
+          component: ()=> import("@/components/member/MemberFindPwView.vue")
         },
         
       ]
