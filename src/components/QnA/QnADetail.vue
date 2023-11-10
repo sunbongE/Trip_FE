@@ -1,46 +1,54 @@
 <script setup>
-
-const modifyBtn = () => {
-    // axios요청
+import { useRouter } from 'vue-router'; 
+const router = useRouter();
+const moveList = () => {
+    // router.push({name:''})
 }
-const deleteBtn = () => {
-    
-}
-
 </script>
 
 <template>
 <section>
-  <article>
-    <div>
-      <h2 id="ment">여행정보 글 수정하기</h2>
-      <h2 id="subment">내가 작성한 글을 수정할 수 있어요.</h2>
-    </div>
-    <form id="articleForm" method="post">
-      <input type="hidden" name="action" value="modify">
-      <input type="hidden" name="articleNo" value="${boardDto.articleNo}">
+    <article>
+      <div id="mentBox">
+        <p id="ment">QnA 제목: </p>
+        <div>
+          <span id="subment">${boardDto.registerTime}</span><span id="cnt">조회수 : ${boardDto.hit}</span>
+        </div>
+      </div>
+      <form id="articleForm">
       <div id="formBox">
-        <label for="userId">작성자 ID</label>
-        <input type="text" id="userId" name="userId" readonly required="required" value="${member.userId}"/>
+          <label for="userId">작성자 ID</label>
+          <input type="text" id="userId" name="userId" disabled required="required" value="${boardDto.userId}">
 
-        <label for="subject">제목</label>
-        <input type="text" id="subject" name="subject" autocomplete="off" value="${boardDto.subject}"/>
+          <label for="content">내용</label>
+          <textarea id="content" name="content" cols="50" rows="20" required="required" readonly>${boardDto.content}</textarea>
 
-        <label for="content">내용</label>
-        <textarea id="content" name="content" cols="50" rows="20" required="required">${boardDto.content}</textarea>
       </div>
       <div id="btnBox">
-        <button type="button" id="modify-btn" @click="modifyBtn">수정하기</button>
-        <button type="button" id="delete-btn" @click="deleteBtn">삭제하기</button>
+          <button type="button" @click='moveList'>목록으로</button>
+          <button type="button" id="update-btn">수정하기</button>
       </div>
-    </form>
-  </article>
+      </form>
 
-</section>
+    </article>
+
+
+  </section>
 </template>
 
-
 <style scoped>
+#cnt {
+    margin-left: auto;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #8b95a1;
+}
+
+
+article>div>div {
+    display: flex;
+}
 section {
   padding-top: 220px;
   width: 80%;
@@ -134,7 +142,4 @@ article {
   background: #772cf0;
   border: 1px solid #772cf0;
 }
-
-
-
 </style>

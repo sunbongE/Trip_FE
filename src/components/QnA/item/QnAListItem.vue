@@ -5,7 +5,7 @@
 <template>
     <div>
         <tr>
-            <td>여기는 각 요소가 나올거임</td>
+            <td>여기는 QnA가 나올거임</td>
               <!-- <th scope="row">${item.hit}</th>
               <td><a style="cursor: pointer;color: black;text-decoration-line: blink;" href="${root}/board?action=view&no=${item.articleNo}">${item.subject}</a></td>
               <td>${item.userId}</td>

@@ -13,8 +13,8 @@ const deleteBtn = () => {
 <section>
   <article>
     <div>
-      <h2 id="ment">여행정보 글 수정하기</h2>
-      <h2 id="subment">내가 작성한 글을 수정할 수 있어요.</h2>
+      <h2 id="ment">QnA글 수정</h2>
+      
     </div>
     <form id="articleForm" method="post">
       <input type="hidden" name="action" value="modify">

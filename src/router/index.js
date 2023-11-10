@@ -65,6 +65,38 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/QnA",
+      name: "QnA",
+      // component: TheBoardView,
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/QnAView.vue"),
+      redirect: { name: "QnA-list" },
+      children: [
+        {
+          path: "list",
+          name: "QnA-list",
+          component: () => import("@/components/QnA/QnAList.vue"),
+        },
+        {
+          path: "view/:QnAno",
+          name: "QnA-view",
+          component: () => import("@/components/QnA/QnADetail.vue"),
+        },
+        {
+          path: "write",
+          name: "QnA-write",
+          component: () => import("@/components/QnA/QnAWrite.vue"),
+        },
+        {
+          path: "modify/:QnAno",
+          name: "QnA-modify",
+          component: () => import("@/components/QnA/QnAModify.vue"),
+        },
+      ],
+    },
   ]
 })
 

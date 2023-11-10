@@ -1,44 +1,41 @@
 <script setup>
-
-const modifyBtn = () => {
-    // axios요청
+import { useRouter } from 'vue-router'; 
+const router = useRouter();
+const moveList = () => {
+    // router.push({name:''})
 }
-const deleteBtn = () => {
-    
-}
-
 </script>
 
 <template>
 <section>
-  <article>
-    <div>
-      <h2 id="ment">여행정보 글 수정하기</h2>
-      <h2 id="subment">내가 작성한 글을 수정할 수 있어요.</h2>
-    </div>
-    <form id="articleForm" method="post">
-      <input type="hidden" name="action" value="modify">
-      <input type="hidden" name="articleNo" value="${boardDto.articleNo}">
-      <div id="formBox">
-        <label for="userId">작성자 ID</label>
-        <input type="text" id="userId" name="userId" readonly required="required" value="${member.userId}"/>
 
-        <label for="subject">제목</label>
-        <input type="text" id="subject" name="subject" autocomplete="off" value="${boardDto.subject}"/>
-
-        <label for="content">내용</label>
-        <textarea id="content" name="content" cols="50" rows="20" required="required">${boardDto.content}</textarea>
+<article>
+      <div>
+        <h2 id="ment">QnA 작성하기</h2>
+   
       </div>
-      <div id="btnBox">
-        <button type="button" id="modify-btn" @click="modifyBtn">수정하기</button>
-        <button type="button" id="delete-btn" @click="deleteBtn">삭제하기</button>
-      </div>
-    </form>
-  </article>
+      <form id="articleForm" method="post">
+        <input type="hidden" name="action" value="regist">
+        <div id="formBox">
+            <label for="userId">작성자 ID</label>
+            <input type="text" id="userId" name="userId" readonly required="required" value=""/>
 
+            <label for="subject">제목</label>
+		
+            <input type="text" id="subject" name="subject" autocomplete="off"/>
+            <label for="content">내용</label>
+            <textarea id="content" name="content" cols="50" rows="20" required="required"></textarea>
+			
+
+        </div>
+        <div id="btnBox">
+          <button type="button" @click='moveList'>닫기</button>
+          <button type="button" id="createBtn">작성하기</button>
+        </div>
+      </form>
+    </article>
 </section>
 </template>
-
 
 <style scoped>
 section {
