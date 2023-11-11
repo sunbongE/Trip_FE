@@ -13,8 +13,8 @@
         <section class="section">
             <h2>section4</h2>
         </section>
-        <section class="section fp-auto-height">
-            <h2>footer</h2>
+        <section class="section">
+            <h2>section5</h2>
         </section>
     </main>
 </template>
