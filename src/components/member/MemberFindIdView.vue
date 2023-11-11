@@ -3,8 +3,9 @@ import { ref, watch } from "vue";
 import { findid } from "@/api/member";
 
 const member = ref({
-  emailid: "",
-  userpwd: "",
+  emailId: "",
+  userPassword: "",
+  birth: "",
 });
 
 function onSubmit() {
@@ -13,7 +14,7 @@ function onSubmit() {
 }
 
 function callfindid() {
-  console.log("아이디 찾기 슛", member.value.emailid);
+  console.log("아이디 찾기 슛", member.value.emailId);
   // API 호출
   findid(member);
 }
@@ -29,23 +30,17 @@ function callfindid() {
 		</div>
 		<!-- form -->
 		<form @submit.prevent="onSubmit">
-			<!-- <div style="display:flex; justify-content:end;">
-			<c:if test="${empty ck }">
-				<input type="checkbox" id="saveId" name="saveId" value='ok' /> 
-			</c:if>
-			<c:if test="${not empty ck }">
-				<input type="checkbox" id="saveId" name="saveId" value='ok' checked=true/> 
-			</c:if>
-				<label for="saveId">아이디 저장</label>
-					
-			</div> -->
 			<div class="auth-input-box">
 				<div class="input-title">이메일</div>
-				<input type="text" v-model="member.emailid" autofocus required />
+				<input type="text" v-model="member.emailId" autofocus required />
 			</div>
 			<div class="auth-input-box">
 				<div class="input-title">비밀번호</div>
-				<input type="password" v-model="member.userpwd" required />				
+				<input type="password" v-model="member.userPassword" required />				
+			</div>
+			<div class="auth-input-box">
+				<div class="input-title">생년월일</div>
+				<input type="text" v-model="member.birth" required />
 			</div>
 			<!-- 버튼 영역 -->
 			<div class="auth-btn-box">

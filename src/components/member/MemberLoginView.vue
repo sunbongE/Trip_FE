@@ -4,8 +4,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { login } from "@/api/member";
 
 const member = ref({
-    userid: "",
-    userpwd: "",
+    userId: "",
+    userPassword: "",
 });
 
 function onSubmit() {
@@ -14,7 +14,7 @@ function onSubmit() {
 }
 
 function calllogin() {
-    console.log("로그인 시도", member.value.userid);
+    console.log("로그인 시도", member.value.userId);
   // API 호출
   login(member);
 }
@@ -53,16 +53,16 @@ function moveFindPw() {
 			</div> -->
 			<div class="auth-input-box">
 				<div class="input-title">아이디</div>
-				<input type="text" v-model="member.userid" required autofocus />
+				<input type="text" v-model="member.userId" required autofocus />
 				
 			</div>
 			<div class="auth-input-box">
 				<div class="input-title">비밀번호</div>
-				<input type="password" v-model="member.userpwd" name="userPwd" id="userPwd" required />
+				<input type="password" v-model="member.userPassword" name="userPwd" id="userPwd" required />
 			</div>
 			<!-- 버튼 영역 -->
 			<div class="auth-btn-box">
-				<button type="submit" value="가입하기" id="signup-btn">로그인</button>
+				<button class="btn btn-dark" type="submit" value="가입하기" id="signup-btn">로그인</button>
 			</div>
     <div>
         <button class="btn btn-dark" type="button" @click="moveFindId">ID 찾기</button>

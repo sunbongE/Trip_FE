@@ -4,12 +4,12 @@ import { join } from "../../api/member";
 
 // 1. 담아서 보낼 객체 생성
 const member = ref({
-    userid: "",
-    username: "",
-    userpwd: "",
+    userId: "",
+    userName: "",
+    userPassword: "",
     birth: "",
-    emailid: "",
-    emaildomain :"",
+    emailId: "",
+    emailDomain :"",
 });
 
 function onSubmit() {
@@ -18,7 +18,7 @@ function onSubmit() {
 }
 
 function joinMember() {
-    console.log("회원가입 시도", member.userid);
+    console.log("회원가입 시도", member.userId);
     // API 호출
   join(member);
 }
@@ -40,7 +40,7 @@ function cancel() {
 		<form @submit.prevent="onSubmit">
 			<div class="auth-input-box">
 				<div class="input-title">이름</div>
-				<input type="text" v-model="member.username" name="username" id="userName" autofocus required />
+				<input type="text" v-model="member.userName" name="username" id="userName" autofocus required />
 			</div>
 			<div class="auth-input-box">
 				<div class="input-title">생년월일 6자리</div>
@@ -51,13 +51,13 @@ function cancel() {
 					아이디 <span id="validMsg"></span>
 				</div>
 				<div class="id-box">
-					<input type="text" v-model="member.userid" name="userId" id="userId" required /> 
+					<input type="text" v-model="member.userId" name="userId" id="userId" required /> 
                     <input type="button" name="userIdChkBtn" id="userIdChkBtn" value="중복확인" />
 				</div>
 			</div>
 			<div class="auth-input-box">
 				<div class="input-title">비밀번호 </div>
-				<input type="password" v-model="member.userpwd" name="userPwd" id="userPwd" required />
+				<input type="password" v-model="member.userPassword" name="userPwd" id="userPwd" required />
 			</div>
 			<div class="auth-input-box">
 				<div class="input-title">비밀번호 확인 <span id='pwdChk'></span></div>
@@ -66,8 +66,8 @@ function cancel() {
 			<div class="auth-input-box">
 				<div class="input-title">이메일</div>
 				<div class="email-box">
-					<input type="text" v-model="member.emailid" name="email1" id="email1" required /> <span>@</span>
-					<input type="text" v-model="member.emaildomain" name="email2" id="email2" required />
+					<input type="text" v-model="member.emailId" name="email1" id="email1" required /> <span>@</span>
+					<input type="text" v-model="member.emailDomain" name="email2" id="email2" required />
 				</div>
 			</div>
 			<!-- <div class="auth-input-box">
@@ -86,10 +86,10 @@ function cancel() {
 
 			<!-- 버튼 영역 -->      
 			<div class="auth-btn-box">
-				<button type="submit" value="가입하기" id="signup-btn">가입하기</button>
+				<button class="btn btn-dark" type="submit" id="signup-btn">가입하기</button>
 			</div>
             <div class="auth-btn-box">
-				<button type="button">취소</button>
+				<button class="btn btn-dark" type="button">취소</button>
 			</div>
 
 		</form>
