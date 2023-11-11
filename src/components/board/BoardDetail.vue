@@ -5,8 +5,9 @@ import { detailArticle } from "@/api/board";
 
 const router = useRouter();
 const moveList = () => {
-  router.push({ name: 'article-list' })
+  router.push({ name: 'article-list', params: article.value.articleNo })
 }
+
 const route = useRoute();
 const articleNo = ref(0);
 onMounted(() => {
@@ -36,6 +37,10 @@ const getArticle = () => {
     (error) => console.log(error)
   )
 }
+
+const moveModify = () => {
+  router.push({ name: "article-modify" })
+}
 </script>
 
 <template>
@@ -59,7 +64,7 @@ const getArticle = () => {
         </div>
         <div id="btnBox">
           <button type="button" @click='moveList'>목록으로</button>
-          <button type="button" id="update-btn">수정하기</button>
+          <button type="button" id="update-btn" @click="moveModify">수정하기</button>
         </div>
       </form>
 
