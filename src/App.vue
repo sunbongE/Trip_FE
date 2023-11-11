@@ -4,12 +4,10 @@ import TheHeadingNavbar from "@/components/layout/TheHeadingNavbar.vue";
 </script>
 
 <template>
+  <TheHeadingNavbar></TheHeadingNavbar>
   <div>
-    <TheHeadingNavbar></TheHeadingNavbar>
-   <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

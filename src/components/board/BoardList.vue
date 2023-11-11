@@ -35,48 +35,46 @@ const moveWrite = () => {
 
 </script>
 <template>
-  <div>
-    <section>
-      <!-- 게시글 작성 -->
-      <article>
-        <div id="ment">
-          <h2>여행 정보를 공유해볼까요?</h2>
-        </div>
-        <div id="subment">
-          <h2>프로 여행러들이 알려주는 여행 꿀팁을 확인하고</h2>
-          <h2>나만의 꿀팁을 공유해보세요.</h2>
-        </div>
-        <div id="btnBox">
-          <button id="goCreate" @click='moveWrite'>작성하기</button>
-        </div>
-      </article>
-      <!-- 게시판 -->
-      <article>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">조회수</th>
-              <th scope="col">제목</th>
-              <th scope="col">작성자</th>
-              <th scope="col">작성일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌
-                                                       -->
-            <BoardListItem v-for="article in articles" :key="article.articleNo" :article="article"></BoardListItem>
+  <section>
+    <!-- 게시글 작성 -->
+    <article>
+      <div id="ment">
+        <h2>여행 정보를 공유해볼까요?</h2>
+      </div>
+      <div id="subment">
+        <h2>프로 여행러들이 알려주는 여행 꿀팁을 확인하고</h2>
+        <h2>나만의 꿀팁을 공유해보세요.</h2>
+      </div>
+      <div id="btnBox">
+        <button id="goCreate" @click='moveWrite'>작성하기</button>
+      </div>
+    </article>
+    <!-- 게시판 -->
+    <article>
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">조회수</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌
+                                                                           -->
+          <BoardListItem v-for="article in articles" :key="article.articleNo" :article="article"></BoardListItem>
 
-          </tbody>
-        </table>
+        </tbody>
+      </table>
 
-      </article>
-    </section>
-  </div>
+    </article>
+  </section>
 </template>
 
 <style scoped>
 section {
-  padding-top: 220px;
+  padding-top: 50px;
   width: 100%;
 }
 
@@ -100,8 +98,8 @@ section article:nth-child(2) {
 
 #btnBox {
   /* display: none; */
-  padding-top: 100px;
-  padding-bottom: 200px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   display: flex;
   justify-content: center;
   animation: fadein 3s;
@@ -140,15 +138,5 @@ section article:nth-child(2) {
   font-size: 1.6em;
   font-weight: 600;
   color: #8b95a1;
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }
 </style>

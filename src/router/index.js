@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue"
 import MemberView from "@/views/MemberView.vue"
 import BoardView from "@/views/BoardView.vue"
+import BoardList from "@/components/board/BoardList.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -17,41 +18,42 @@ const router = createRouter({
       children: [
         {
           path: "join",
-          name:"join",
-          component: ()=> import("@/components/member/MemberJoinView.vue")
+          name: "join",
+          component: () => import("@/components/member/MemberJoinView.vue")
         },
         {
           path: "login",
-          name:"login",
-          component: ()=> import("@/components/member/MemberLoginView.vue")
+          name: "login",
+          component: () => import("@/components/member/MemberLoginView.vue")
         },
         {
           path: "findid",
-          name:"findid",
-          component: ()=> import("@/components/member/MemberFindIdView.vue")
+          name: "findid",
+          component: () => import("@/components/member/MemberFindIdView.vue")
         },
         {
           path: "findpw",
-          name:"findpw",
-          component: ()=> import("@/components/member/MemberFindPwView.vue")
+          name: "findpw",
+          component: () => import("@/components/member/MemberFindPwView.vue")
         },
-        
+
       ]
     },
     {
       path: "/board",
       name: "board",
-      // component: TheBoardView,
+      component: BoardView,
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/BoardView.vue"),
       redirect: { name: "article-list" },
       children: [
         {
           path: "list",
           name: "article-list",
-          component: () => import("@/components/board/BoardList.vue"),
+
+          // component: () => import("@/components/board/BoardList.vue"),
+          component: BoardList
         },
         {
           path: "view/:articleno",

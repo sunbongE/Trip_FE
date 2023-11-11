@@ -1,22 +1,11 @@
-<script setup>
-
-</script>
-
+<script setup></script>
 <template>
-        <main id="fullpage">
+    <main id="fullpage">
         <section id="sec1" class="section">
             <h2>section1</h2>
         </section>
         <section class="section">
-            <div class="slide">
-                <h3>slide 1</h3>
-            </div>
-            <div class="slide">
-                <h3>slide 2</h3>
-            </div>
-            <div class="slide">
-                <h3>slide 3</h3>
-            </div>
+            section2
         </section>
         <section class="section">
             <h2>section3</h2>
@@ -29,7 +18,4 @@
         </section>
     </main>
 </template>
-
-<style scoped>
-
-</style>
+<style></style>
