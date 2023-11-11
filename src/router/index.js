@@ -15,6 +15,7 @@ const router = createRouter({
       path: '/member',
       name: 'member',
       component: MemberView,
+      redirect: { name: "login" },
       children: [
         {
           path: "join",
