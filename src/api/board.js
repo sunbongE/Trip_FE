@@ -8,7 +8,9 @@ function listArticle(success, fail) {
 }
 
 function detailArticle(articleno, success, fail) {
-  local.get(`/board/${articleno}`).then(success).catch(fail);
+  console.log("왔니")
+  console.log(articleno)
+  local.get(`/board/view/${articleno}`).then(success).catch(fail);
 }
 
 function registArticle(article, success, fail) {
