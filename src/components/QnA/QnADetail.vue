@@ -1,54 +1,91 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
-import { getModifyQna } from '@/api/qna'
+import { getModifyQna, deleteQna } from '@/api/qna'
+import { listAns } from '@/api/qnaAns'
 import { ref, onMounted } from 'vue';
+import QnaAnswer from './item/QnaAnswer.vue';
 const router = useRouter();
 const route = useRoute();
 const QnAno = route.params.QnAno
-// const Qna = ref({
-//   id: 0,
-//   userId: '',
-//   subject: '',
-//   content: '',
-//   open: false
-// })
 const qna = ref({})
+
 onMounted(() => {
   getModifyQna(
-    QnAno
-  )
+    QnAno,
+    ({ data }) => {
+      qna.value = data
+      console.log(qna.value)
+    },
+    (error) => console.error()
+  );
+  getAns();
 })
+
 const moveList = () => {
   router.push({ name: 'QnA-list' })
 }
 
+const moveQna = () => {
+  router.push({ name: "QnA-modify" })
+}
 
+const delFunc = () => {
+  deleteQna(
+    QnAno,
+    (Response) => {
+      if (Response.status === 204) {
+        alert("삭제되었습니다.")
+      }
+      router.push({ name: "QnA-list" })
+    },
+    (error) => {
+      alert("이미 삭제된 글입니다.")
+      router.push({ name: "QnA-list" })
+    }
+  )
+}
+/// 댓극 가져오기...
+const ansList = ref([]);
+const getAns = () => {
+  listAns(
+    QnAno,
+    ({ data }) => {
+      ansList.value = data;
+    },
+    (error) => console.log(error)
+  )
+};
 </script>
 
 <template>
   <section>
     <article>
       <div id="mentBox">
-        <p id="ment">QnA 제목: </p>
-        <div>
-          <span id="subment">${boardDto.registerTime}</span><span id="cnt">조회수 : ${boardDto.hit}</span>
+        <p id="ment">QnA 제목: {{ qna.subject }}</p>
+        <div id="btnBox">
+          <button type="button" @click='moveList'>목록</button>
+          <button type="button" @click="moveQna">수정</button>
+          <button type="button" @click="delFunc">삭제</button>
         </div>
       </div>
       <form id="articleForm">
         <div id="formBox">
           <label for="userId">작성자 ID</label>
-          <input type="text" id="userId" name="userId" disabled required="required" value="${boardDto.userId}">
+          <input type="text" id="userId" name="userId" disabled required="required" :value="qna.userId">
 
           <label for="content">내용</label>
-          <textarea id="content" name="content" cols="50" rows="20" required="required"
-            readonly>${boardDto.content}</textarea>
+          <textarea id="content" name="content" cols="20" rows="10" required="required"
+            readonly>{{ qna.content }}</textarea>
 
         </div>
-        <div id="btnBox">
-          <button type="button" @click='moveList'>목록으로</button>
-          <button type="button" id="update-btn">수정하기</button>
-        </div>
+
       </form>
+      <hr>
+      <div id="commentFrame">
+        <div id="commentBox">
+          <QnaAnswer v-for="ans in ansList" :key="ans.id" :ans="ans"></QnaAnswer>
+        </div>
+      </div>
 
     </article>
 
@@ -57,6 +94,18 @@ const moveList = () => {
 </template>
 
 <style scoped>
+#commentBox {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#commentFrame {
+  border: 1px solid #6f6f6fbd;
+  border-radius: 20px;
+  max-width: 600px;
+}
+
 #cnt {
   margin-left: auto;
   font-size: 1.2em;
@@ -71,7 +120,7 @@ article>div>div {
 }
 
 section {
-  padding-top: 220px;
+  padding-top: 50px;
   width: 80%;
   max-width: 600px;
   margin: 0 auto;
@@ -96,7 +145,6 @@ article {
 
 #formBox {
   width: 100%;
-  padding: 50px 0;
 }
 
 #articleForm {
@@ -139,15 +187,15 @@ article {
 }
 
 #btnBox {
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   display: flex;
-  justify-content: center;
+  justify-content: end;
 }
 
 #btnBox button {
   margin: 0 10px;
-  width: 120px;
-  height: 50px;
+  width: 60px;
+  height: 30px;
   border-radius: 6px;
   background: #f7f8fa;
   border: 1px solid #d9d9d9;
@@ -162,5 +210,11 @@ article {
   color: #fff;
   background: #772cf0;
   border: 1px solid #772cf0;
+}
+
+#btnBox button:nth-child(3) {
+  color: #fff;
+  background: rgb(242, 53, 53);
+  border: 1px solid rgb(242, 53, 53);
 }
 </style>
