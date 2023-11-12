@@ -12,13 +12,6 @@ const router = useRouter();
 const articles = ref([])
 
 
-// "articleNo": 0,
-//   "userId": "",
-//   "subject": "",
-//   "content": "",
-//   "hit": 0,
-//   "registerTime": ""
-
 const getArticleList = () => {
   // API 호출
   listArticle(
@@ -28,7 +21,6 @@ const getArticleList = () => {
     (error) => console.log(error)
   );
 };
-
 const moveWrite = () => {
   router.push({ name: 'article-write' })
 }
@@ -62,7 +54,7 @@ const moveWrite = () => {
         </thead>
         <tbody>
           <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌
-                                                                           -->
+                                                                                 -->
           <BoardListItem v-for="article in articles" :key="article.articleNo" :article="article"></BoardListItem>
 
         </tbody>
