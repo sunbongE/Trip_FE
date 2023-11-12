@@ -3,6 +3,8 @@ import HomeView from "@/views/HomeView.vue"
 import MemberView from "@/views/MemberView.vue"
 import BoardView from "@/views/BoardView.vue"
 import BoardList from "@/components/board/BoardList.vue"
+import TourView from "@/views/TourView.vue"
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -10,6 +12,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/tour',
+      name: 'tour',
+      component: TourView
     },
     {
       path: '/member',
