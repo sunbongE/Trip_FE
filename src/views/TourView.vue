@@ -2,7 +2,7 @@
 
 import { ref, onMounted } from 'vue';
 import { getSidoList, getGugunList, getSearchTourinfo } from "@/api/tour";
-// import { showMarks } from "@/assets/js/kakaomap.js";
+import { showMarks } from "@/assets/js/kakaomap";
 
 import Map from '../components/tour/Map.vue';
 import YouTube from '../components/tour/YouTube.vue';
@@ -52,7 +52,7 @@ function callSearchTourInfo() {
         ({ data }) => {
             console.log(data);
             dataList.value = data;
-            showMarks();
+            //showMarks();
         },
         (error) => console.log(error)
     );
