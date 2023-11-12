@@ -16,6 +16,7 @@ const logoutfunc = () => {
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <router-link :to="{ name: 'board' }" class="nav-link active">게시판</router-link>
+          <router-link :to="{ name: 'QnA' }" class="nav-link active">QnA</router-link>
           <router-link :to="{ name: 'login' }" class="nav-link active">로그인</router-link>
           <a href="#" @click.prevent="logoutfunc" class="nav-link active">로그아웃</a>
           <router-link :to="{ name: 'join' }" class="nav-link active">회원가입</router-link>

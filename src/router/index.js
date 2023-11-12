@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue"
 import MemberView from "@/views/MemberView.vue"
 import BoardView from "@/views/BoardView.vue"
+import QnAView from "@/views/QnAView.vue"
 import BoardList from "@/components/board/BoardList.vue"
+import QnAList from "@/components/QnA/QnAList.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -80,13 +82,13 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/QnAView.vue"),
+      component: QnAView,
       redirect: { name: "QnA-list" },
       children: [
         {
           path: "list",
           name: "QnA-list",
-          component: () => import("@/components/QnA/QnAList.vue"),
+          component: QnAList,
         },
         {
           path: "view/:QnAno",
