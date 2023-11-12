@@ -2,7 +2,7 @@
 defineProps({
   qna: Object,
 })
-
+// console.log(qna)
 </script>
 
 <template>
@@ -16,7 +16,7 @@ defineProps({
     <td>{{ qna.userId }}</td>
     <td>{{ qna.registerTime }}</td>
   </tr>
-</template>
+</template>  
 
 <style scoped>
 a {

@@ -53,7 +53,7 @@ const getList = () => {
           </thead>
           <tbody>
             <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌
-                                                                         -->
+                                                                           -->
             <QnAListItem v-for=" qna in QnaList " :key="qna.id" :qna="qna"></QnAListItem>
 
           </tbody>
