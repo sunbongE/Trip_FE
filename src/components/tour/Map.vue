@@ -1,157 +1,144 @@
 <script setup>
-import { ref, onMounted } from "vue";
-const map = ref(null);
+import { ref, watch, onMounted } from "vue";
 
-const props = defineProps({
-  dataList: Object,
-});
+var map;
+const positions = ref([]);
+const markers = ref([]);
 
-// onMounted Hook을 사용하여 컴포넌트가 마운트된 후에 실행될 로직 작성
+// const props = defineProps({ stations: Array, selectStation: Object });
+const props = defineProps({ stations: Array });
+
+// watch(
+//   () => props.selectStation.value,
+//   () => {
+//     // 이동할 위도 경도 위치를 생성합니다
+//     var moveLatLon = new kakao.maps.LatLng(props.selectStation.lat, props.selectStation.lng);
+
+//     // 지도 중심을 부드럽게 이동시킵니다
+//     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+//     map.panTo(moveLatLon);
+//   },
+//   { deep: true }
+// );
+
 onMounted(() => {
-  // Kakao 지도 API 로드
-  kakao.maps.load(() => {
-    const container = document.getElementById("map");
-    const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
-    };
-
-    // Kakao 지도 객체 생성
-    const newMap = new kakao.maps.Map(container, options);
-
-    // 생성된 지도 객체를 상태(ref)에 저장
-    map.value = newMap;
-
-    document.querySelector("#map").innerHTML = "";
-    var map = new kakao.maps.Map(container, options);
-    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-    var zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, "zoom_changed", function () {
-      // 지도의 현재 레벨을 얻어옵니다
-      var level = map.getLevel();
-    });
-    var positions = [];
-    dataList.forEach(function (e) {
-      let obj = {
-        title: e.title,
-        image: e.firstImage,
-        addr1: e.addr1,
-        latlng: new kakao.maps.LatLng(e.latitude, e.longitude),
-      };
-      positions.push(obj);
-    });
-
-    // 마커 이미지의 이미지 주소입니다
-    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-    positions.forEach((pos) => {
-      var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: pos.latlng, // 마커의 위치
-      });
-
-      var overlay = new kakao.maps.CustomOverlay({
-        map: map,
-        yAnchor: 3,
-        position: marker.getPosition(),
-      });
-
-      let content = document.createElement("div");
-      content.className = "wrap";
-
-      let info = document.createElement("div");
-      info.className = "info";
-
-      let title = document.createElement("div");
-      title.className = "title";
-      title.innerText = pos.title;
-      let close = document.createElement("div");
-      close.className = "close";
-      close.addEventListener("click", () => overlay.setMap(null));
-
-      info.appendChild(title);
-      title.appendChild(close);
-
-      let body = document.createElement("div");
-      body.className = "body";
-      info.appendChild(body);
-
-      let imgDiv = document.createElement("div");
-      imgDiv.className = "img";
-      let img = document.createElement("img");
-      img.src =
-        pos.image || "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png";
-      img.width = 73;
-      img.height = 70;
-      imgDiv.appendChild(img);
-
-      let desc = document.createElement("div");
-      desc.className = "desc";
-
-      let ellipsis = document.createElement("div");
-      ellipsis.className = "ellipsis";
-      ellipsis.innerText = pos.addr1;
-      let jibun = document.createElement("div");
-      jibun.className = "jibun ellipsis";
-      jibun.innerText = pos.addr1;
-      let bottom = document.createElement("div");
-      let link = document.createElement("a");
-      link.target = "_blank";
-      link.className = "link";
-      link.innerText = "바로가기";
-      bottom.appendChild(link);
-
-      desc.appendChild(ellipsis);
-      desc.appendChild(jibun);
-      desc.appendChild(bottom);
-
-      body.appendChild(imgDiv);
-      body.appendChild(desc);
-
-      content.appendChild(info);
-
-      overlay.setContent(content);
-
-      // $(document).on("click", "#close", function () {
-      //  overlay.setMap(null);
-      //});
-
-      // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-      kakao.maps.event.addListener(marker, "click", function () {
-        overlay.setMap(map);
-      });
-    });
-
-    // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-    var bounds = new kakao.maps.LatLngBounds();
-
-    for (i = 0; i < positions.length; i++) {
-      // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-
-      // LatLngBounds 객체에 좌표를 추가합니다
-      bounds.extend(positions[i].latlng);
-    }
-    setBounds();
-    function setBounds() {
-      // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-      // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-      map.setBounds(bounds);
-    }
-  });
+  if (window.kakao && window.kakao.maps) {
+    initMap();
+  } else {
+    const script = document.createElement("script");
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
+      import.meta.env.VITE_KAKAO_MAP_SERVICE_KEY
+    }&libraries=services,clusterer`;
+    /* global kakao */
+    script.onload = () => kakao.maps.load(() => initMap());
+    document.head.appendChild(script);
+  }
 });
+
+watch(
+  () => props.stations.value,
+  () => {
+    positions.value = [];
+    props.stations.forEach((station) => {
+      let obj = {};
+      obj.latlng = new kakao.maps.LatLng(station.latitude, station.longitude);
+      obj.title = station.statNm;
+
+      positions.value.push(obj);
+    });
+    loadMarkers();
+  },
+  { deep: true }
+);
+
+const initMap = () => {
+  const container = document.getElementById("map");
+  const options = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667),
+    level: 3,
+  };
+  map = new kakao.maps.Map(container, options);
+
+  // loadMarkers();
+  var zoomControl = new kakao.maps.ZoomControl();
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+  // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+  kakao.maps.event.addListener(map, "zoom_changed", function () {
+    // 지도의 현재 레벨을 얻어옵니다
+    var level = map.getLevel();
+  });
+  var positions = [];
+};
+
+const loadMarkers = () => {
+  // 현재 표시되어있는 marker들이 있다면 map에 등록된 marker를 제거한다.
+  deleteMarkers();
+
+  // 마커 이미지를 생성합니다
+  //   const imgSrc = require("@/assets/map/markerStar.png");
+  // 마커 이미지의 이미지 크기 입니다
+  //   const imgSize = new kakao.maps.Size(24, 35);
+  //   const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
+
+  // 마커를 생성합니다
+  markers.value = [];
+  positions.value.forEach((position) => {
+    const marker = new kakao.maps.Marker({
+      map: map, // 마커를 표시할 지도
+      position: position.latlng, // 마커를 표시할 위치
+      title: position.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됨.
+      clickable: true, // // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+      // image: markerImage, // 마커의 이미지
+    });
+    var iwContent = '<div style="padding:5px;">Hello World! <br></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+      iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+      position: iwPosition,
+      content: iwContent,
+    });
+
+    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+    // 마커에 마우스오버 이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, "mouseover", function () {
+      // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+      infowindow.open(map, marker);
+    });
+
+    // 마커에 마우스아웃 이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, "mouseout", function () {
+      // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+      infowindow.close();
+    });
+    markers.value.push(marker);
+  });
+
+  // 4. 지도를 이동시켜주기
+  // 배열.reduce( (누적값, 현재값, 인덱스, 요소)=>{ return 결과값}, 초기값);
+  const bounds = positions.value.reduce(
+    (bounds, position) => bounds.extend(position.latlng),
+    new kakao.maps.LatLngBounds()
+  );
+
+  map.setBounds(bounds);
+};
+
+const deleteMarkers = () => {
+  if (markers.value.length > 0) {
+    markers.value.forEach((marker) => marker.setMap(null));
+  }
+};
 </script>
+
 <template>
-  <section>
-    <!-- kakao map -->
-    <div id="mapBox">
-      <div id="map"></div>
-    </div>
-  </section>
+  <div id="map"></div>
 </template>
 
-<style scoped>
-@import "@/assets/sass/tour/map.scss";
+<style>
+#map {
+  width: 100%;
+  height: 700px;
+}
 </style>
