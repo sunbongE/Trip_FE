@@ -41,7 +41,7 @@ a {
 }
 
 nav {
-  background-color: #87C4FF !important;
+  background-color: #E0F4FF !important;
   z-index: 100;
 }
 </style>
