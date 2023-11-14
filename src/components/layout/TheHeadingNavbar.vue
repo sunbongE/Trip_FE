@@ -28,20 +28,5 @@ const logoutfunc = () => {
 </template>
 
 <style scoped>
-a {
-  text-decoration: none;
-  color: black;
-  font-weight: bolder;
-
-}
-
-#homeBtn {
-  font-weight: bold;
-
-}
-
-nav {
-  background-color: #E0F4FF !important;
-  z-index: 100;
-}
+@import "@/assets/sass/nav/nav.scss";
 </style>
