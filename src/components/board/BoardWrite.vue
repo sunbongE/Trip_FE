@@ -12,7 +12,9 @@ const article = ref(
   {
     userId: "admin",
     subject: "",
-    content: ""
+    content: "",
+    category:1,
+    content_id:0
   }
 )
 

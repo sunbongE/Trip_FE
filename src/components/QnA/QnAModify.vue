@@ -57,7 +57,7 @@ const modifyBtn = () => {
         <h2 id="ment">QnA글 수정</h2>
 
       </div>
-      <form id="articleForm">
+      <form id="articleForm" @submit.prevent=''>
         <div id="formBox">
           <input type="hidden" id="userId" name="userId" disabled required="required" :value="qna.userId">
           <label for="subject">질문</label>

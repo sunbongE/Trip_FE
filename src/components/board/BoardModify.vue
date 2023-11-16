@@ -77,7 +77,7 @@ const deleteBtn = () => {
         <h2 id="ment">여행정보 글 수정하기</h2>
         <h2 id="subment">내가 작성한 글을 수정할 수 있어요.</h2>
       </div>
-      <form id="articleForm">
+      <form id="articleForm" @submit.prevent=''>
         <input type="hidden" name="articleNo" :value="article.articleNo">
         <div id="formBox">
           <input type="hidden" :value="article.userId" />
