@@ -2,9 +2,9 @@ import { localAxios } from "@/util/http-commons";
 
 const local = localAxios();
 
-function listQna(success, fail) {
-    local.get(`/qna/list`).then(success).catch(fail);
-    // local.get(`/qna`, { params: param }).then(success).catch(fail);
+function listQna(param, success, fail) {
+    // local.get(`/qna/list`).then(success).catch(fail);
+    local.get(`/qna/list`, { params: param }).then(success).catch(fail);
 }
 
 function detailQna(qnano, success, fail) {

@@ -3,9 +3,27 @@ import { useRouter } from 'vue-router';
 import QnAListItem from './item/QnAListItem.vue';
 import { listQna } from '@/api/qna';
 import { onMounted, ref } from 'vue';
+import VPageNavigation from "@/components/common/VPageNavigation.vue";
+
 const router = useRouter();
 
 const QnaList = ref([]);
+const currentPage = ref(1);
+const totalPage = ref(0);
+const { VITE_ARTICLE_LIST_SIZE } = import.meta.env;
+const param = ref({
+  pgno: currentPage.value,
+  spp: VITE_ARTICLE_LIST_SIZE,
+  key: "",
+  word: "",
+});
+
+const onPageChange = (val) => {
+  console.log(val + "번 페이지로 이동 준비 끝!!!");
+  currentPage.value = val;
+  param.value.pgno = val;
+  getList();
+};
 
 const moveQnaWrite = () => {
   router.push({ name: 'QnA-write' })
@@ -15,9 +33,12 @@ onMounted(() => {
 });
 const getList = () => {
   listQna(
+    param.value,
     ({ data }) => {
-      QnaList.value = data;
-      console.log(QnaList.value)
+      console.log(data)
+      QnaList.value = data.qnalist;
+      currentPage.value = data.currentPage;
+      totalPage.value = data.totalPageCount;
     },
     (error) => console.log(error)
   )
@@ -58,7 +79,11 @@ const getList = () => {
 
           </tbody>
         </table>
-
+        <VPageNavigation
+        :current-page="currentPage"
+        :total-page="totalPage"
+        @pageChange="onPageChange"
+      ></VPageNavigation>
       </article>
     </section>
   </div>
