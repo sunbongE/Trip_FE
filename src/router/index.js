@@ -66,7 +66,40 @@ const router = createRouter({
           name: "findpw",
           component: () => import("@/components/member/MemberFindPwView.vue")
         },
-
+        {
+          path: "mypage",
+          name: "mypage",
+          component: () => import("@/components/member/MemberMyPageView.vue"),
+          redirect: { name: "mypage-info" },
+          children: [
+            {
+              path: "info",
+              name: "mypage-info",
+              component: () => import("@/components/member/mypage/MyPageInfo.vue")    
+            },
+            {
+              path: "plan",
+              name: "mypage-plan",
+              component: () => import("@/components/member/mypage/MyPageInfo.vue")    
+            },
+            {
+              path: "club",
+              name: "mypage-club",
+              component: () => import("@/components/member/mypage/MyPageInfo.vue")    
+            },
+            {
+              path: "friendship",
+              name: "mypage-friendship",
+              component: () => import("@/components/member/mypage/MyPageInfo.vue")    
+            },
+            {
+              path: "alarm",
+              name: "mypage-alarm",
+              component: () => import("@/components/member/mypage/MyPageInfo.vue")    
+            },
+            
+          ]
+        }
       ]
     },
     {
