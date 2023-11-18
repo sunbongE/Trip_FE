@@ -1,22 +1,23 @@
 <script setup>
-import { onMounted } from 'vue';
-import { onBeforeRouteLeave, useRouter } from 'vue-router';
+import { onMounted, } from 'vue';
+// import { onBeforeRouteLeave } from 'vue-router';
 
-onBeforeRouteLeave(() => {
-    const sc1 = document.querySelector('script[src="https://code.jquery.com/jquery-3.7.1.min.js"]');
-    const sc2 = document.querySelector('script[src="src/fullpage/jquery.fullPage.js"]');
-    const sc3 = document.querySelector('script[src="src/fullpage/main.js"]');
+// onBeforeRouteLeave(() => {
+//     const sc1 = document.querySelector('script[src="https://code.jquery.com/jquery-3.7.1.min.js"]');
+//     const sc2 = document.querySelector('script[src="src/fullpage/jquery.fullPage.js"]');
+//     const sc3 = document.querySelector('script[src="src/fullpage/main.js"]');
 
-    if (sc1) {
-        document.head.removeChild(sc1);
-    }
-    if (sc2) {
-        document.head.removeChild(sc2);
-    }
-    if (sc3) {
-        document.head.removeChild(sc3);
-    }
-})
+//     if (sc1) {
+//         document.head.removeChild(sc1);
+//     }
+//     if (sc2) {
+//         document.head.removeChild(sc2);
+//     }
+//     if (sc3) {
+//         document.head.removeChild(sc3);
+//     }
+
+// })
 
 onMounted(() => {
     const sc1 = document.createElement("script");

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
@@ -18,7 +18,13 @@ const loginUser = ref({
 	userPassword: "",
 });
 
+const btncolor = ref("");
 
+watch(loginUser.value, () => {
+	if (loginUser.value.userId != '' && loginUser.value.userPassword != '') {
+		btncolor.value = "fullBtn"
+	}
+})
 
 const login = async () => {
 	await userLogin(loginUser.value);
@@ -46,34 +52,40 @@ function moveFindPw() {
 </script>
 
 <template>
-	<section>
-		<div class="auth-top">
+	<div id="frame">
+		<div id="formBox">
+			<div id="one"></div>
+			<h3>Log in</h3>
+			<p>Don’t have an ccount?<a href="#"> Sign up </a></p>
+			<div id="mid">
+				<hr><span id="or">OR</span>
+				<hr>
+			</div>
+			<!-- form -->
+			<form @submit.prevent="login">
 
-			<h2>로그인</h2>
-			<h3>반갑습니다! 즐겁게 여행떠날 준비가 되었나요?</h3>
+				<div>
+					<label for="id">Your ID</label><br>
+					<input id="id" type="text" v-model="loginUser.userId" required autofocus />
+
+				</div>
+				<div>
+					<label for="pwd">Your Password</label><br>
+					<input id="pwd" type="password" v-model="loginUser.userPassword" required />
+					<!-- 버튼 영역 -->
+					<!-- <input type="button" value=""> -->
+				</div>
+				<div>
+
+					<input :class="btncolor" type="button" @click.prevent="login" value="Login" />
+				</div>
+				<div id="findLink">
+					<span @click="moveFindId">ID 찾기</span>/
+					<span @click="moveFindPw">PW 찾기</span>
+				</div>
+			</form>
 		</div>
-		<!-- form -->
-		<form @submit.prevent="login">
-
-			<div class="auth-input-box">
-				<div class="input-title">아이디</div>
-				<input type="text" v-model.lazy="loginUser.userId" required autofocus />
-
-			</div>
-			<div class="auth-input-box">
-				<div class="input-title">비밀번호</div>
-				<input type="password" v-model.lazy="loginUser.userPassword" required />
-			</div>
-			<!-- 버튼 영역 -->
-			<div class="auth-btn-box">
-				<button class="btn btn-dark" @click.prevent="login">로그인</button>
-			</div>
-			<div>
-				<button class="btn btn-dark" type="button" @click="moveFindId">ID 찾기</button>
-				<button class="btn btn-dark" type="button" @click="moveFindPw">PW 찾기</button>
-			</div>
-		</form>
-	</section>
+	</div>
 </template>
 
 <style scoped>
