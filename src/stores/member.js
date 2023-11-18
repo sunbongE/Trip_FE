@@ -45,15 +45,8 @@ export const useMemberStore = defineStore("memberStore", () => {
       decodeToken.userId,
       (response) => {
         if (response.status === httpStatusCode.OK) {
-          // userInfo.value = response.data.userInfo;
-          
+          // console.log(response)
           userInfo.value = response.data.userDto;
-          console.log("response" , response)
-          console.log("유저인포 rd", response.data);
-          console.log("유저인포 rdi", response.data.userInfo);
-          console.log("유저인포 rdd", response.data.userDto);
-          console.log("유저인포.value", userInfo.value);
-          console.log("유저인포", userInfo);
         } else {
           console.log("유저 정보 없음!!!!");
         }
@@ -137,4 +130,6 @@ export const useMemberStore = defineStore("memberStore", () => {
     tokenRegenerate,
     userLogout,
   };
-});
+},
+  { persist: { storage: sessionStorage } }
+);
