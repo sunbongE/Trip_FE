@@ -26,8 +26,10 @@ const login = async () => {
 	if (isLogin) {
 		getUserInfo(token);
 		changeMenuState();
+		console.log("come?")
 	}
-	location.href = '/';
+	// location.href = '/';
+	router.push('/')
 };
 
 
@@ -64,7 +66,7 @@ function moveFindPw() {
 			</div>
 			<!-- 버튼 영역 -->
 			<div class="auth-btn-box">
-				<button class="btn btn-dark" @click="login">로그인</button>
+				<button class="btn btn-dark" @click.prevent="login">로그인</button>
 			</div>
 			<div>
 				<button class="btn btn-dark" type="button" @click="moveFindId">ID 찾기</button>

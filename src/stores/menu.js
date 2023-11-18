@@ -5,13 +5,13 @@ export const useMenuStore = defineStore("menuStore", () => {
   const menuList = ref([
     { name: "회원가입", show: true, routeName: "join" },
     { name: "로그인", show: true, routeName: "login" },
-    // { name: "오늘할일", show: false, routeName: "todos" },
     { name: "내정보", show: false, routeName: "home" },
     { name: "로그아웃", show: false, routeName: "user-logout" },
   ]);
 
   const changeMenuState = () => {
     menuList.value = menuList.value.map((item) => ({ ...item, show: !item.show }));
+    console.log(menuList.value)
   };
   return {
     menuList,

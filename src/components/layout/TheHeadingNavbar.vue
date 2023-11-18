@@ -1,13 +1,18 @@
 <script setup>
 import { useMenuStore } from "@/stores/menu";
 import { storeToRefs } from "pinia";
+
 const menuStore = useMenuStore();
+
+// 반응형을 유지하면서 스토어에서 속성을 추출하려면, storeToRefs()를 사용
+// https://pinia.vuejs.kr/core-concepts/
 const { menuList } = storeToRefs(menuStore);
 const { changeMenuState } = menuStore;
-const logoutfunc = () => {
-  console.log('로그아웃 요청')
+
+const logout = () => {
+  console.log("로그아웃!!!!");
   changeMenuState();
-}
+};
 
 </script>
 
@@ -25,7 +30,7 @@ const logoutfunc = () => {
           <a href="/board" class="nav-link active">게시판</a>
           <a href="/qna" class="nav-link active">QnA</a>
           <a href="/member/login" class="nav-link active">로그인</a>
-          <a href="#" @click.prevent="logoutfunc" class="nav-link active">로그아웃</a>
+          <a href="#" @click.prevent="logout" class="nav-link active">로그아웃</a>
           <a href="/member/join" class="nav-link active">회원가입</a>
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </div>
