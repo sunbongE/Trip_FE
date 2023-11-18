@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
-import { useMemberStore } from "@/stores/member";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
+import { useMemberStore } from "@/stores/member";
 import { useMenuStore } from "@/stores/menu";
 
 const router = useRouter();
@@ -27,7 +27,7 @@ const login = async () => {
 		getUserInfo(token);
 		changeMenuState();
 	}
-	router.push("/");
+	location.href = '/';
 };
 
 
@@ -55,12 +55,12 @@ function moveFindPw() {
 
 			<div class="auth-input-box">
 				<div class="input-title">아이디</div>
-				<input type="text" v-model="member.userId" required autofocus />
+				<input type="text" v-model.lazy="loginUser.userId" required autofocus />
 
 			</div>
 			<div class="auth-input-box">
 				<div class="input-title">비밀번호</div>
-				<input type="password" v-model="member.userPassword" name="userPwd" id="userPwd" required />
+				<input type="password" v-model.lazy="loginUser.userPassword" required />
 			</div>
 			<!-- 버튼 영역 -->
 			<div class="auth-btn-box">

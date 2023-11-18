@@ -1,6 +1,12 @@
 <script setup>
+import { useMenuStore } from "@/stores/menu";
+import { storeToRefs } from "pinia";
+const menuStore = useMenuStore();
+const { menuList } = storeToRefs(menuStore);
+const { changeMenuState } = menuStore;
 const logoutfunc = () => {
   console.log('로그아웃 요청')
+  changeMenuState();
 }
 
 </script>
@@ -23,6 +29,26 @@ const logoutfunc = () => {
           <a href="/member/join" class="nav-link active">회원가입</a>
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </div>
+        <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
+          <template v-for="menu in menuList" :key="menu.routeName">
+            <template v-if="menu.show">
+              <template v-if="menu.routeName === 'user-logout'">
+                <li class="nav-item">
+                  <router-link to="/" @click.prevent="logout" class="nav-link">{{
+                    menu.name
+                  }}</router-link>
+                </li>
+              </template>
+              <template v-else>
+                <li class="nav-item">
+                  <router-link :to="{ name: menu.routeName }" class="nav-link">{{
+                    menu.name
+                  }}</router-link>
+                </li>
+              </template>
+            </template>
+          </template>
+        </ul>
       </div>
     </div>
   </nav>
