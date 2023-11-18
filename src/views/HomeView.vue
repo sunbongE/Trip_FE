@@ -1,5 +1,49 @@
 <script setup>
-// import { }
+import { onMounted } from 'vue';
+import { onBeforeRouteLeave, useRouter } from 'vue-router';
+
+onBeforeRouteLeave(() => {
+    const sc1 = document.querySelector('script[src="https://code.jquery.com/jquery-3.7.1.min.js"]');
+    const sc2 = document.querySelector('script[src="src/fullpage/jquery.fullPage.js"]');
+    const sc3 = document.querySelector('script[src="src/fullpage/main.js"]');
+
+    if (sc1) {
+        document.head.removeChild(sc1);
+    }
+    if (sc2) {
+        document.head.removeChild(sc2);
+    }
+    if (sc3) {
+        document.head.removeChild(sc3);
+    }
+})
+
+onMounted(() => {
+    const sc1 = document.createElement("script");
+    sc1.src = "https://code.jquery.com/jquery-3.7.1.min.js";
+    sc1.integrity = "sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=";
+    sc1.crossOrigin = "anonymous";
+    sc1.defer = true;
+
+    const sc2 = document.createElement("script");
+    sc2.src = "src/fullpage/jquery.fullPage.js";
+    sc2.defer = true;
+
+    const sc3 = document.createElement("script");
+    sc3.src = "src/fullpage/main.js";
+    sc3.defer = true;
+
+    sc1.onload = () => {
+        document.head.appendChild(sc2);
+        sc2.onload = () => {
+            document.head.appendChild(sc3);
+        };
+    };
+
+    document.head.appendChild(sc1);
+});
+
+
 </script>
 <template>
     <main id="fullpage">
