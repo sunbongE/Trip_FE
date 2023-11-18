@@ -36,7 +36,7 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  height: 600px;
+  height: 90%;
 }
 
 .mypage-top-space {

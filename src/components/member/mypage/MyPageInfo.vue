@@ -1,17 +1,17 @@
 <script setup>
-import { onMounted } from 'vue';
-import { useMemberStore } from '@/stores/member';
+import { onMounted } from "vue";
+import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
 
 onMounted(async () => {
-  const accessToken = sessionStorage.getItem('accessToken');
+  const accessToken = sessionStorage.getItem("accessToken");
 
   if (accessToken && !memberStore.isLogin) {
     try {
       await memberStore.getUserInfo(accessToken);
     } catch (error) {
-      console.error('Failed to fetch user information', error);
+      console.error("Failed to fetch user information", error);
     }
   }
 });
@@ -50,7 +50,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height:100%;
+  height: 100%;
 }
 
 .mypage-info-container {
@@ -62,7 +62,7 @@ onMounted(async () => {
   padding: 10px;
   border-radius: 8px;
   margin-top: 10px;
-  width:70%;
+  width: 70%;
 }
 
 .mypage-info-row {
