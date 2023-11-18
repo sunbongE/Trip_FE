@@ -18,7 +18,7 @@ const logout = () => {
   changeMenuState();
 };
 // ?? 고민증...젡아...미ㅏ너이ㅏㅁ니ㅏ
-console.log(JSON.parse(sessionStorage.getItem("memberStore")).isLogin)
+// console.log(JSON.parse(sessionStorage.getItem("memberStore")).isLogin)
 
 
 
