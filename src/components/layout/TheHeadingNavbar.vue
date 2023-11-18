@@ -1,11 +1,10 @@
 <script setup>
 import { useMenuStore } from "@/stores/menu";
 import { storeToRefs } from "pinia";
-import { useMemberStore } from "@/stores/member"
-const menuStore = useMenuStore();
-const memberStore = useMemberStore();
 
-const { userLogout, getUserInfo } = memberStore;
+const menuStore = useMenuStore();
+
+
 // 반응형을 유지하면서 스토어에서 속성을 추출하려면, storeToRefs()를 사용
 // https://pinia.vuejs.kr/core-concepts/
 const { menuList } = storeToRefs(menuStore);
@@ -14,10 +13,12 @@ console.log(menuList)
 const { changeMenuState } = menuStore;
 
 const logout = () => {
-  console.log("come?")
+
   console.log("로그아웃!!!!");
   changeMenuState();
 };
+
+
 
 </script>
 
@@ -31,14 +32,14 @@ const logout = () => {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <!-- <div class="navbar-nav">
-            <a href="/board" class="nav-link active">게시판</a>
-            <a href="/qna" class="nav-link active">QnA</a>
-            <a href="/member/login" class="nav-link active">로그인</a>
-            <a href="#" @click.prevent="logout" class="nav-link active">로그아웃</a>
-            <a href="/member/join" class="nav-link active">회원가입</a>
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </div> -->
+        <div class="navbar-nav">
+          <a href="/board" class="nav-link active">게시판</a>
+          <a href="/qna" class="nav-link active">QnA</a>
+          <a href="/member/login" class="nav-link active">로그인</a>
+          <a href="#" @click.prevent="logout" class="nav-link active">로그아웃</a>
+          <a href="/member/join" class="nav-link active">회원가입</a>
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </div>
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
           <template v-for="menu in menuList" :key="menu.routeName">
             <template v-if="menu.show">
