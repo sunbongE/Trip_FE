@@ -1,36 +1,37 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
-import { login } from "@/api/member";
+import { useMemberStore } from "@/stores/member";
 import { storeToRefs } from "pinia";
-const member = ref({
+import { useMenuStore } from "@/stores/menu";
+
+const router = useRouter();
+
+const memberStore = useMemberStore();
+
+const { isLogin } = storeToRefs(memberStore);
+const { userLogin, getUserInfo } = memberStore;
+const { changeMenuState } = useMenuStore();
+
+const loginUser = ref({
 	userId: "",
 	userPassword: "",
 });
 
 
 
-const loginFunc = async () => {
-	console.log("login ing!!!! !!!");
+const login = async () => {
 	await userLogin(loginUser.value);
 	let token = sessionStorage.getItem("accessToken");
-	console.log("111. ", token);
-	console.log("isLogin: ", isLogin);
 	if (isLogin) {
-		console.log("로그인 성공아닌가???");
 		getUserInfo(token);
 		changeMenuState();
 	}
 	router.push("/");
 };
 
-function calllogin() {
-	console.log("로그인 시도", member.value.userId);
-	// API 호출
-	login(member);
-}
 
-const router = useRouter();
+
 // ID 찾기
 function moveFindId() {
 	router.push({ name: "findid" });
@@ -50,7 +51,7 @@ function moveFindPw() {
 			<h3>반갑습니다! 즐겁게 여행떠날 준비가 되었나요?</h3>
 		</div>
 		<!-- form -->
-		<form @submit.prevent="calllogin">
+		<form @submit.prevent="login">
 
 			<div class="auth-input-box">
 				<div class="input-title">아이디</div>
@@ -63,7 +64,7 @@ function moveFindPw() {
 			</div>
 			<!-- 버튼 영역 -->
 			<div class="auth-btn-box">
-				<button class="btn btn-dark" @click="calllogin">로그인</button>
+				<button class="btn btn-dark" @click="login">로그인</button>
 			</div>
 			<div>
 				<button class="btn btn-dark" type="button" @click="moveFindId">ID 찾기</button>

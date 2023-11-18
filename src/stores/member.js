@@ -15,7 +15,7 @@ export const useMemberStore = defineStore("memberStore", () => {
   const isValidToken = ref(false);
 
   const userLogin = async (loginUser) => {
-    await userConfirm(
+    await userConfirm( //  로그인 요청
       loginUser,
       (response) => {
         // console.log("login ok!!!!", response.status);
@@ -23,17 +23,20 @@ export const useMemberStore = defineStore("memberStore", () => {
         if (response.status === httpStatusCode.CREATE) {
           let { data } = response;
           // console.log("data", data);
+          console.log("토큰 받아온다.");
           let accessToken = data["access-token"];
           let refreshToken = data["refresh-token"];
           console.log("accessToken", accessToken);
           console.log("refreshToken", refreshToken);
+          // state에 필요한 정보 세팅
           isLogin.value = true;
           isLoginError.value = false;
           isValidToken.value = true;
+          // 세션스토리지에 2개의 토큰 저장.
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("refreshToken", refreshToken);
           console.log("sessiontStorage에 담았다", isLogin.value);
-        } else {
+        } else { // 로그인 실패한 경우.
           console.log("로그인 실패했다");
           isLogin.value = false;
           isLoginError.value = true;
