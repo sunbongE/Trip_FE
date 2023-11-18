@@ -26,7 +26,7 @@
   background-color: #67d0f3;
   height: 50px;
   text-align: center;
-  width: 90%; /*여기서 좌우 넓이 해야함*/
+  width: 80%; /*여기서 좌우 넓이 해야함*/
 }
 .mypage-space {
   height: 160px;

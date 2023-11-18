@@ -7,7 +7,7 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
     <!-- 없어도 될 수도 있음 space -->
     <div class="mypage-top-space"></div>
 
-    <div class="mypage-home-profile-container">
+    <div class="mypage-home-profile-parent">
       <div class="mypage-home-profile"></div>
     </div>
 
@@ -25,7 +25,7 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
 
 <style scoped>
 .c{
-  width: 90%;
+  width: 70%;
   border: 2px solid skyblue;
   height: 90%;
   border-radius: 20px;
@@ -36,14 +36,14 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  height: 520px;
+  height: 600px;
 }
 
 .mypage-top-space {
   height: 150px;
 }
 
-.mypage-home-profile-container {
+.mypage-home-profile-parent {
   position: absolute;
   top: 0;
   left: 50%;
