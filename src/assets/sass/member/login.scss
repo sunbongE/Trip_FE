@@ -6,7 +6,7 @@
   background: #FFF;
   width: 50%;
   min-width: 463px;
-  max-width: 795px;
+  max-width: 693px;
   max-height: 861px;
   margin: 0 auto;
   padding: 20px;
@@ -95,6 +95,14 @@ form>div {
 
 #findLink>span:nth-child(1) {
   margin-left: auto;
+}
+
+#per {
+  margin: 0 5px;
+}
+
+#findLink>span {
+  cursor: pointer;
 }
 
 .fullBtn {

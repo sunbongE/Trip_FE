@@ -75,29 +75,29 @@ const router = createRouter({
             {
               path: "info",
               name: "mypage-info",
-              component: () => import("@/components/member/mypage/MyPageInfo.vue")    
+              component: () => import("@/components/member/mypage/MyPageInfo.vue")
             },
             {
               path: "plan",
               name: "mypage-plan",
-              component: () => import("@/components/member/mypage/MyPagePlan.vue")    
+              component: () => import("@/components/member/mypage/MyPagePlan.vue")
             },
             {
               path: "club",
               name: "mypage-club",
-              component: () => import("@/components/member/mypage/MyPageClub.vue")    
+              component: () => import("@/components/member/mypage/MyPageClub.vue")
             },
             {
               path: "friendship",
               name: "mypage-friendship",
-              component: () => import("@/components/member/mypage/MyPageFriendShip.vue")    
+              component: () => import("@/components/member/mypage/MyPageFriendShip.vue")
             },
             {
               path: "alarm",
               name: "mypage-alarm",
-              component: () => import("@/components/member/mypage/MyPageAlarm.vue")    
+              component: () => import("@/components/member/mypage/MyPageAlarm.vue")
             },
-            
+
           ]
         }
       ]

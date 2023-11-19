@@ -56,7 +56,9 @@ function moveFindPw() {
 		<div id="formBox">
 			<div id="one"></div>
 			<h3>Log in</h3>
-			<p>Don’t have an ccount?<a href="#"> Sign up </a></p>
+			<p>Don’t have an ccount?
+				<router-link to="/member/join"> Sign up</router-link>
+			</p>
 			<div id="mid">
 				<hr><span id="or">OR</span>
 				<hr>
@@ -80,7 +82,8 @@ function moveFindPw() {
 					<input :class="btncolor" type="button" @click.prevent="login" value="Login" />
 				</div>
 				<div id="findLink">
-					<span @click="moveFindId">ID 찾기</span>/
+					<span @click="moveFindId">ID 찾기</span>
+					<div id="per">/</div>
 					<span @click="moveFindPw">PW 찾기</span>
 				</div>
 			</form>
