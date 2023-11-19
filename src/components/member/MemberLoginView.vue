@@ -22,7 +22,9 @@ const btncolor = ref("");
 
 watch(loginUser.value, () => {
 	if (loginUser.value.userId != '' && loginUser.value.userPassword != '') {
-		btncolor.value = "fullBtn"
+		btncolor.value = "okBtn"
+	} else {
+		btncolor.value = ""
 	}
 })
 

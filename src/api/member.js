@@ -34,6 +34,9 @@ async function findById(userid, success, fail) {
     local.defaults.headers["Authorization"] = sessionStorage.getItem("accessToken");
     await local.get(`/user/info/${userid}`).then(success).catch(fail);
 }
+function checkId(userId, success, fail) {
+    local.post("/user/checkId", JSON.stringify(userId)).then(success).then(fail);
+}
 export {
     userConfirm,
     join,
@@ -41,5 +44,6 @@ export {
     findpw,
     logout,
     tokenRegeneration,
-    findById
+    findById,
+    checkId
 };
