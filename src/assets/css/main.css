@@ -7,6 +7,10 @@
     font-size: 20px;
     font-weight: bold;
 }
+.okBtn:hover{
+    background-color: #309df6;
+}
+
 .cancelBtn{
     border: 3px solid #51abf3;
     background-color: #fff;
