@@ -35,14 +35,16 @@ const logout = () => {
 
 if (sessionStorage.getItem("memberStore") != null) {
   const member = JSON.parse(sessionStorage.getItem("memberStore"));
-  if (member.isLogin) {
+  if (member.isLogin && member.userInfo != null) {
+    // console.log(member.isLogin)
     logined.value = true;
     userName.value = member.userInfo.userName;
   
-}
-} else {
+}else {
+  memberStore.isLogin.value = false;
   logined.value = false;
 }
+} 
 </script>
 
 <template>

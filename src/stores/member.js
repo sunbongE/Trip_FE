@@ -18,7 +18,7 @@ export const useMemberStore = defineStore("memberStore", () => {
     await userConfirm(
       loginUser,
       (response) => {
-        // console.log(response)
+        console.log(response)
         if (response.status === httpStatusCode.CREATE) {
           let { data } = response;
           let accessToken = data["access-token"];
@@ -29,7 +29,7 @@ export const useMemberStore = defineStore("memberStore", () => {
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("refreshToken", refreshToken);
         } else {
-          alert("일치하는 회원 정보가 없습니다.2")
+          alert("일치하는 회원 정보가 없습니다.")
           isLogin.value = false;
           isLoginError.value = true;
           isValidToken.value = false;
@@ -45,20 +45,21 @@ export const useMemberStore = defineStore("memberStore", () => {
     );
   };
 
-  const getUserInfo = (token) => {
+  const getUserInfo = async (token) => {
     let decodeToken = jwtDecode(token);
     // console.log(decodeToken.userId)
-    findById(
+    await findById(
       decodeToken.userId,
       (response) => {
         if (response.status === httpStatusCode.OK) {
-          // console.log(response)
+          console.log("?????"+response)
           userInfo.value = response.data.userDto;
         } else {
           console.log("유저 정보 없음!!!!");
         }
       },
       async (error) => {
+        sessionStorage.clear()
         console.error(
           "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
           error.response.status

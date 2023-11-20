@@ -50,9 +50,8 @@ function joinMember() {
 	join(
 		member,
 		(Response) => {
-			console.log(Response)
 			if (Response.status === 200) {
-				router.push("login")
+				location.href="/member/login"
 			} else {
 				alert("회원가입 중 문제가 생겼습니다 다시 시도해주세요.")
 			}
@@ -62,9 +61,9 @@ function joinMember() {
 	});
 }
 
-// function cancel() {
-// 	router.push({ name: "member" });
-// }
+function cancel() {
+	router.push({ name: "home" });
+}
 
 </script>
 
@@ -126,7 +125,7 @@ function joinMember() {
 
 				<!-- 버튼 영역 -->
 				<div id="btnBox">
-					<button class="cancelBtn" type="button">취소</button>
+					<button class="cancelBtn" @click='cancel'>취소</button>
 					<button class="okBtn" type="submit" >회원가입</button>
 				</div>
 			</div>

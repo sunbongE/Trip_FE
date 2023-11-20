@@ -30,7 +30,7 @@ const login = async () => {
 	await userLogin(loginUser.value);
 	let token = sessionStorage.getItem("accessToken");
 	if (isLogin.value) {
-		getUserInfo(token);
+		await getUserInfo(token);
 		location.href="/"
 	}
 };
