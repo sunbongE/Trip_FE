@@ -60,15 +60,14 @@ if (sessionStorage.getItem("memberStore") != null) {
           <a href="/qna" class="nav-link active">QnA</a>
         </div>
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
-          <div v-if='logined'>
+          <div class='statusBox' v-if='logined'>
             
             <a class="nav-link active" href="/member/mypage" >{{userName}}님 </a>
             <a href="#" @click.prevent="logout" class="nav-link active">로그아웃</a>
             </div>
-            <div v-else>
+            <div class='statusBox' v-else>
               <a href="/member/login" class="nav-link active">로그인</a>
               <a href="/member/join" class="nav-link active">회원가입</a>
-
             </div>
         </ul>
       </div>
