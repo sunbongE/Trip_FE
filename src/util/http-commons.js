@@ -14,15 +14,15 @@ function stationAxios() {
   return instance;
 }
 
-// function localFileAxios() {
-//   const instanceFile = axios.create({
-//     baseURL: VITE_VUE_API_URL,
-//     headers: {
-//       "Content-Type": "multipart/json-data",
-//     },
-//   });
-//   return instanceFile;
-// }
+function localFileAxios() {
+  const instanceFile = axios.create({
+    baseURL: VITE_VUE_API_URL,
+    headers: {
+      "Content-Type": "multipart/json-data",
+    },
+  });
+  return instanceFile;
+}
 
 // local vue api axios instance
 function localAxios() {
@@ -97,4 +97,4 @@ function localAxios() {
   return instance;
 }
 
-export { localAxios, stationAxios,localFileAxios };
+export { localAxios, stationAxios, localFileAxios };
