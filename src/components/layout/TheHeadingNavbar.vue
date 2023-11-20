@@ -2,9 +2,11 @@
 import { useMenuStore } from "@/stores/menu";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
+import {ref} from 'vue'
 const menuStore = useMenuStore();
 
-
+const logined = ref(false);
+const userName = ref("");
 const memberStore = useMemberStore();
 const { userLogout } = memberStore;
 // 반응형을 유지하면서 스토어에서 속성을 추출하려면, storeToRefs()를 사용
@@ -18,6 +20,7 @@ const logout = () => {
   // console.log(member.isLogin)
   if (member.isLogin) { // 로그인 되있는 상태
     const userId = member.userInfo.userId
+    logined.value = false;
     userLogout(userId)
 
   } else {
@@ -25,11 +28,21 @@ const logout = () => {
   }
   // changeMenuState();
 };
-// ?? 고민증...젡아...미ㅏ너이ㅏㅁ니ㅏ
+// 세션 스토리지에 memberStore가 없으면 로그인 안한 상태니까
+// if(세션.get(memberStore)==null || )
 // console.log(JSON.parse(sessionStorage.getItem("memberStore")).isLogin)
 
 
-
+if (sessionStorage.getItem("memberStore") != null) {
+  const member = JSON.parse(sessionStorage.getItem("memberStore"));
+  if (member.isLogin) {
+    logined.value = true;
+    userName.value = member.userInfo.userName;
+  
+}
+} else {
+  logined.value = false;
+}
 </script>
 
 <template>
@@ -45,30 +58,18 @@ const logout = () => {
         <div class="navbar-nav">
           <a href="/board" class="nav-link active">게시판</a>
           <a href="/qna" class="nav-link active">QnA</a>
-          <a href="/member/login" class="nav-link active">로그인</a>
-          <a href="#" @click.prevent="logout" class="nav-link active">로그아웃</a>
-          <a href="/member/join" class="nav-link active">회원가입</a>
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </div>
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
-          <template v-for="menu in menuList" :key="menu.routeName">
-            <template v-if="menu.show">
-              <template v-if="menu.routeName === 'user-logout'">
-                <li class="nav-item">
-                  <router-link to="/" @click.prevent="logout" class="nav-link">{{
-                    menu.name
-                  }}</router-link>
-                </li>
-              </template>
-              <template v-else>
-                <li class="nav-item">
-                  <router-link :to="{ name: menu.routeName }" class="nav-link">{{
-                    menu.name
-                  }}</router-link>
-                </li>
-              </template>
-            </template>
-          </template>
+          <div v-if='logined'>
+            
+            <a class="nav-link active" href="/member/mypage" >{{userName}}님 </a>
+            <a href="#" @click.prevent="logout" class="nav-link active">로그아웃</a>
+            </div>
+            <div v-else>
+              <a href="/member/login" class="nav-link active">로그인</a>
+              <a href="/member/join" class="nav-link active">회원가입</a>
+
+            </div>
         </ul>
       </div>
     </div>

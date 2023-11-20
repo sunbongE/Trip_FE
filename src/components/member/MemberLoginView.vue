@@ -70,7 +70,7 @@ function moveFindPw() {
 				</div>
 				<div>
 					<label for="pwd">Your Password</label><br>
-					<input id="pwd" type="password" v-model="loginUser.userPassword" required />
+					<input id="pwd" type="password" v-model="loginUser.userPassword" @keyup.enter="login" required />
 					<!-- 버튼 영역 -->
 					<!-- <input type="button" value=""> -->
 				</div>
