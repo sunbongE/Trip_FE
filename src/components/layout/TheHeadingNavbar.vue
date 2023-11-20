@@ -39,11 +39,10 @@ if (sessionStorage.getItem("memberStore") != null) {
     // console.log(member.isLogin)
     logined.value = true;
     userName.value = member.userInfo.userName;
-  
-}else {
-  memberStore.isLogin.value = false;
-  logined.value = false;
-}
+  }else {
+    memberStore.isLogin = false;
+    logined.value = false;
+  }
 } 
 </script>
 
