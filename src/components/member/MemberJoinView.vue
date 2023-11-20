@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { join, checkId } from "../../api/member";
+import { useRouter } from 'vue-router';
+const router = useRouter();
 // 1. 담아서 보낼 객체 생성
 const member = ref({
 	userId: "",
@@ -10,13 +12,22 @@ const member = ref({
 	emailId: "",
 	emailDomain: "",
 });
+const checked = ref(false);
+
 
 const checkIdFunc = () => {
 	const userId = member.value.userId;
-	checkId(userId,
-		(response) => {
-			console.log("ssssssssssssss")
-			console.log(response);
+	checkId(userId.trim(),
+		({ data }) => {
+			
+			if (data) {
+				console.log("사용가능")
+				document.querySelector("#userId").readOnly = true;
+				checked.value = true;
+
+			} else {
+				checked.value = false;
+			}
 		},
 		(error) => {
 			console.log("Error:", error);
@@ -32,7 +43,19 @@ function onSubmit() {
 function joinMember() {
 	console.log("회원가입 시도", member.value.userId);
 	// API 호출
-	join(member);
+	join(
+		member,
+		(Response) => {
+			console.log(Response)
+			if (Response.status === 200) {
+				router.push("login")
+			} else {
+				alert("회원가입 중 문제가 생겼습니다 다시 시도해주세요.")
+			}
+		},
+		(error) => {
+		alert("회원가입 중 문제가 생겼습니다 다시 시도해주세요.")
+	});
 }
 
 // function cancel() {
@@ -47,7 +70,7 @@ function joinMember() {
 		<h3>회원가입</h3>
 		<!-- form -->
 		<form @submit.prevent="onSubmit">
-			<div class="auth-input-box">
+			<div>
 				<label>아이디</label>
 				<div id="id-box">
 					<input type="text" v-model="member.userId" name="userId" id="userId" required />
@@ -55,34 +78,35 @@ function joinMember() {
 							@click="checkIdFunc" />
 					</div>
 				</div>
+				<div v-show='checked'>
 
-				<div class="auth-input-box">
+				<div>
 					<label>이름</label>
 					<input type="text" v-model="member.userName" name="username" id="userName" autofocus required />
 				</div>
 
-				<div class="auth-input-box">
+				<div>
 					<label>생년월일 6자리</label>
 					<input type="text" v-model="member.birth" name="birth" id="birth" placeholder="예) 960922" />
 				</div>
 
-				<div class="auth-input-box">
+				<div>
 					<label>비밀번호 </label>
 					<input type="password" v-model="member.userPassword" name="userPwd" id="userPwd" required />
 				</div>
-				<div class="auth-input-box">
+				<div>
 					<label>비밀번호 확인 <span id='pwdChk'></span></label>
 					<input type="password" name="userPwdChk" id="userPwdChk" required />
 				</div>
-				<div class="auth-input-box">
+				<div>
 					<label>이메일</label>
 
-					<div class="email-box">
+					<div id="emailBox">
 						<input type="text" v-model="member.emailId" name="email1" id="email1" required /> <span>@</span>
 						<input type="text" v-model="member.emailDomain" name="email2" id="email2" required />
 					</div>
 				</div>
-				<!-- <div class="auth-input-box">
+				<!-- <div>
 																																																			<label>지역</label>
 																																																			<div class="region-box">
 																																																				<select name="region1" id="region1">
@@ -97,12 +121,11 @@ function joinMember() {
 																																																		</div> -->
 
 				<!-- 버튼 영역 -->
-				<div class="auth-btn-box">
-					<button class="btn btn-dark" type="submit" id="signup-btn">가입하기</button>
+				<div id="btnBox">
+					<button class="cancelBtn" type="button">취소</button>
+					<button class="okBtn" type="submit" >회원가입</button>
 				</div>
-				<div class="auth-btn-box">
-					<button class="btn btn-dark" type="button">취소</button>
-				</div>
+			</div>
 
 			</form>
 		</div>

@@ -35,7 +35,7 @@ async function findById(userid, success, fail) {
     await local.get(`/user/info/${userid}`).then(success).catch(fail);
 }
 function checkId(userId, success, fail) {
-    local.post("/user/checkId", JSON.stringify(userId)).then(success).then(fail);
+    local.post("/user/checkId", userId).then(success).then(fail);
 }
 export {
     userConfirm,

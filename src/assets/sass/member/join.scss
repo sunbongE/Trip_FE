@@ -79,7 +79,25 @@ input:focus {
 }
 
 #userId {
+  height: 58px;
   border: 1px 1px 1px 0 solid #333;
   border-width: 1px 0 1px 1px;
   border-radius: 10px 0px 0px 10px;
+}
+#btnBox{
+  display: flex;
+  justify-content: flex-end;
+}
+#btnBox>button{
+  margin-left: 20px;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+
+}
+#emailBox>span{
+  font-size: 35px;
+}
+#emailBox{
+  display: flex;
 }
