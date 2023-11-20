@@ -1,16 +1,13 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
-    <div>
-        <router-view></router-view>
-    </div>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <style scoped>
 div {
-    height: 100vh;
-    width: 100vw;
+  width: 100vw;
 }
 </style>

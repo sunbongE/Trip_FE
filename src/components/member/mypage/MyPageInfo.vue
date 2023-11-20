@@ -50,7 +50,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .mypage-info-container {
@@ -62,7 +62,7 @@ onMounted(async () => {
   padding: 10px;
   border-radius: 8px;
   margin-top: 10px;
-  width: 70%;
+  width: 80%;
 }
 
 .mypage-info-row {

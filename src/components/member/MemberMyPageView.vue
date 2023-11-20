@@ -4,9 +4,6 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
 
 <template>
   <div class="mypage-edgeline">
-    <!-- 없어도 될 수도 있음 space -->
-    <div class="mypage-top-space"></div>
-
     <div class="mypage-home-profile-parent">
       <div class="mypage-home-profile"></div>
     </div>
@@ -24,11 +21,12 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
 </template>
 
 <style scoped>
-.c{
+.c {
   width: 70%;
   border: 2px solid skyblue;
-  height: 90%;
+  /* height: 90%; */
   border-radius: 20px;
+  transform: translateY(-130px);
 }
 .mypage-edgeline {
   display: flex;
@@ -39,15 +37,8 @@ import MyPageNavBar from "./mypage/MyPageNavBar.vue";
   height: 90%;
 }
 
-.mypage-top-space {
-  height: 150px;
-}
-
 .mypage-home-profile-parent {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 100px;
   width: 260px;
   height: 260px;
   background-color: skyblue;
