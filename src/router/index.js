@@ -36,8 +36,8 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/plan',
-      name: 'plan',
+      path: '/tour/plan',
+      name: 'tour-plan',
       component: TourView
     },
     {
