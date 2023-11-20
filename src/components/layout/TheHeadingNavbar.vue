@@ -9,12 +9,9 @@ const menuStore = useMenuStore();
 // https://pinia.vuejs.kr/core-concepts/
 const { menuList } = storeToRefs(menuStore);
 // const menuList = menuStore.menuList;
-console.log(menuList)
 const { changeMenuState } = menuStore;
 
 const logout = () => {
-
-  console.log("로그아웃!!!!");
   changeMenuState();
 };
 // ?? 고민증...젡아...미ㅏ너이ㅏㅁ니ㅏ

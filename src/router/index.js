@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue"
 import MemberView from "@/views/MemberView.vue"
-import BoardView from "@/views/BoardView.vue"
-import QnAView from "@/views/QnAView.vue"
-import BoardList from "@/components/board/BoardList.vue"
+// import BoardView from "@/views/BoardView.vue"
+// import QnAView from "@/views/QnAView.vue"
+// import BoardList from "@/components/board/BoardList.vue"
 import TourView from "@/views/TourView.vue"
-import QnAList from "@/components/QnA/QnAList.vue"
+// import QnAList from "@/components/QnA/QnAList.vue"
 
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
@@ -105,7 +105,8 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
-      component: BoardView,
+      // component: BoardView,
+      component: () => import("@/views/BoardView.vue"),
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -115,8 +116,8 @@ const router = createRouter({
           path: "list",
           name: "article-list",
 
-          // component: () => import("@/components/board/BoardList.vue"),
-          component: BoardList
+          component: () => import("@/components/board/BoardList.vue"),
+          // component: BoardList
         },
         {
           path: "view/:articleno",
@@ -144,13 +145,15 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: QnAView,
+      // component: QnAView,
+      component: () => import("@/views/QnAView.vue"),
       redirect: { name: "QnA-list" },
       children: [
         {
           path: "list",
           name: "QnA-list",
-          component: QnAList,
+          // component: QnAList,
+          component: () => import("@/components/QnA/QnAList.vue"),
         },
         {
           path: "view/:QnAno",

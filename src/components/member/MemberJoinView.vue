@@ -13,7 +13,7 @@ const member = ref({
 	emailDomain: "",
 });
 const checked = ref(false);
-
+const disabled = ref(false)
 
 const checkIdFunc = () => {
 	const userId = member.value.userId;
@@ -26,6 +26,10 @@ const checkIdFunc = () => {
 				checked.value = true;
 
 			} else {
+				disabled.value = true;
+				setTimeout(() => {
+					disabled.value = false
+				}, 1500)
 				checked.value = false;
 			}
 		},
@@ -72,7 +76,7 @@ function joinMember() {
 		<form @submit.prevent="onSubmit">
 			<div>
 				<label>아이디</label>
-				<div id="id-box">
+				<div id="id-box" :class="{ shake: disabled }">
 					<input type="text" v-model="member.userId" name="userId" id="userId" required />
 					<input type="button" class="okBtn" name="userIdChkBtn" id="userIdChkBtn" value="중복확인"
 							@click="checkIdFunc" />
