@@ -1,7 +1,8 @@
 <script setup>
 import { ref, watch } from "vue";
 import { findid } from "@/api/member";
-
+import { useRouter } from 'vue-router';
+const router = useRouter(); 
 const member = ref({
   emailId: "",
   userPassword: "",
@@ -9,47 +10,55 @@ const member = ref({
 });
 
 function onSubmit() {
-  // 회원가입으로 호출
   callfindid();
 }
 
 function callfindid() {
-  console.log("아이디 찾기 슛", member.value.emailId);
   // API 호출
-  findid(member);
+	findid(member,
+		({data}) => {
+			alert("회원님의 아이디 : " + data + "입니다. \n로그인 페이지도 이동합니다.")
+			router.push("login")
+		},
+		(error) => {
+		alert("일치하는 정보가 없습니다. 다시 확인해주세요.")
+	});
 }
 
 </script>
 
 <template>
-    <section>
+    <div id='frame'>
+		<div id="formBox">
+
 		<div class="auth-top">
-		
 			<h2>ID 찾기 페이지</h2>
 			<h3>아이디를 잊어버리셨나요 ?</h3>
 		</div>
 		<!-- form -->
 		<form @submit.prevent="onSubmit">
-			<div class="auth-input-box">
-				<div class="input-title">이메일</div>
+			<div>
+				<label>이메일</label>
 				<input type="text" v-model="member.emailId" autofocus required />
 			</div>
-			<div class="auth-input-box">
-				<div class="input-title">비밀번호</div>
+			<div>
+				<label>비밀번호</label>
 				<input type="password" v-model="member.userPassword" required />				
 			</div>
-			<div class="auth-input-box">
-				<div class="input-title">생년월일</div>
+			<div>
+				<label>생년월일</label>
 				<input type="text" v-model="member.birth" required />
 			</div>
 			<!-- 버튼 영역 -->
-			<div class="auth-btn-box">
-				<button type="submit" id="signup-btn">찾기</button>
+			<div class="btnBox">
+				<button type="submit" class='okBtn'>찾기</button>
 			</div>
 			<!-- <a href="${root}/member?action=joinForm" id="withdraw-btn"><p>회원이
 					아니신가요? 여기를 클릭해주세요.</p></a> -->
 		</form>
-	</section>
+	</div>
+
+	</div>
 </template>
 
 <style scoped>

@@ -51,14 +51,14 @@ const getList = () => {
     <!-- 게시글 작성 -->
       <article>
         <div id="ment">
-          <h2>QnA 목록입니다.</h2>
+          <h2>QnA 목록</h2>
         </div>
         <div id="subment">
           <h2>질문이 있거나 문의사항 있으면 </h2>
           <h2>글 남겨주세요.</h2>
         </div>
         <div id="btnBox">
-          <button id="goCreate" @click='moveQnaWrite'>문의하기</button>
+          <button class='okBtn' @click='moveQnaWrite'>문의하기</button>
         </div>
       </article>
       <!-- 게시판 -->

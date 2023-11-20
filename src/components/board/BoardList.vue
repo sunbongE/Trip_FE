@@ -57,7 +57,7 @@ const moveWrite = () => {
         <h2>나만의 꿀팁을 공유해보세요.</h2>
       </div>
       <div id="btnBox">
-        <button id="goCreate" @click='moveWrite'>작성하기</button>
+        <button class="okBtn" @click='moveWrite'>작성하기</button>
       </div>
     </article>
     <!-- 게시판 -->

@@ -3,7 +3,6 @@ import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
-import { useMenuStore } from "@/stores/menu";
 
 const router = useRouter();
 
@@ -11,7 +10,6 @@ const memberStore = useMemberStore();
 
 const { isLogin } = storeToRefs(memberStore);
 const { userLogin, getUserInfo } = memberStore;
-const { changeMenuState } = useMenuStore();
 
 const loginUser = ref({
 	userId: "",
@@ -31,13 +29,10 @@ watch(loginUser.value, () => {
 const login = async () => {
 	await userLogin(loginUser.value);
 	let token = sessionStorage.getItem("accessToken");
-	if (isLogin) {
-		getUserInfo(token);
-		changeMenuState();
-		console.log("come?")
+	if (isLogin.value) {
+		await getUserInfo(token);
+		location.href="/"
 	}
-	// location.href = '/';
-	router.push('/')
 };
 
 
@@ -75,7 +70,7 @@ function moveFindPw() {
 				</div>
 				<div>
 					<label for="pwd">Your Password</label><br>
-					<input id="pwd" type="password" v-model="loginUser.userPassword" required />
+					<input id="pwd" type="password" v-model="loginUser.userPassword" @keyup.enter="login" required />
 					<!-- 버튼 영역 -->
 					<!-- <input type="button" value=""> -->
 				</div>
