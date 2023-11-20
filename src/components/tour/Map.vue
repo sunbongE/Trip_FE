@@ -1,12 +1,15 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
+const emit = defineEmits(["selected"]);
 
 var map;
+
 const positions = ref([]);
 const markers = ref([]);
 
 // const props = defineProps({ stations: Array, selectStation: Object });
 const props = defineProps({ stations: Array });
+
 
 // watch(
 //   () => props.selectStation.value,
@@ -26,9 +29,8 @@ onMounted(() => {
     initMap();
   } else {
     const script = document.createElement("script");
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
-      import.meta.env.VITE_KAKAO_MAP_SERVICE_KEY
-    }&libraries=services,clusterer`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_MAP_SERVICE_KEY
+      }&libraries=services,clusterer`;
     /* global kakao */
     script.onload = () => kakao.maps.load(() => initMap());
     document.head.appendChild(script);
@@ -42,7 +44,11 @@ watch(
     props.stations.forEach((station) => {
       let obj = {};
       obj.latlng = new kakao.maps.LatLng(station.latitude, station.longitude);
-      obj.title = station.statNm;
+      obj.title = station.title;
+      obj.contentId = station.contentId;
+      obj.contentType = station.contentType;
+      obj.backImg = station.firstImage;
+      obj.tel = station.tel;
 
       positions.value.push(obj);
     });
@@ -57,6 +63,7 @@ const initMap = () => {
     center: new kakao.maps.LatLng(33.450701, 126.570667),
     level: 3,
   };
+  // 지도 생성.
   map = new kakao.maps.Map(container, options);
 
   // loadMarkers();
@@ -70,7 +77,9 @@ const initMap = () => {
   });
   var positions = [];
 };
-
+const sel = () => {
+  console.log(22)
+}
 const loadMarkers = () => {
   // 현재 표시되어있는 marker들이 있다면 map에 등록된 marker를 제거한다.
   deleteMarkers();
@@ -89,31 +98,58 @@ const loadMarkers = () => {
       position: position.latlng, // 마커를 표시할 위치
       title: position.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됨.
       clickable: true, // // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+      contentId: position.contentId,
+      contentType: position.contentType,
+      backImg: position.firstImage,
+      tel: position.tel,
+
       // image: markerImage, // 마커의 이미지
     });
-    var iwContent = '<div style="padding:5px;">Hello World! <br></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-      iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
-
+    var iwContent = `<div class="mks" style="padding:10px;" value=${position.contentId} >
+      <div>
+      <img src= ${position.backImg}
+    style="max-width:150px; max-height: 300px; margin: 0 auto; display: flex;">
+    <hr>
+      </div>
+      <p class="markP">${position.title}</p>
+      <br>
+      <div class="btnBox">
+        <button>유튜브 검색</button>
+        <button onclick="sel()" data-no=${position.contentId}>추가</button>
+        </div>
+      </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+      iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
+      iwRemoveable = true;
     // 인포윈도우를 생성합니다
     var infowindow = new kakao.maps.InfoWindow({
       position: iwPosition,
       content: iwContent,
+      removable: iwRemoveable
     });
+
 
     // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
     // 마커에 마우스오버 이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, "mouseover", function () {
-      // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-      infowindow.open(map, marker);
-    });
+    // kakao.maps.event.addListener(marker, "mouseover", function () {
+    //   //   // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+    //   infowindow.open(map, marker);
+    // });
 
     // 마커에 마우스아웃 이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, "mouseout", function () {
-      // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-      infowindow.close();
+    // kakao.maps.event.addListener(marker, "mouseout", function () {
+    //   // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    //   infowindow.close();
+    // });
+    // 마커 클릭시 이벤트
+    kakao.maps.event.addListener(marker, 'click', function () {
+      // infowindow.close();
+      infowindow.open(map, marker);
+      emit("selected", position);
     });
     markers.value.push(marker);
   });
+
+
 
   // 4. 지도를 이동시켜주기
   // 배열.reduce( (누적값, 현재값, 인덱스, 요소)=>{ return 결과값}, 초기값);
@@ -125,6 +161,7 @@ const loadMarkers = () => {
   map.setBounds(bounds);
 };
 
+// 마커 삭제
 const deleteMarkers = () => {
   if (markers.value.length > 0) {
     markers.value.forEach((marker) => marker.setMap(null));
@@ -137,8 +174,5 @@ const deleteMarkers = () => {
 </template>
 
 <style>
-#map {
-  width: 100%;
-  height: 700px;
-}
+@import '@/assets/sass/tour/Map.scss'
 </style>

@@ -1,0 +1,72 @@
+.box {
+    margin-bottom: 70px;
+}
+
+#MapFrame {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+}
+
+#mapList {
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+#top-section {
+    box-sizing: border-box;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+
+.ment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    animation: fadein 3s;
+}
+
+.ment h2 {
+    font-size: 3em;
+    font-weight: 600px;
+}
+
+
+button {
+    font-weight: bold;
+    width: 120px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.2em;
+}
+
+.selectBox option {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 25%;
+    height: 40px;
+    border-radius: 6px;
+}
+
+.selectBox {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 25%;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #f2f2f2;
+    border: none;
+    font-size: 1em;
+}
+
+#search-form {
+    display: flex;
+    margin-inline: auto;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+    width: 80%;
+    box-sizing: border-box;
+}
