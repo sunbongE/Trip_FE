@@ -3,7 +3,6 @@ import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
-import { useMenuStore } from "@/stores/menu";
 
 const router = useRouter();
 
@@ -11,7 +10,6 @@ const memberStore = useMemberStore();
 
 const { isLogin } = storeToRefs(memberStore);
 const { userLogin, getUserInfo } = memberStore;
-const { changeMenuState } = useMenuStore();
 
 const loginUser = ref({
 	userId: "",
@@ -31,13 +29,10 @@ watch(loginUser.value, () => {
 const login = async () => {
 	await userLogin(loginUser.value);
 	let token = sessionStorage.getItem("accessToken");
-	if (isLogin) {
+	if (isLogin.value) {
 		getUserInfo(token);
-		changeMenuState();
-		console.log("come?")
+		location.href="/"
 	}
-	// location.href = '/';
-	router.push('/')
 };
 
 

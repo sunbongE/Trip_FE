@@ -18,6 +18,7 @@ export const useMemberStore = defineStore("memberStore", () => {
     await userConfirm(
       loginUser,
       (response) => {
+        // console.log(response)
         if (response.status === httpStatusCode.CREATE) {
           let { data } = response;
           let accessToken = data["access-token"];
@@ -28,19 +29,25 @@ export const useMemberStore = defineStore("memberStore", () => {
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("refreshToken", refreshToken);
         } else {
+          alert("일치하는 회원 정보가 없습니다.2")
           isLogin.value = false;
           isLoginError.value = true;
           isValidToken.value = false;
         }
       },
       (error) => {
-        console.error(error);
+        isLogin.value = false;
+        isLoginError.value = true;
+        isValidToken.value = false;
+        alert("일치하는 회원 정보가 없습니다.")
+        // console.error("");
       }
     );
   };
 
   const getUserInfo = (token) => {
     let decodeToken = jwtDecode(token);
+    // console.log(decodeToken.userId)
     findById(
       decodeToken.userId,
       (response) => {
@@ -110,6 +117,8 @@ export const useMemberStore = defineStore("memberStore", () => {
           isLogin.value = false;
           userInfo.value = null;
           isValidToken.value = false;
+          router.push("/member/login")
+
         } else {
           console.error("유저 정보 없음!!!!");
         }
