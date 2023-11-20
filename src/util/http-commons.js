@@ -18,7 +18,7 @@ function localFileAxios() {
   const instanceFile = axios.create({
     baseURL: VITE_VUE_API_URL,
     headers: {
-      "Content-Type": "multipart/json-data",
+      "Content-Type": "multipart/form-data",
     },
   });
   return instanceFile;
