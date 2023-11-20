@@ -2,14 +2,16 @@
 import { onMounted, ref } from "vue";
 import { useMemberStore } from "@/stores/member";
 import { searchByStatus, getReceived, answer } from "@/api/friendship";
+import { useFriendshipStore } from "@/stores/friend";
+import { storeToRefs } from "pinia";
 
+const friendshipStore = useFriendshipStore();
 const memberStore = useMemberStore();
+const { friends, receivedList } = storeToRefs(friendshipStore);
 const req = ref({
   userId: "",
   status: 201,
 });
-const friends = ref([]);
-const receivedList = ref([]);
 
 onMounted(async () => {
   const accessToken = sessionStorage.getItem("accessToken");
@@ -29,7 +31,7 @@ onMounted(async () => {
     req.value,
     ({ data }) => {
       console.log(data);
-      friends.value = data;
+      friendshipStore.setFriends(data);
     },
     (error) => console.log(error)
   );
@@ -38,7 +40,8 @@ onMounted(async () => {
     memberStore.userInfo.userId,
     ({ data }) => {
       console.log(data);
-      receivedList.value = data;
+      // receivedList.value = data;
+      friendshipStore.setReceivedList(data);
     },
     (error) => console.log(error)
   );
@@ -51,15 +54,14 @@ function positive(receivedId) {
   callAnswer(receivedId);
 }
 
-function negative(receivedId){
+function negative(receivedId) {
   user_answer.value = 202;
   callAnswer(receivedId);
 }
-
 function callAnswer(receivedId) {
   console.log("요청 수락 혹은 거절 :", receivedId);
   const received = receivedList.value.filter((item) => item.id === receivedId)[0];
-  
+
   if (received) {
     // received 객체에서 toUserId를 가져와 사용
     const toUserId = received.toUserId;
@@ -70,6 +72,9 @@ function callAnswer(receivedId) {
       toUserId: toUserId,
       status: user_answer.value,
     });
+
+    friendshipStore.deleteReceivedList(receivedId);
+    location.reload();
   } else {
     console.error("Received request not found");
   }
@@ -91,8 +96,11 @@ function callAnswer(receivedId) {
     <div>
       <h3>내가 받은 친구 요청</h3>
       <div v-for="received in receivedList" :key="received.id">
-        <p>요청한 친구 : {{ received.fromUserId }}</p>
-        <button class="okBtn" @click='positive(received.id)'>수락</button><button @click='negative(received.id)'>거절</button>
+        <div v-if="received.status === 203">
+          <p>요청한 친구 : {{ received.fromUserId }}</p>
+          <button class="okBtn" @click="positive(received.id)">수락</button>
+          <button @click="negative(received.id)">거절</button>
+        </div>
       </div>
     </div>
   </div>

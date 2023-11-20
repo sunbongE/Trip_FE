@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useMemberStore } from "@/stores/member";
-import { searchMyClubs, searchByToUserId, searchByFromUserId, replyToAnswer } from "@/api/club";
+import { searchMyClubs, searchByToUserId, searchByFromUserId } from "@/api/club";
 
 const memberStore = useMemberStore();
 
@@ -10,8 +10,6 @@ const myClubs = ref([]);
 const toMeList = ref([]);
 
 const fromMeList = ref([]);
-
-const needToReply = ref([]);
 
 onMounted(async () => {
   const accessToken = sessionStorage.getItem("accessToken");
