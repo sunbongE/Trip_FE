@@ -84,26 +84,83 @@ function callAnswer(receivedId) {
 <template>
   <div class="mypage-friendship">
     <h1>MY FRIENDSHIP</h1>
-    <!-- 그냥 지금 나랑 친구상태인 녀석들 가져오는거랑 -> 그럼 back 에서 상태를 기준으로 검색하는 메소드 구현 필요 -->
     <div>
       <h3>내 친구 목록</h3>
-      <div v-for="friend in friends" :key="friend.id">
-        <p>친구 : {{ friend.userId }}</p>
-        <p>친구일 : {{ friend.sinceDate }}</p>
-        <button class="okBtn">상세보기</button>
-      </div>
+      <ul>
+        <li v-for="friend in friends" :key="friend.id" class="friend-item">
+          <span class="info">친구: {{ friend.userId }}</span>
+          <span class="info">친구일: {{ friend.sinceDate }}</span>
+          <button class="okBtn">상세보기</button>
+        </li>
+      </ul>
     </div>
     <div>
       <h3>내가 받은 친구 요청</h3>
-      <div v-for="received in receivedList" :key="received.id">
-        <div v-if="received.status === 203">
-          <p>요청한 친구 : {{ received.fromUserId }}</p>
-          <button class="okBtn" @click="positive(received.id)">수락</button>
-          <button @click="negative(received.id)">거절</button>
-        </div>
-      </div>
+      <ul>
+        <li v-for="received in receivedList" :key="received.id" class="received-item">
+          <div v-if="received.status === 203" class="request-info">
+            <span class="info">요청한 친구: {{ received.fromUserId }}</span>
+            <button class="okBtn" @click="positive(received.id)">수락</button>
+            <button @click="negative(received.id)">거절</button>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.mypage-friendship {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.friend-list {
+  text-align: center;
+}
+
+.friend-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.friend-item:hover {
+  background-color: #cfd8dc;
+}
+
+.info {
+  margin-right: 10px;
+  font-size: 16px;
+}
+.received-list {
+  text-align: center;
+}
+
+.received-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.received-item:hover {
+  background-color: #cfd8dc;
+}
+
+.request-info {
+  font-size: 16px;
+}
+</style>
