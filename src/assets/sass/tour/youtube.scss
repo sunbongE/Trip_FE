@@ -1,0 +1,24 @@
+#youtubeBox{
+    margin-top: 3em;
+    text-align: center;
+    padding: 20px 0;
+}
+#btnBox{
+    margin: 3em;
+}
+#videoView{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 20px;
+    justify-content: center;
+    margin-bottom: 3em;
+}
+#videoView>div,
+#videoView>iframe{
+
+    min-width: 586px;
+    min-height:300px;
+}
+iframe{
+    margin-top: 1.2em;
+}

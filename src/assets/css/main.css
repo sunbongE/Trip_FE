@@ -20,3 +20,16 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+
+.addBtn {
+    background-color: #508D69;
+    border: 1px solid #508D69;
+    color: #000000;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.addBtn:hover{
+    background-color: #3e7655;
+}

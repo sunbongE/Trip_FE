@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
-const emit = defineEmits(["selected"]);
+const emit = defineEmits(["selected","searchKeyword"]);
 
 var map;
 
@@ -77,9 +77,7 @@ const initMap = () => {
   });
   var positions = [];
 };
-const sel = () => {
-  console.log(22)
-}
+
 const loadMarkers = () => {
   // 현재 표시되어있는 marker들이 있다면 map에 등록된 marker를 제거한다.
   deleteMarkers();
@@ -105,28 +103,30 @@ const loadMarkers = () => {
 
       // image: markerImage, // 마커의 이미지
     });
-    var iwContent = `<div class="mks" style="padding:10px;" value=${position.contentId} >
-      <div>
-      <img src= ${position.backImg}
-    style="max-width:150px; max-height: 300px; margin: 0 auto; display: flex;">
-    <hr>
-      </div>
-      <p class="markP">${position.title}</p>
-      <br>
-      <div class="btnBox">
-        <button>유튜브 검색</button>
-        <button onclick="sel()" data-no=${position.contentId}>추가</button>
-        </div>
-      </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-      iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
-      iwRemoveable = true;
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-      position: iwPosition,
-      content: iwContent,
-      removable: iwRemoveable
-    });
+    let frame = document.createElement("div");
 
+var iwContent = `<div class="mks" style=" padding:20px; height:100%; width:300px;" value=${position.contentId} >
+  <div>
+    <img src=${position.backImg} style="max-width:150px; max-height: 300px; margin: 0 auto; display: flex;">
+    <hr>
+  </div>
+  <p class="markP" style=" margin: 0;"  >${position.title}</p>
+  <br>
+  <div class="btnBox">
+    <button style="height:50px;" id="youtubeButton" data-no=${position.title.split(' ').join('')}>유튭슛</button>
+    <div></div>
+    <button style="height:50px;"  data-no=${position.contentId} id="addButton">추가슛</button>
+  </div>
+</div>`;
+
+var iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+var iwRemoveable = true;
+
+var infowindow = new kakao.maps.InfoWindow({
+  position: iwPosition,
+  content: iwContent,
+  removable: iwRemoveable
+});
 
     // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
     // 마커에 마우스오버 이벤트를 등록합니다
@@ -143,10 +143,29 @@ const loadMarkers = () => {
     // 마커 클릭시 이벤트
     kakao.maps.event.addListener(marker, 'click', function () {
       // infowindow.close();
+      console.log("click Event")
       infowindow.open(map, marker);
+      // 인포윈도우 창이 열리고 버튼들에게 이벤트 주입.
+      var youtubeButtons = document.querySelectorAll('#youtubeButton');
+      var addButtons = document.querySelectorAll('#addButton');
+      youtubeButtons.forEach((youtubeButton) => {
+        youtubeButton.addEventListener("click",youTubeFunc)
+      })
+        
+      addButtons.forEach((addButton) => {
+        addButton.addEventListener("click",addFunc)
+      })
+        
       emit("selected", position);
     });
     markers.value.push(marker);
+    
+      // youtubeButton.click();
+
+// Simulate a click event on the 'Add' button after a certain delay (for demonstration purposes)
+// setTimeout(function() {
+//   addButton.click();
+// }, 2000); // Adjust the delay time as needed
   });
 
 
@@ -167,6 +186,20 @@ const deleteMarkers = () => {
     markers.value.forEach((marker) => marker.setMap(null));
   }
 };
+
+function youTubeFunc() {
+
+  let keyword = event.target.getAttribute("data-no");
+  // console.log(event.target)
+  console.log("유툽검색")
+  console.log("가라랏:::++>"+keyword)
+  emit("searchKeyword", keyword);
+}
+function addFunc() {
+  console.log(event.target)
+  console.log(event.target.getAttribute("data-no"))
+  console.log("여행지 추가")
+}
 </script>
 
 <template>

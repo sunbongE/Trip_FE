@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { getSidoList, getGugunList, getSearchTourinfo } from "@/api/tour";
 
 import KMap from "../components/tour/Map.vue";
@@ -12,11 +12,63 @@ const selectedSido = ref("");
 const selectedGugun = ref("");
 const selectedContentType = ref("");
 
+
 const dataList = ref([]);
 // 1. 페이지 로드 시 -> get /trip/sidoList
 onMounted(() => {
   loadSidos();
 });
+
+
+watch(dataList, () => {
+  var mapList = document.querySelector("#mapList");
+  while (mapList.firstChild) {
+    mapList.removeChild(mapList.firstChild);
+}
+  
+  // dataList 순회하면서 객체 만들어 바디에 붙여줌
+  dataList.value.forEach((data) => {
+    
+    var infoframe = document.createElement("div");
+    infoframe.className = "infoname"; 
+    infoframe.style = " border: 1px solid black; padding:10px"
+    var infohead = document.createElement("div");
+    infohead.className = "infohead";
+
+    var infotitle = document.createElement("p");
+    infotitle.className = "infotitle";
+    infotitle.innerText = data.title;
+
+    var infoaddr = document.createElement("p");
+    infoaddr.className = "infoaddr";
+    infoaddr.innerText = data.addr1 + data.addr2
+
+    var infotel = document.createElement("p");
+    infotel.className = "infotel";
+    infotel.innerText = data.tel;
+
+    var infoBtnBox = document.createElement("div");
+    infoBtnBox.style="display:flex;"
+    var infoBtn = document.createElement("button");
+    infoBtn.innerText = "추가"
+    infoBtn.value = data.contentId
+    infoBtn.className = "addBtn"
+    infoBtn.style = "width:150px; height:30px; padding:none !important; margin: 0 auto;"
+    infoBtn.addEventListener("click",(e)=>{console.log(e.target)})
+    
+    infoBtnBox.appendChild(infoBtn)
+    infohead.appendChild(infotitle);
+    infoframe.appendChild(infohead);
+    infoframe.appendChild(infoaddr);
+    infoframe.appendChild(infotel);
+    infoframe.appendChild(infoBtnBox);
+    // console.log(document.body.getElementsByClassName("#mapList"))
+    // document.body.appendChild(infoframe)
+    mapList.appendChild(infoframe);
+  })
+
+  console.log("watch실행중")
+})
 
 const loadSidos = () => {
   getSidoList(
@@ -42,14 +94,29 @@ function loadGuguns() {
 }
 
 function callSearchTourInfo() {
-  dataList.value = [];
+  if (selectedSido.value === '') {
+    alert("지역을 선택해주세요!")
+    return
+  } else if (selectedGugun.value === '') {
+    alert("시군구를 선택해주세요!")
+    return
+  } else if (selectedContentType.value === '') {
+    alert("관광지 유형을 선택해주세요!")
+    return;
+  }
   getSearchTourinfo(
     selectedSido.value,
     selectedGugun.value,
     selectedContentType.value,
     ({ data }) => {
-      // console.log(data);
+      if (data.length === 0) {
+        alert("다른데 검색하세요")
+          return
+        }
+        dataList.value = [];
+      // console.log("오나?")
       dataList.value = data;
+
     },
     (error) => console.log(error)
   );
@@ -59,8 +126,13 @@ function callSearchTourInfo() {
 const addList = (data) => {
   console.log(data)
 }
+const word = ref("");
+// 키워드 검색
+const searchFunc = (keyword) => {
+  // console.log(keyword)
+  word.value = keyword;
+}
 </script>
-
 <template>
   <section id="top-section">
     <!-- ment -->
@@ -70,12 +142,6 @@ const addList = (data) => {
     </div>
 
     <form id="search-form">
-      <!-- <select name="search-area" id="search-area" class="selectBox">
-                                                    <option value="">지역</option>
-                                                    <c:forEach var="item" items="${sidoList}">
-                                                        <option value="${item.sidoCode}">${item.sidoName}</option>
-                                                    </c:forEach>
-                                                </select> -->
       <select v-model="selectedSido" @change="loadGuguns" class="selectBox">
         <option value="">지역</option>
         <option v-for="item in sidoLists" :key="item.sidoCode" :value="item.sidoCode">
@@ -104,11 +170,11 @@ const addList = (data) => {
     </form>
     <div>
       <div id="MapFrame">
-        <div id="mapList"></div>
-        <KMap @selected="addList" :stations="dataList"></KMap>
+        <div id="mapList" class='mapList'></div>
+        <KMap @selected="addList" @search-keyword="searchFunc" :stations="dataList"></KMap>
       </div>
       <div id="YoutubeFrame">
-        <YouTube></YouTube>
+        <YouTube :keyword='word'></YouTube>
       </div>
     </div>
   </section>
