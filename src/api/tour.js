@@ -19,8 +19,15 @@ function getSearchTourinfo(sidoCode, gugunCode, contentTypeId, success, fail) {
         .then(success)
         .catch(fail);
 }
+
+function getSearchByPoint(map, success, fail) {
+    local.post(`/trip/searchByPoint`, JSON.stringify(map))
+        .then(success)
+        .catch(fail);
+}
 export {
     getSidoList,
     getGugunList,
     getSearchTourinfo,
+    getSearchByPoint,
 };
