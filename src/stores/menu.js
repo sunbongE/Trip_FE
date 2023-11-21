@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 
 export const useMenuStore = defineStore("menuStore", () => {
+  const cnt = ref(0);
   const menuList = ref([
     { name: "회원가입", show: true, routeName: "join" },
     { name: "로그인", show: true, routeName: "login" },
@@ -14,8 +15,9 @@ export const useMenuStore = defineStore("menuStore", () => {
   };
   return {
     menuList,
-    changeMenuState,
+    changeMenuState, cnt
   };
 },
-  { persist: { storage: localStorage } }
+  { persist: { storage: sessionStorage } }
+  // { persist: { storage: localStorage } }
 );
