@@ -1,9 +1,59 @@
 <script setup>
+import { onMounted, ref, watch } from "vue";
+import { getDescription, getSearchFood, getSearchHotel } from "@/api/tour";
 
 const props = defineProps({ dto: Array });
 
 //props.dto
 // props 에 있는 위도, 경도를 기준으로 다시 부가정보를 얻어오는 api를 구현 후 적용해준다.
+watch(
+  () => props.dto,
+  (newDto, oldDto) => {
+    // 변경될 때마다 실행되는 로직
+    callDescription(newDto);
+    callFoodList(newDto);
+    callHotelList(newDto);
+    // 여기;서 부가정보들도 바꿔주기 - 주변 숙소, 주변 음식가게
+  }
+);
+const description = ref("");
+const foodList = ref([]);
+const hotelList = ref([]);
+
+const callDescription = (newDto) => {
+  console.log("props.dto changed:", props.dto);
+  getDescription(newDto.contentId, ({ data }) => {
+    description.value = data;
+  });
+};
+
+const callFoodList = (newDto) => {
+  getSearchFood(
+    {
+      latitude: newDto.latitude.value,
+      longitude: newDto.longitude.value,
+    },
+    ({ data }) => {
+      console.log("검색결과 data : ", data);
+      foodList.value = data;
+    },
+    (error) => console.log(error)
+  );
+};
+
+const callHotelList = (newDto) => {
+  getSearchHotel(
+    {
+      latitude: newDto.latitude.value,
+      longitude: newDto.longitude.value,
+    },
+    ({ data }) => {
+      console.log("검색결과 data : ", data);
+      hotelList.value = data;
+    },
+    (error) => console.log(error)
+  );
+};
 </script>
 
 <template>
@@ -15,22 +65,30 @@ const props = defineProps({ dto: Array });
       <div v-else class="image-container">
         <img src="https://i.ibb.co/HgKFDHT/image-ready.png" alt="Image" class="image" />
       </div>
-      
+
       <div class="info-container">
         <h2 class="title">{{ props.dto.title }}</h2>
         <p class="address">{{ props.dto.addr1 }}</p>
         <p class="tel">{{ props.dto.tel }}</p>
+        <p class>{{ description }}</p>
       </div>
     </div>
 
     <div class="div2">
       <div class="sub-container">
         <h3 class="title">주변 숙박업소</h3>
+        <div v-for="hotel in hotelList" :key="hotel.contentId" class="obj-container">
+          <p>{{ hotel.title }}</p>
+          <p>{{ hotel.addr1 }}</p>
+        </div>
       </div>
 
       <div class="sub-container">
         <h3 class="title">주변 식당</h3>
-        <!-- 내용 추가 -->
+        <div v-for="food in foodList" :key="food.contentId" class="obj-container">
+          <p>{{ food.title }}</p>
+          <p>{{ food.addr1 }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -40,7 +98,12 @@ const props = defineProps({ dto: Array });
   display: flex;
   flex-direction: column;
 }
-
+.obj-container{
+  border: 1px solid blue;
+  border-radius: 10px;
+  padding : 5px;
+  margin : 5px;
+}
 .div1 {
   flex: 1;
   display: flex;
