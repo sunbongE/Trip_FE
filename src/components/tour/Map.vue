@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
-const emit = defineEmits(["selected","searchKeyword"]);
+const emit = defineEmits(["selected", "searchKeyword"]);
 
 var map;
 
@@ -10,19 +10,6 @@ const markers = ref([]);
 // const props = defineProps({ stations: Array, selectStation: Object });
 const props = defineProps({ stations: Array });
 
-
-// watch(
-//   () => props.selectStation.value,
-//   () => {
-//     // 이동할 위도 경도 위치를 생성합니다
-//     var moveLatLon = new kakao.maps.LatLng(props.selectStation.lat, props.selectStation.lng);
-
-//     // 지도 중심을 부드럽게 이동시킵니다
-//     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-//     map.panTo(moveLatLon);
-//   },
-//   { deep: true }
-// );
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
@@ -42,13 +29,18 @@ watch(
   () => {
     positions.value = [];
     props.stations.forEach((station) => {
+      // console.log(station)
+
       let obj = {};
       obj.latlng = new kakao.maps.LatLng(station.latitude, station.longitude);
       obj.title = station.title;
       obj.contentId = station.contentId;
-      obj.contentType = station.contentType;
+      obj.contentType = station.contentTypeId;
       obj.backImg = station.firstImage;
       obj.tel = station.tel;
+      obj.addr = station.addr1 + station.addr2;
+      obj.latitude = station.latitude;
+      obj.longitude = station.longitude;
 
       positions.value.push(obj);
     });
@@ -91,42 +83,43 @@ const loadMarkers = () => {
   // 마커를 생성합니다
   markers.value = [];
   positions.value.forEach((position) => {
+    // console.log(position)
     const marker = new kakao.maps.Marker({
       map: map, // 마커를 표시할 지도
       position: position.latlng, // 마커를 표시할 위치
       title: position.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됨.
       clickable: true, // // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-      contentId: position.contentId,
-      contentType: position.contentType,
-      backImg: position.firstImage,
-      tel: position.tel,
+      // contentId: position.contentId,
+      // contentType: position.contentType,
+      // backImg: position.firstImage,
+      // tel: position.tel,
 
       // image: markerImage, // 마커의 이미지
     });
-    let frame = document.createElement("div");
 
-var iwContent = `<div class="mks" style=" padding:20px; height:100%; width:300px;" value=${position.contentId} >
+
+    var iwContent = `<div class="mks" style=" padding:20px; height:100%; width:300px;" value=${position.contentId} >
   <div>
-    <img src=${position.backImg} style="max-width:150px; max-height: 300px; margin: 0 auto; display: flex;">
+    <img class="imgInfo" src=${position.backImg} style="max-width:150px; max-height: 300px; margin: 0 auto; display: flex;">
     <hr>
   </div>
   <p class="markP" style=" margin: 0;"  >${position.title}</p>
   <br>
   <div class="btnBox">
-    <button style="height:50px;" id="youtubeButton" data-no=${position.title.split(' ').join('')}>유튭슛</button>
-    <div></div>
-    <button style="height:50px;"  data-no=${position.contentId} id="addButton">추가슛</button>
+    <button style="height:50px;" id="youtubeButton" class="okBtn" data-no=${position.title.split(' ').join('')} >유튭슛</button>
+    <div id="dataBox" data-addr="${position.addr}" data-latitude=${position.latitude} data-longitude="${position.longitude}" data-tel="${position.tel}" data-contentTypeId="${position.contentType}"></div>
+    <button style="height:50px;" data-type=${position.contentType} data-no=${position.contentId} id="addButton" class="addBtn">추가슛</button>
   </div>
 </div>`;
 
-var iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-var iwRemoveable = true;
+    var iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+    var iwRemoveable = true;
 
-var infowindow = new kakao.maps.InfoWindow({
-  position: iwPosition,
-  content: iwContent,
-  removable: iwRemoveable
-});
+    var infowindow = new kakao.maps.InfoWindow({
+      position: iwPosition,
+      content: iwContent,
+      removable: iwRemoveable
+    });
 
     // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
     // 마커에 마우스오버 이벤트를 등록합니다
@@ -149,23 +142,23 @@ var infowindow = new kakao.maps.InfoWindow({
       var youtubeButtons = document.querySelectorAll('#youtubeButton');
       var addButtons = document.querySelectorAll('#addButton');
       youtubeButtons.forEach((youtubeButton) => {
-        youtubeButton.addEventListener("click",youTubeFunc)
+        youtubeButton.addEventListener("click", youTubeFunc)
       })
-        
+
       addButtons.forEach((addButton) => {
-        addButton.addEventListener("click",addFunc)
+        addButton.addEventListener("click", addFunc)
       })
-        
-      emit("selected", position);
+
+
     });
     markers.value.push(marker);
-    
-      // youtubeButton.click();
 
-// Simulate a click event on the 'Add' button after a certain delay (for demonstration purposes)
-// setTimeout(function() {
-//   addButton.click();
-// }, 2000); // Adjust the delay time as needed
+    // youtubeButton.click();
+
+    // Simulate a click event on the 'Add' button after a certain delay (for demonstration purposes)
+    // setTimeout(function() {
+    //   addButton.click();
+    // }, 2000); // Adjust the delay time as needed
   });
 
 
@@ -192,13 +185,30 @@ function youTubeFunc() {
   let keyword = event.target.getAttribute("data-no");
   // console.log(event.target)
   console.log("유툽검색")
-  console.log("가라랏:::++>"+keyword)
+  console.log("가라랏:::++>" + keyword)
   emit("searchKeyword", keyword);
 }
 function addFunc() {
-  console.log(event.target)
-  console.log(event.target.getAttribute("data-no"))
-  console.log("여행지 추가")
+  let title = event.target.parentNode.parentNode.querySelector(".markP").innerText
+  let contentId = event.target.getAttribute("data-no")
+  let firstImage = event.target.parentNode.parentNode.querySelector(".imgInfo").src
+  let tel = event.target.parentNode.parentNode.querySelector("#dataBox").getAttribute("data-tel")
+  let contentTypeId = event.target.parentNode.parentNode.querySelector("#dataBox").getAttribute("data-contentTypeId")
+  let latitude = event.target.parentNode.parentNode.querySelector("#dataBox").getAttribute("data-latitude")
+  let longitude = event.target.parentNode.parentNode.querySelector("#dataBox").getAttribute("data-longitude")
+  let addr = event.target.parentNode.parentNode.querySelector("#dataBox").getAttribute("data-addr")
+  let info = {
+    title: title,
+    contentId: contentId,
+    firstImage: firstImage,
+    tel: tel,
+    contentTypeId: contentTypeId,
+    latitude: latitude,
+    longitude: longitude,
+    addr: addr
+  }
+  emit("selected", info);
+
 }
 </script>
 

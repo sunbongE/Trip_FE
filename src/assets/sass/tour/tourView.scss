@@ -65,10 +65,97 @@ button {
 }
 
 #search-form {
+    grid-gap: 10px;
     display: flex;
     margin-inline: auto;
     justify-content: space-evenly;
     margin-bottom: 30px;
-    width: 80%;
+    width: 100%;
     box-sizing: border-box;
+}
+
+#planImg {
+    height: 50px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+#planBox {
+    position: relative;
+    height: 50px;
+}
+
+#planImg:hover {
+    transform: scale(1.2);
+}
+
+#planCnt {
+    height: 25px;
+    width: 25px;
+    background-color: #e7779d52;
+    position: relative;
+    border-radius: 50%;
+    bottom: 115%;
+    left: 0;
+    text-align: center;
+}
+
+#showPlan {
+    background-color: #ECF4D6;
+    width: 500px;
+    min-height: 800px;
+    z-index: 1030;
+    position: absolute;
+    border-radius: 20px 90px 20px 20px;
+    top: 100%;
+    left: 75%;
+    padding: 30px;
+    box-shadow: 5px 5px 5px 5px #265073;
+
+    h2 {
+        text-align: center;
+        margin: 0;
+    }
+
+    // #myList{
+
+    // }
+    #showPlanFrame {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        #noticePlan {
+            height: 10%;
+            margin-bottom: 1em;
+
+            display: flex;
+            justify-content: center;
+
+            a {
+                align-self: flex-end;
+                margin-left: 15px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        #myList {
+            height: 90%;
+            border: 1px solid black;
+            border-radius: 20px;
+        }
+    }
+}
+
+#myListFrame {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    padding: 20px;
+
+    img {
+        width: 150px;
+        border-radius: 20px;
+        height: auto;
+    }
 }
