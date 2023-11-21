@@ -55,6 +55,9 @@ function deleteById(id, success, fail) {
     local.delete(`/club/status/delete/${id}`).then(success).catch(fail);
 }
 
+function addClubMember(dto, success, fail) {
+    local.post(`/club/regist/member`, JSON.stringify(dto)).then(success).catch(fail);
+}
 export {
     searchMyClubs,
     searchByToUserId,
@@ -69,4 +72,5 @@ export {
     deleteClubMemberByid,
     insertClubStatus,
     deleteById,
+    addClubMember,
 }

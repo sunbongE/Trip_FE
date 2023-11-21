@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useMemberStore } from "@/stores/member";
 import { searchByStatus, getReceived, answer } from "@/api/friendship";
 import { useFriendshipStore } from "@/stores/friend";
@@ -8,6 +8,8 @@ import { storeToRefs } from "pinia";
 const friendshipStore = useFriendshipStore();
 const memberStore = useMemberStore();
 const { friends, receivedList } = storeToRefs(friendshipStore);
+const { setFriends, setReceivedList, deleteReceivedList } = friendshipStore;
+
 const req = ref({
   userId: "",
   status: 201,
@@ -30,8 +32,8 @@ onMounted(async () => {
   searchByStatus(
     req.value,
     ({ data }) => {
-      console.log(data);
-      friendshipStore.setFriends(data);
+      console.log("내친구목록 : ", data);
+      setFriends(data);
     },
     (error) => console.log(error)
   );
@@ -39,9 +41,9 @@ onMounted(async () => {
   getReceived(
     memberStore.userInfo.userId,
     ({ data }) => {
-      console.log(data);
+      console.log("친구요청" + data);
       // receivedList.value = data;
-      friendshipStore.setReceivedList(data);
+      setReceivedList(data);
     },
     (error) => console.log(error)
   );
@@ -58,7 +60,7 @@ function negative(receivedId) {
   user_answer.value = 202;
   callAnswer(receivedId);
 }
-function callAnswer(receivedId) {
+async function callAnswer(receivedId) {
   console.log("요청 수락 혹은 거절 :", receivedId);
   const received = receivedList.value.filter((item) => item.id === receivedId)[0];
 
@@ -66,18 +68,19 @@ function callAnswer(receivedId) {
     // received 객체에서 toUserId를 가져와 사용
     const toUserId = received.toUserId;
 
-    answer({
+    await answer({
       id: receivedId,
       fromUserId: memberStore.userInfo.userId,
       toUserId: toUserId,
       status: user_answer.value,
     });
 
-    friendshipStore.deleteReceivedList(receivedId);
+    await deleteReceivedList(receivedId);
     location.reload();
   } else {
     console.error("Received request not found");
   }
+
 }
 </script>
 

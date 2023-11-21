@@ -1,7 +1,13 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useMemberStore } from "@/stores/member";
-import { searchMyClubs, searchByToUserId, searchByFromUserId } from "@/api/club";
+import {
+  addClubMember,
+  searchMyClubs,
+  searchByToUserId,
+  searchByFromUserId,
+  replyToAnswer,
+} from "@/api/club";
 import { useClubStore } from "@/stores/club";
 import { storeToRefs } from "pinia";
 
@@ -24,7 +30,7 @@ onMounted(async () => {
   searchMyClubs(
     memberStore.userInfo.userId,
     ({ data }) => {
-      console.log("나의 클럽 : " , data);
+      console.log("나의 클럽 : ", data);
       myClubs.value = data;
     },
     (error) => console.log(error)
@@ -33,7 +39,7 @@ onMounted(async () => {
   searchByToUserId(
     memberStore.userInfo.userId,
     ({ data }) => {
-      console.log("나에게온 요청 : " , data);
+      console.log("나에게온 요청 : ", data);
       toMeList.value = data;
     },
     (error) => console.log(error)
@@ -42,7 +48,7 @@ onMounted(async () => {
   searchByFromUserId(
     memberStore.userInfo.userId,
     ({ data }) => {
-      console.log("내가 보낸 : " , data);
+      console.log("내가 보낸 : ", data);
       fromMeList.value = data;
     },
     (error) => console.log(error)
@@ -52,11 +58,45 @@ onMounted(async () => {
 function acceptEvent(dto) {
   // 성공 이벤트
   // 참가받아주기
-  // 
+  console.log("요청상태 수락변경 - status ID : ", dto.id);
+  console.log("요청상태 수락변경 - status clubID : ", dto.clubId);
+  console.log("요청상태 수락변경 - status userID : ", dto.userId);
+
+  replyToAnswer({
+    id: dto.id,
+    answer: 101,
+  });
+  deleteToMeList(dto.id);
+  plusPeopleOfMyClubs(dto.id);
+  location.reload();
 }
 
-function rejectEvent() {
-  
+function rejectEvent(dto) {
+  replyToAnswer({
+    id: dto.id,
+    answer: 102,
+  });
+
+  deleteToMeList(dto.id);
+}
+
+const deleteToMeList = function (id) {
+  toMeList.value = toMeList.value.filter((item) => item.id !== id);
+};
+
+// myClubs.value.people = computed(toMeList.length, () => {
+//   return value[index].people++;
+// })
+
+const plusPeopleOfMyClubs = function (id) {
+  const index = myClubs.value.findIndex(item => item.id === id);
+
+  if (index !== -1) {
+    // 찾았을 때만 업데이트
+    myClubs.value[index].people = computed(toMeList.length, () => {
+      return value[index].people++;
+    })
+  }
 }
 </script>
 
@@ -74,9 +114,12 @@ function rejectEvent() {
 
     <h3>나에게 온 요청</h3>
     <div v-for="tm in toMeList" :key="tm.id">
-      <p>FROM : {{ tm.fromUserId }}</p>
-      <p>TO : {{ tm.toUserId }}</p>
-      <button class="okBtn" @click="acceptEvent(tm)">수락</button><button @click="rejectEvent(tm)">거절</button>
+      <div v-show="tm.answer === 103">
+        <p>FROM : {{ tm.fromUserId }}</p>
+        <p>TO : {{ tm.toUserId }}</p>
+        <button class="okBtn" @click="acceptEvent(tm)">수락</button
+        ><button @click="rejectEvent(tm)">거절</button>
+      </div>
     </div>
     <h3>내가 보낸 요청</h3>
     <div v-for="fm in fromMeList" :key="fm.id">

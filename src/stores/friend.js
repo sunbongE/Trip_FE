@@ -26,17 +26,19 @@ export const useFriendshipStore = defineStore("friendship", () => {
   const friends = ref([]);
   const receivedList = ref([]);
 
-  const setFriends = function (friends) {
-    this.friends = friends;
+  const setFriends = function (friend) {
+    friends.value = friend;
   };
 
-  const setReceivedList = function (receivedList) {
-    this.receivedList = receivedList;
+  const setReceivedList = function (list) {
+
+    receivedList.value = list;
   };
 
   const deleteReceivedList = function (receivedId) {
-    this.receivedList = this.receivedList.filter((item) => item.id !== receivedId);
+    receivedList.value = receivedList.value.filter((item) => item.id !== receivedId);
   };
+
 
   return {
     friends,
