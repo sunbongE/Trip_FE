@@ -39,7 +39,8 @@ onMounted(() => {
     <div id="youtubeBox">
         <h2>유튜브 검색 결과</h2>
         <div id="btnBox">
-            <input type="text" id="query" :value='keyword' @keyup.enter="searchF" /><button id="btn-search">검색</button>
+            <input type="text" id="query" :value='keyword' @keyup.enter="searchF" /><button id="btn-search"
+                class="okBtn">검색</button>
         </div>
         <div id="videoView">
 
