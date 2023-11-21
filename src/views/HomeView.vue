@@ -1,6 +1,10 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { getSearchByPoint } from "@/api/tour";
+import { useRouter } from 'vue-router';
+import { useRecoStore } from "@/stores/reco";
+const router = useRouter();
+const recoStore = useRecoStore();
 // import { onBeforeRouteLeave } from 'vue-router';
 
 // onBeforeRouteLeave(() => {
@@ -82,6 +86,9 @@ function callGetSearchByPoint() {
     ({ data }) => {
       console.log("검색결과 data : ", data);
       // 어딘가로 이동
+      recoStore.searchLists = data;
+      router.push("reco")
+    
     },
     (error) => console.log(error)
   );

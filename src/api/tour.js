@@ -25,6 +25,13 @@ function getSearchByPoint(map, success, fail) {
         .then(success)
         .catch(fail);
 }
+
+function getDescription(contentId, success, fail) {
+    local.get(`/trip/getDescription/${contentId}`)
+        .then(success)
+        .catch(fail);
+}
+
 export {
     getSidoList,
     getGugunList,

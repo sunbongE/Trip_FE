@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue"
 import MemberView from "@/views/MemberView.vue"
+import RecoView from "@/views/RecoView.vue"
 // import BoardView from "@/views/BoardView.vue"
 // import QnAView from "@/views/QnAView.vue"
 // import BoardList from "@/components/board/BoardList.vue"
@@ -173,6 +174,11 @@ const router = createRouter({
           component: () => import("@/components/QnA/QnAModify.vue"),
         },
       ],
+    },
+    {
+      path:"/reco",
+      name: "reco",
+      component: RecoView
     },
   ]
 })
