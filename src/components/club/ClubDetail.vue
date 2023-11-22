@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { findClubById, searchClubMemberByClubId } from "@/api/club";
+import { findClubById, searchClubMemberByClubId, deleteClub, updateClub } from "@/api/club";
 import { searchPlanById } from "@/api/plan";
 import { useMemberStore } from "@/stores/member";
 import { findByContentId } from "@/api/tour";
@@ -25,6 +25,26 @@ const attInfos = ref([]);
 //     "totalCnt": 10,
 //     "people": 0
 const loginUser = ref([]);
+const editMode = ref(false);
+const editMode2 = ref(false);
+const editedSubject = ref("");
+const editedContent = ref("");
+const toggleEditMode = () => {
+  editMode.value = !editMode.value;
+  // 편집 모드로 전환 시, 편집 중인 내용을 초기화
+  if (editMode.value) {
+    editedContent.value = club.value.content;
+  }
+};
+
+const toggleEditMode2 = () => {
+  editMode2.value = !editMode2.value;
+  // 편집 모드로 전환 시, 편집 중인 내용을 초기화
+  if (editMode2.value) {
+    editedSubject.value = club.value.subject;
+  }
+};
+
 // onmounted 에선
 // club의 userID 와 memberStore의 id 가 같으면 수정 삭제 버튼을 활성화 한다.
 onMounted(async () => {
@@ -76,8 +96,41 @@ onMounted(async () => {
 });
 
 function goBack() {
-    router.back();
+  router.back();
 }
+
+function deleteEvent(id) {
+  var confirmed = confirm(" 정말 삭제하시겠습니까 ?");
+  if (confirmed) {
+    console.log("삭제를 진행합니다 - CLUB ID : ", id);
+    deleteClub(id);
+
+    router.push("/club");
+  } else {
+    console.log("삭제를 하지 않습니다.");
+  }
+}
+const modify = (type) => {
+  console.log("수정된 내용:", editedContent.value);
+  // update
+  updateClub({
+    id: club.value.id,
+    [type]: editedContent.value,
+  });
+  editMode.value = false;
+  club.value.content = editedContent.value;
+};
+
+const modify2 = (type) => {
+  console.log("수정된 내용:", editedSubject.value);
+  // update
+  updateClub({
+    id: club.value.id,
+    [type]: editedSubject.value,
+  });
+  editMode2.value = false;
+  club.value.subject = editedSubject.value;
+};
 </script>
 <template>
   <div class="top">
@@ -86,19 +139,48 @@ function goBack() {
   </div>
   <div class="detail-container">
     <div class="detail-header">
-      <div class="header-subject">{{ club.subject }}</div>
+      <div class="header-subject">
+        <div v-if="!editMode2" @click="toggleEditMode2">{{ club.subject }}</div>
+        <input v-else v-model="editedSubject" @keyup.enter="modify2('subject')" />
+        <img
+          v-show="loginUser.userId === club.userId"
+          v-if="!editMode2"
+          src="@/assets/images/club/edit_icon.png"
+          alt=""
+          class="edit_icon"
+          @click="toggleEditMode2"
+        />
+      </div>
       <div class="header-userid">작성자 : {{ club.userId }}</div>
       <div class="header-register-time">등록일 : {{ club.registerTime }}</div>
     </div>
     <div class="detail-body">
-      <div class="body-content">{{ club.content }}</div>
+      <div class="body-content">
+        <!-- {{ club.content }}
+        <img src="@/assets/images/club/edit_icon.png" alt="" class="edit_icon" /> -->
+        <div v-if="!editMode" @click="toggleEditMode">{{ club.content }}</div>
+        <input v-else v-model="editedContent" @keyup.enter="modify('content')" />
+        <img
+          v-show="loginUser.userId === club.userId"
+          v-if="!editMode"
+          src="@/assets/images/club/edit_icon.png"
+          alt=""
+          class="edit_icon"
+          @click="toggleEditMode"
+        />
+      </div>
       <div class="body-planinfo">
         <div class="body-planinfo-item" v-for="info in attInfos" :key="info.contentId">
           <div v-if="info.firstImage || info.firstImage2" class="body-planinfo-item-img">
             <img :src="info.firstImage || info.firstImage2" alt="Image" class="image" />
           </div>
           <div v-else class="body-planinfo-item-img">
-            <img src="https://i.ibb.co/HgKFDHT/image-ready.png" alt="Image" class="image" />
+            <img
+              v-show="loginUser.userId === club.userId"
+              src="https://i.ibb.co/HgKFDHT/image-ready.png"
+              alt="Image"
+              class="image"
+            />
           </div>
           <div class="body-planinfo-item-info">
             {{ info.title }}<br />
@@ -110,8 +192,7 @@ function goBack() {
     </div>
     <div class="detail-footer">
       <div class="iflogin" v-show="loginUser.userId === club.userId">
-        <button class="animate-button" @click="animateButtons">수정</button>
-        <button class="animate-button" @click="animateButtons">삭제</button>
+        <button class="animate-button" @click="deleteEvent(club.id)">삭제</button>
       </div>
       <div class="common">
         <button class="animate-button" @click="goBack">뒤로</button>
@@ -132,6 +213,10 @@ function goBack() {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
+}
+.edit_icon {
+  height: 10px;
+  width: 10px;
 }
 
 .image {

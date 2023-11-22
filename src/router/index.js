@@ -203,6 +203,11 @@ const router = createRouter({
           name: "club-detail",
           component: () => import("@/components/club/ClubDetail.vue"),
         },
+        {
+          path: "write/:planId",
+          name: "club-write",
+          component: () => import("@/components/club/ClubWrite.vue"),
+        }
       ]
     },
   ]
