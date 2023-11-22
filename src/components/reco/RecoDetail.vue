@@ -69,8 +69,8 @@ const callHotelList = (newDto) => {
       <div class="info-container">
         <h2 class="title">{{ props.dto.title }}</h2>
         <p class="address">{{ props.dto.addr1 }}</p>
-        <p class="tel">{{ props.dto.tel }}</p>
-        <p class>{{ description }}</p>
+        <div class="tel">{{ props.dto.tel }}</div>
+        <div class="desc">{{ description }}</div>
       </div>
     </div>
 
@@ -98,11 +98,11 @@ const callHotelList = (newDto) => {
   display: flex;
   flex-direction: column;
 }
-.obj-container{
+.obj-container {
   border: 1px solid blue;
   border-radius: 10px;
-  padding : 5px;
-  margin : 5px;
+  padding: 5px;
+  margin: 5px;
 }
 .div1 {
   flex: 1;
@@ -111,7 +111,8 @@ const callHotelList = (newDto) => {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #87ceeb; /* 하늘색 */
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
 }
 
 .image-container {
@@ -130,6 +131,14 @@ const callHotelList = (newDto) => {
 .title {
   font-size: 1.5em;
   margin-bottom: 10px;
+}
+
+.desc {
+  padding: 20px;
+  height: 200px;
+  margin-top: auto;
+  overflow-y: scroll;
+  border: 1px solid #e3e3e3;
 }
 
 .div2 {
