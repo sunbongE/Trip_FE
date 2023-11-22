@@ -59,6 +59,9 @@ if (sessionStorage.getItem("memberStore") != null) {
         <div class="navbar-nav">
           <a href="/board" class="nav-link active">게시판</a>
           <a href="/qna" class="nav-link active">QnA</a>
+          <a href="/plan" class="nav-link active">여행계획</a>
+          <a href="/tour/plan" class="nav-link active">여행지검색</a>
+          <a href="/club" class="nav-link active">동행</a>
         </div>
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
           <div class='statusBox' v-if='logined'>

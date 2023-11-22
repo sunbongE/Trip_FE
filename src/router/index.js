@@ -6,6 +6,7 @@ import RecoView from "@/views/RecoView.vue"
 // import QnAView from "@/views/QnAView.vue"
 // import BoardList from "@/components/board/BoardList.vue"
 import TourView from "@/views/TourView.vue"
+import PlanView from "@/views/Planview.vue"
 // import QnAList from "@/components/QnA/QnAList.vue"
 
 import { storeToRefs } from "pinia";
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/tour/plan',
       name: 'tour-plan',
       component: TourView
+    },
+    {
+      path: '/plan',
+      name: 'plan',
+      component: PlanView
     },
     {
       path: '/member',
