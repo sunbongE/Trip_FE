@@ -4,9 +4,12 @@ a {
   font-weight: bolder;
 
 }
-.statusBox{
+
+.statusBox {
+  grid-gap: 10px;
   display: flex;
 }
+
 #homeBtn {
   font-weight: bold;
 
@@ -18,14 +21,17 @@ nav {
   width: 100vw;
 
 }
-#alarmI{
+
+#alarmI {
   margin-top: 7px;
   cursor: pointer;
 }
-#alarmFrame{
+
+#alarmFrame {
   position: relative;
 }
-#alarmCnt{
+
+#alarmCnt {
   display: flex;
   align-items: center;
   left: 15px;
@@ -35,7 +41,8 @@ nav {
   border-radius: 10px;
   position: absolute;
   background-color: rgba(255, 162, 0, 0.51);
-  span{
+
+  span {
     text-align: center;
     text-justify: center;
     margin: 0 auto;
@@ -43,7 +50,7 @@ nav {
   }
 }
 
-#alarmBox{
+#alarmBox {
   overflow: scroll;
   position: absolute;
   right: 30px;
@@ -52,26 +59,43 @@ nav {
   width: 320px;
   padding: 30px;
   height: 500px;
-  background-color:#EBE3D5;
+  background-color: #EBE3D5;
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
 #alarmBox::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
+  display: none;
+  /* Chrome, Safari, Opera*/
 }
-.status{
+
+.status {
   width: 10px;
   height: 10px;
   border-radius: 10px;
-  background-color:#5877e6 ;
+  background-color: #5877e6;
 }
-.alarm{
+
+.alarm {
   cursor: pointer;
 }
-.alarm>p{
+
+.alarm>p {
   flex-wrap: nowrap;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+@media screen and (max-width: 991px) {
+  .statusBox {
+    flex-direction: column;
+  }
+
+  #alarmBox {
+    position: fixed;
+    top: 320px;
+    left: 0;
+    border-radius: 40px 40px 40px 40px;
+  }
 }

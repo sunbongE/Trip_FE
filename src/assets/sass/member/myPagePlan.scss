@@ -1,18 +1,23 @@
-h1{
+h1 {
     margin: 1em 0;
     text-align: center;
     font-weight: bold;
 }
-h3{
+
+h3 {
     font-weight: bold;
 }
 
 #cardFrame::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
+    /* Chrome, Safari, Opera*/
 }
-#cardFrame{
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+
+#cardFrame {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 
     max-height: 600px;
     overflow: scroll;
@@ -22,7 +27,10 @@ h3{
     grid-gap: 2em;
     margin-bottom: 80px;
 }
-.planCard{
+
+.planCard {
+    display: flex;
+    flex-direction: column;
     transition: transform 0.3s ease-in-out;
     margin-top: 10px;
 
@@ -33,6 +41,39 @@ h3{
     height: 300px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 .planCard:hover {
-    transform: scale(1.1); /* 원하는 크기로 조정하세요 */
+    transform: scale(1.1);
+    /* 원하는 크기로 조정하세요 */
+}
+
+.tourList {
+    overflow: hidden;
+}
+
+.btns {
+    grid-gap: 1em;
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#clubBtn {
+    background-color: #51abf3 !important;
+    border: 1px solid #51abf3 !important;
+    border-radius: 10px;
+}
+
+#clubBtn:hover {
+    background-color: #309df6 !important;
+}
+
+#delBtn {
+    border: 3px solid #51abf3 !important;
+    background-color: #fff !important;
+    border-radius: 10px;
+}
+
+#delBtn:hover {
+    border: 3px solid #309df6 !important;
 }
