@@ -11,11 +11,15 @@ export const useTourPlanStore = defineStore("tourPlanStore", () => {
         return planList.value.length;
     });
 
+    const selecList = ref([])
 
+    const infos = ref([])
 
     return {
         planListCnt,
-        planList
+        planList,
+        selecList,
+        infos
     };
 },
     { persist: { storage: sessionStorage } }

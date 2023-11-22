@@ -205,7 +205,8 @@ function addFunc() {
     contentTypeId: contentTypeId,
     latitude: latitude,
     longitude: longitude,
-    addr: addr
+    addr: addr,
+    selected:false
   }
   emit("selected", info);
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, onMounted, watch  } from "vue";
 import { getSidoList, getGugunList, getSearchTourinfo } from "@/api/tour";
 import { useTourPlanStore } from "@/stores/tourPlan"
 import { storeToRefs } from "pinia";
@@ -56,7 +56,8 @@ const makeData = () => {
     contentTypeId: contentTypeId,
     latitude: latitude,
     longitude: longitude,
-    addr: addr
+    addr: addr,
+    selected:false
   }
   // 생성한 정보로 리스트 추가 함수 호출
   addList(info);
