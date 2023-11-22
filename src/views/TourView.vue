@@ -226,7 +226,7 @@ const planTogleFunc = () => {
         <div id="showPlan" v-show="planTogle">
           <div id="showPlanFrame">
             <div id="noticePlan">
-              <h2>여행지 목록</h2> <a id="movePlan" href="#">계획하기👉</a>
+              <h2>여행지 목록</h2> <a id="movePlan" href="/plan">계획하기👉</a>
             </div>
             <div id="myList">
               <template v-for="planInfo in planList" :key="planInfo.contentId">

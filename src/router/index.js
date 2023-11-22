@@ -44,7 +44,7 @@ const router = createRouter({
     },
     {
       path: '/plan',
-      name: 'plan',
+      name: 'planWrite',
       component: PlanView
     },
     {

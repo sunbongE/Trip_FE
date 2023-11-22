@@ -59,7 +59,6 @@ if (sessionStorage.getItem("memberStore") != null) {
         <div class="navbar-nav">
           <a href="/board" class="nav-link active">게시판</a>
           <a href="/qna" class="nav-link active">QnA</a>
-          <a href="/plan" class="nav-link active">여행계획</a>
           <a href="/tour/plan" class="nav-link active">여행지검색</a>
           <a href="/club" class="nav-link active">동행</a>
         </div>
