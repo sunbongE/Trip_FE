@@ -183,12 +183,12 @@ const router = createRouter({
       ],
     },
     {
-      path:"/reco",
+      path: "/reco",
       name: "reco",
       component: RecoView
     },
     {
-      path:"/club",
+      path: "/club",
       name: "club",
       component: ClubView,
       redirect: { name: "club-list" },

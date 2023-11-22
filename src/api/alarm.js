@@ -11,10 +11,10 @@ function getAlarm(userId, success, fail) {
 //     local.get(`/plan/search/${id}`).then(success).catch(fail);
 // }
 function readAlarm(id, success, fail) {
-    local.put(`/alarm/readAlarm`,id).then(success).catch(fail);
+    local.put(`/alarm/readAlarm`, id).then(success).catch(fail);
 }
-function deleteAlarm(id, success, fail) {
-    local.delete(`/alarm/deleteAlarm/${id}`).then(success).catch(fail);
+function deleteAlarm(userId, success, fail) {
+    local.delete(`/alarm/deleteAlarm/${userId}`).then(success).catch(fail);
 }
 
 export {
