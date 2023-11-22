@@ -1,0 +1,31 @@
+#planFrame{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2{
+        font-weight: bold;
+        padding-top: 50px;
+    }
+    #tourList{
+        width: 100%;
+        height: 300px;
+        display: flex;
+        grid-gap: 1em;
+        flex-wrap: nowrap;
+        overflow: scroll;
+    }
+}
+
+.showPlanFrame{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    height: 100%;
+    .Images{
+        img{
+
+            max-width: 250px;
+            height: auto;
+        }
+    }
+}
