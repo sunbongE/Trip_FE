@@ -7,6 +7,7 @@ import RecoView from "@/views/RecoView.vue"
 // import BoardList from "@/components/board/BoardList.vue"
 import TourView from "@/views/TourView.vue"
 import PlanView from "@/views/Planview.vue"
+import ClubView from "@/views/ClubView.vue"
 // import QnAList from "@/components/QnA/QnAList.vue"
 
 import { storeToRefs } from "pinia";
@@ -185,6 +186,24 @@ const router = createRouter({
       path:"/reco",
       name: "reco",
       component: RecoView
+    },
+    {
+      path:"/club",
+      name: "club",
+      component: ClubView,
+      redirect: { name: "club-list" },
+      children: [
+        {
+          path: "list",
+          name: "club-list",
+          component: () => import("@/components/club/ClubList.vue"),
+        },
+        {
+          path: "detail/:clubId",
+          name: "club-detail",
+          component: () => import("@/components/club/ClubDetail.vue"),
+        },
+      ]
     },
   ]
 })

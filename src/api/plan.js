@@ -7,6 +7,11 @@ function searchPlanByUserId(userId, success, fail) {
     local.get(`/plan/search/my/${userId}`).then(success).catch(fail);
 }
 
+function searchPlanById(id, success, fail) {
+    local.get(`/plan/search/${id}`).then(success).catch(fail);
+}
+
 export {
     searchPlanByUserId,
+    searchPlanById,
 }
