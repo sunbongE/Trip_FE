@@ -32,12 +32,16 @@ onMounted(async () => {
 <template>
   <div class="mypage-club">
     <h1>MY PLAN</h1>
-    <div v-for="item in planList" :key="item.id">
-      <h3>{{ item.subject }}</h3>
-      <p>User ID: {{ item.userId }}</p>
-      <p>Description: {{ item.description }}</p>
+    <div id="cardFrame">
+      <div class="planCard" v-for="item in planList" :key="item.id">
+        <h3>여행: {{ item.subject }} </h3>
+        <p>설명: {{ item.description }}</p>
+        
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import "@/assets/sass/member/myPagePlan.scss"
+</style>
