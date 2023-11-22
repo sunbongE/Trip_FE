@@ -30,8 +30,8 @@ const callDescription = (newDto) => {
 const callFoodList = (newDto) => {
   getSearchFood(
     {
-      latitude: newDto.latitude.value,
-      longitude: newDto.longitude.value,
+      latitude: newDto.latitude,
+      longitude: newDto.longitude,
     },
     ({ data }) => {
       console.log("검색결과 data : ", data);
@@ -44,8 +44,8 @@ const callFoodList = (newDto) => {
 const callHotelList = (newDto) => {
   getSearchHotel(
     {
-      latitude: newDto.latitude.value,
-      longitude: newDto.longitude.value,
+      latitude: newDto.latitude,
+      longitude: newDto.longitude,
     },
     ({ data }) => {
       console.log("검색결과 data : ", data);

@@ -30,6 +30,11 @@ function getSearchHotel(map, success, fail) {
 function getSearchFood(map, success, fail) {
   local.post(`/trip/searchFood`, JSON.stringify(map)).then(success).catch(fail);
 }
+
+function findByContentId(contentId, success, fail) {
+  local.get(`/trip/find/${contentId}`).then(success).catch(fail);
+}
+
 export {
   getSidoList,
   getGugunList,
@@ -38,4 +43,5 @@ export {
   getDescription,
   getSearchHotel,
   getSearchFood,
+  findByContentId,
 };
