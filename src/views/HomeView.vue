@@ -88,7 +88,7 @@ function callGetSearchByPoint() {
       // 어딘가로 이동
       recoStore.searchLists = data;
       router.push("reco")
-    
+
     },
     (error) => console.log(error)
   );
@@ -102,13 +102,8 @@ function callGetSearchByPoint() {
           <div id="textbox">
             <div>
               <span>나는 지금 &nbsp</span>
-              <input
-                type="text"
-                id="search"
-                v-model="searchKeyword"
-                @keyup.enter="callGetSearchByPoint"
-                autocomplete="off"
-              />
+              <input type="text" id="search" v-model="searchKeyword" @keyup.enter="callGetSearchByPoint"
+                autocomplete="off" />
             </div>
 
             <div>
@@ -121,7 +116,6 @@ function callGetSearchByPoint() {
     <section id="sec2" class="section"></section>
     <section id="sec3" class="section"></section>
     <section id="sec4" class="section"></section>
-    <section id="sec5" class="section"></section>
   </main>
 </template>
 <style scoped>
@@ -132,6 +126,16 @@ function callGetSearchByPoint() {
 
 #sec2 {
   background: no-repeat url("../assets/images/background/section2.jpg");
+  background-size: cover;
+}
+
+#sec3 {
+  background: no-repeat url("../assets/images/background/backimg1.png");
+  background-size: cover;
+}
+
+#sec4 {
+  background: no-repeat url("../assets/images/background/backimg2.png");
   background-size: cover;
 }
 
@@ -153,15 +157,15 @@ input:focus {
   background: transparent;
 }
 
-#fp-nav > ul > li > a > span {
+#fp-nav>ul>li>a>span {
   background: #51abf3 !important;
 }
 
-#textbox > div > span {
+#textbox>div>span {
   font-size: 4em;
 }
 
-#textbox > div:first-child {
+#textbox>div:first-child {
   display: flex;
 }
 
@@ -172,7 +176,7 @@ input:focus {
   margin: 0 2em;
 }
 
-#textbox > div {
+#textbox>div {
   text-align: end;
 }
 </style>
