@@ -1,0 +1,51 @@
+
+.comment {
+    margin: 20px 0;
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    width: 100%;
+    padding: 20px;
+}
+
+.userFrame {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userbox {
+    display: flex;
+
+}
+textarea{
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px;
+    resize: none;
+    
+}
+.modifyBtn,.delBtn{
+    color: #949393;
+    text-align: end;
+    cursor: pointer;
+}
+.userId {
+    display: flex;
+    align-items: flex-end;
+}
+
+.ans {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.ans>p {
+    margin-bottom: 0;
+    padding: 10px;
+}
+
+img {
+    max-width: 60px;
+    border-radius: 50%;
+}

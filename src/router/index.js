@@ -77,6 +77,7 @@ const router = createRouter({
         {
           path: "mypage",
           name: "mypage",
+          beforeEnter: onlyAuthUser,
           component: () => import("@/components/member/MemberMyPageView.vue"),
           redirect: { name: "mypage-info" },
           children: [
@@ -123,7 +124,6 @@ const router = createRouter({
         {
           path: "list",
           name: "article-list",
-
           component: () => import("@/components/board/BoardList.vue"),
           // component: BoardList
         },
@@ -206,6 +206,7 @@ const router = createRouter({
         {
           path: "write/:planId",
           name: "club-write",
+          beforeEnter: onlyAuthUser,
           component: () => import("@/components/club/ClubWrite.vue"),
         }
       ]

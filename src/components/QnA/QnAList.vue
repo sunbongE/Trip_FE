@@ -17,7 +17,7 @@ const param = ref({
   key: "",
   word: "",
 });
-
+const isAdmin = ref("")
 const onPageChange = (val) => {
   console.log(val + "번 페이지로 이동 준비 끝!!!");
   currentPage.value = val;
@@ -30,12 +30,14 @@ const moveQnaWrite = () => {
 }
 onMounted(() => {
   getList();
+  isAdmin.value = JSON.parse(sessionStorage.getItem("memberStore")).userInfo.gradeId
+
 });
 const getList = () => {
   listQna(
     param.value,
     ({ data }) => {
-      console.log(data)
+      // console.log(data)
       QnaList.value = data.qnalist;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
@@ -73,9 +75,9 @@ const getList = () => {
             </tr>
           </thead>
           <tbody>
-            <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌
-                                                                           -->
-            <QnAListItem v-for=" qna in QnaList " :key="qna.id" :qna="qna"></QnAListItem>
+            <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌 -->
+                                                                          
+            <QnAListItem v-for=" qna in QnaList " :key="qna.id" :qna="qna" :isAdmin='isAdmin'></QnAListItem>
 
           </tbody>
         </table>

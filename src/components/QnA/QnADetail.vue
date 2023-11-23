@@ -4,17 +4,23 @@ import { getModifyQna, deleteQna } from '@/api/qna'
 import { listAns } from '@/api/qnaAns'
 import { ref, onMounted } from 'vue';
 import QnaAnswer from './item/QnaAnswer.vue';
+import QnAFormItem from './item/QnAFormItem.vue';
 const router = useRouter();
 const route = useRoute();
 const QnAno = route.params.QnAno
 const qna = ref({})
+const lgnUserId = ref('')
 
 onMounted(() => {
+  if (sessionStorage.getItem('memberStore') != null
+    && JSON.parse(sessionStorage.getItem('memberStore')).isLogin) {
+      lgnUserId.value=JSON.parse(sessionStorage.getItem('memberStore')).userInfo.userId
+    }
   getModifyQna(
     QnAno,
     ({ data }) => {
       qna.value = data
-      console.log(qna.value)
+      // console.log(qna.value)
     },
     (error) => console.error()
   );
@@ -55,18 +61,24 @@ const getAns = () => {
     (error) => console.log(error)
   )
 };
+const changeFunc=() => {
+  ansList.value = [];
+  getAns()
+}
 </script>
 
 <template>
   <section>
     <article>
       <div id="mentBox">
-        <p id="ment">QnA 제목: {{ qna.subject }}</p>
         <div id="btnBox">
           <button type="button" @click='moveList'>목록</button>
-          <button type="button" @click="moveQna">수정</button>
-          <button type="button" @click="delFunc">삭제</button>
+          <template v-if='lgnUserId === qna.userId'>
+            <button type="button" class='okBtn' @click="moveQna">수정</button>
+            <button type="button" class='cancelBtn' @click="delFunc">삭제</button>
+          </template>
         </div>
+        <p id="ment">QnA 제목: {{ qna.subject }}</p>
       </div>
       <form id="articleForm">
         <div id="formBox">
@@ -82,8 +94,9 @@ const getAns = () => {
       </form>
       <hr>
       <div id="commentFrame">
+        <QnAFormItem :qnaId='qna.id' @change-list='changeFunc'></QnAFormItem>
         <div id="commentBox">
-          <QnaAnswer v-for="ans in ansList" :key="ans.id" :ans="ans"></QnaAnswer>
+          <QnaAnswer v-for="ans in ansList" :key="ans.id" :ans="ans" @del-f='changeFunc'></QnaAnswer>
         </div>
       </div>
 
