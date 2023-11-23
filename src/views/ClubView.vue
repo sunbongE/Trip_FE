@@ -15,7 +15,7 @@
   background: no-repeat url("../assets/images/background/section2.jpg");
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: 165vh;
 }
 .club-view-container{
     width : 70%;

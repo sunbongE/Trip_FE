@@ -84,11 +84,11 @@ const addOrDelFunc = (info) => {
                                     <p>주소: {{ info.addr }}</p>
                                     <p>전화번호: {{ info.tel }}</p>
                                 </div>
-                                <div class='Btns'>
+                            </div>
+                            <div class='Btns'>
                                     <button v-if='info.selected' class='removeBtn' @click='addOrDelFunc(info)'>삭제</button>
                                     <button v-else class='addBtn' @click='addOrDelFunc(info)'>추가</button>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
