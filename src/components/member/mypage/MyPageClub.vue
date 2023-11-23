@@ -89,15 +89,15 @@ const deleteToMeList = function (id) {
 // })
 
 const plusPeopleOfMyClubs = function (id) {
-  const index = myClubs.value.findIndex(item => item.id === id);
+  const index = myClubs.value.findIndex((item) => item.id === id);
 
   if (index !== -1) {
     // 찾았을 때만 업데이트
     myClubs.value[index].people = computed(toMeList.length, () => {
       return value[index].people++;
-    })
+    });
   }
-}
+};
 </script>
 
 <template>
@@ -109,12 +109,14 @@ const plusPeopleOfMyClubs = function (id) {
       <p>클럽소개 : {{ mc.content }}</p>
       <p>현재 상태 : {{ mc.status === 1 ? "모집중" : "모집완료" }}</p>
       <p>인원 : {{ mc.people }}/{{ mc.totalCnt }}</p>
-      <button class="okBtn">상세보기</button>
+      <button class="okBtn">
+        <router-link :to="{ name: 'club-detail', params: { clubId: mc.id } }"> 자세히 </router-link>
+      </button>
     </div>
 
     <h3>나에게 온 요청</h3>
     <div v-for="tm in toMeList" :key="tm.id">
-      <div v-show="tm.answer === 103">
+      <div v-show="tm.answer === 103 || tm.answer === 0">
         <p>FROM : {{ tm.fromUserId }}</p>
         <p>TO : {{ tm.toUserId }}</p>
         <button class="okBtn" @click="acceptEvent(tm)">수락</button
@@ -130,6 +132,10 @@ const plusPeopleOfMyClubs = function (id) {
 </template>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: white;
+}
 .mypage-club {
   display: flex;
   flex-direction: column;

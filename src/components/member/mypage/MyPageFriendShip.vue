@@ -80,7 +80,6 @@ async function callAnswer(receivedId) {
   } else {
     console.error("Received request not found");
   }
-
 }
 </script>
 
@@ -101,7 +100,7 @@ async function callAnswer(receivedId) {
       <h3>내가 받은 친구 요청</h3>
       <ul>
         <li v-for="received in receivedList" :key="received.id" class="received-item">
-          <div v-if="received.status === 203" class="request-info">
+          <div v-show="received.status === 203" class="request-info">
             <span class="info">요청한 친구: {{ received.fromUserId }}</span>
             <button class="okBtn" @click="positive(received.id)">수락</button>
             <button @click="negative(received.id)">거절</button>
