@@ -1,13 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router';
-import { detailArticle } from "@/api/board";
+import { detailArticle, fileInfoList } from "@/api/board";
 
 const router = useRouter();
 const moveList = () => {
   router.push({ name: 'article-list', params: article.value.articleNo })
 }
-
+const files = ref([]);
 const route = useRoute();
 const articleNo = ref(0);
 onMounted(() => {
@@ -33,6 +33,25 @@ const getArticle = () => {
       article.value.registerTime = data.registerTime;
       article.value.subject = data.subject;
       article.value.userId = data.userId;
+
+      data.fileInfos.forEach(e => {
+        let cur_src ="http://localhost/baroga/upload/" +
+        e.saveFolder +
+        "/" +
+        e.saveFile;
+        files.value.push(cur_src);
+      });
+      console.log("====>"+files.value)
+
+      // files.value = data.fileInfos
+
+      console.log(data)
+      // fileInfoList(articleNo.value,
+      //   ({data}) => {
+      //     files.value = data
+      //     console.log(files.value)
+      // })
+      
     },
     (error) => console.log(error)
   )
@@ -49,16 +68,24 @@ const moveModify = () => {
       <div id="mentBox">
         <p id="ment">{{ article.subject }}</p>
         <div>
+          <span id="subment">작성자: {{ article.userId }}</span>
+        </div>
+        <div>
           <span id="subment">{{ article.registerTime }}</span><span id="cnt">조회수 : {{ article.hit }}</span>
         </div>
       </div>
       <form id="articleForm">
         <div id="formBox">
-          <label for="userId">작성자 ID</label>
-          <input type="text" id="userId" name="userId" disabled required="required" :value="article.userId">
-
+          <input type="hidden" id="userId" name="userId" disabled required="required" :value="article.userId">
+          <div id='imgBox' v-if="true">
+              <div v-for='cur in files' :key='cur.saveFile'>
+                <img :src="cur" alt="" srcset="">
+              </div>
+            
+          </div>
+          <!-- {{ files }} -->
           <label for="content">내용</label>
-          <textarea id="content" name="content" cols="50" rows="20" required="required"
+          <textarea id="content" name="content" cols="50" rows="10" required="required"
             readonly>{{ article.content }}</textarea>
 
         </div>
