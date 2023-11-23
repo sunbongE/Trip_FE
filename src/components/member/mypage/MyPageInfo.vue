@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { useMemberStore } from "@/stores/member";
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, useRoute } from "vue-router";
 
 const memberStore = useMemberStore();
 
@@ -19,7 +19,7 @@ const router = useRouter();
 // });
 // 비밀번호 확인 form
 function callUpdateInfo() {
-  router.push({ name: "mypage-pwdcheck" })
+  router.push({ name: "mypage-pwdcheck" });
 }
 </script>
 <template>
@@ -27,23 +27,23 @@ function callUpdateInfo() {
     <h1>MY INFO</h1>
     <div v-if="memberStore.isLogin" class="mypage-info-container">
       <div class="mypage-info-row">
-        <p class="mypage-info-label">ID : </p>
+        <p class="mypage-info-label">ID :</p>
         <p class="mypage-info-value">{{ memberStore.userInfo.userId }}</p>
       </div>
 
       <div class="mypage-info-row">
-        <p class="mypage-info-label">Name : </p>
+        <p class="mypage-info-label">Name :</p>
         <p class="mypage-info-value">{{ memberStore.userInfo.userName }}</p>
       </div>
 
       <div class="mypage-info-row">
-        <p class="mypage-info-label">Email : </p>
+        <p class="mypage-info-label">Email :</p>
         <p class="mypage-info-value">
           {{ memberStore.userInfo.emailId }}@{{ memberStore.userInfo.emailDomain }}
         </p>
       </div>
       <div>
-        <button @click="callUpdateInfo">회원 정보 수정</button>
+        <button @click="callUpdateInfo" class="okBtn">회원 정보 수정</button>
       </div>
     </div>
     <div v-else>

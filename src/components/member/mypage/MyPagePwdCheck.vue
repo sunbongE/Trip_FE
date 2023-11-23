@@ -16,9 +16,13 @@ function pwdCheck() {
       userId: memberStore.userInfo.userId,
       userPassword: inputpassword.value,
     },
-    ({ data }) => {
-      console.log("PW CHECK RESULT : ", data);
-      isCorrect.value = data;
+      ({ data }) => {
+          if (data) {
+              console.log("PW CHECK RESULT : ", data);
+              isCorrect.value = data;
+          } else {
+              alert("비밀번호가 틀렸습니다.\n확인 후 다시 입력 바랍니다.");
+          }
     },
     (error) => console.log(error)
   );
@@ -36,6 +40,16 @@ function updateEvent() {
         },
         (error) => console.log(error)
     )
+}
+
+function cancelEvent() {
+    var confirmed = confirm("회원 정보 수정을 취소하시겠습니까 ?");
+      if (confirmed) {
+
+    router.push("/member/mypage");
+    } else {
+        console.log("취소를 하지 않습니다.");
+    }
 }
 
 const userDto = ref({
@@ -74,7 +88,7 @@ const userDto = ref({
           </div>
           <div id="btnBox">
             <button type="button" @click="updateEvent">수정하기</button>
-            <button type="button" @click="">취소</button>
+            <button type="button" @click="cancelEvent">취소</button>
           </div>
         </form>
       </div>
