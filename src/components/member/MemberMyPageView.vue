@@ -238,8 +238,5 @@ const uploadFile = () => {
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-
-  .upload-form button {
-  }
 }
 </style>
