@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router';
-import { detailArticle, fileInfoList } from "@/api/board";
+import { detailArticle } from "@/api/board";
 
 const router = useRouter();
 const moveList = () => {
@@ -35,13 +35,13 @@ const getArticle = () => {
       article.value.userId = data.userId;
 
       data.fileInfos.forEach(e => {
-        let cur_src ="http://localhost/baroga/upload/" +
-        e.saveFolder +
-        "/" +
-        e.saveFile;
+        let cur_src = "http://localhost/baroga/upload/" +
+          e.saveFolder +
+          "/" +
+          e.saveFile;
         files.value.push(cur_src);
       });
-      console.log("====>"+files.value)
+      console.log("====>" + files.value)
 
       // files.value = data.fileInfos
 
@@ -51,7 +51,7 @@ const getArticle = () => {
       //     files.value = data
       //     console.log(files.value)
       // })
-      
+
     },
     (error) => console.log(error)
   )
@@ -77,11 +77,11 @@ const moveModify = () => {
       <form id="articleForm">
         <div id="formBox">
           <input type="hidden" id="userId" name="userId" disabled required="required" :value="article.userId">
-          <div id='imgBox' v-if="true">
-              <div v-for='cur in files' :key='cur.saveFile'>
-                <img :src="cur" alt="" srcset="">
-              </div>
-            
+          <div id='imgBox' v-if="files.length !== 0">
+            <div v-for='cur in files' :key='cur.saveFile'>
+              <img :src="cur" alt="" srcset="">
+            </div>
+
           </div>
           <!-- {{ files }} -->
           <label for="content">내용</label>

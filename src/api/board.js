@@ -24,8 +24,9 @@ function modifyArticle(article, success, fail) {
   local.put(`/board/modify`, JSON.stringify(article)).then(success).catch(fail);
 }
 
-function deleteArticle(articleno, success, fail) {
-  local.delete(`/board/delete/${articleno}`).then(success).catch(fail);
+function deleteArticle(articleNo, success, fail) {
+  console.log(articleNo)
+  local.delete(`/board/delete/${articleNo}`).then(success).catch(fail);
 }
 function fileInfoList(articleno, success, fail) {
   fileAxios.get(`/board/file/${articleno}`).then(success).catch(fail);

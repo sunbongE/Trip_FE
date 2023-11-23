@@ -46,6 +46,7 @@ const router = createRouter({
     {
       path: '/plan',
       name: 'planWrite',
+      beforeEnter: onlyAuthUser,
       component: PlanView
     },
     {
@@ -130,6 +131,7 @@ const router = createRouter({
         {
           path: "view/:articleno",
           name: "article-view",
+          beforeEnter: onlyAuthUser,
           component: () => import("@/components/board/BoardDetail.vue"),
         },
         {
@@ -166,6 +168,7 @@ const router = createRouter({
         {
           path: "view/:QnAno",
           name: "QnA-view",
+          beforeEnter: onlyAuthUser,
           component: () => import("@/components/QnA/QnADetail.vue"),
         },
         {

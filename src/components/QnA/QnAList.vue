@@ -50,7 +50,7 @@ const getList = () => {
 <template>
   <div>
     <section>
-    <!-- 게시글 작성 -->
+      <!-- 게시글 작성 -->
       <article>
         <div id="ment">
           <h2>QnA 목록</h2>
@@ -69,23 +69,19 @@ const getList = () => {
           <thead>
             <tr>
               <th scope="col">공개여부</th>
-              <th scope="col">작성자</th>
               <th scope="col">질문</th>
+              <th scope="col">작성자</th>
               <th scope="col">작성일</th>
             </tr>
           </thead>
           <tbody>
             <!-- BE연결되면 Axios로 데이터 받아서 여기로 for문 돌려줌 -->
-                                                                          
+
             <QnAListItem v-for=" qna in QnaList " :key="qna.id" :qna="qna" :isAdmin='isAdmin'></QnAListItem>
 
           </tbody>
         </table>
-        <VPageNavigation
-        :current-page="currentPage"
-        :total-page="totalPage"
-        @pageChange="onPageChange"
-      ></VPageNavigation>
+        <VPageNavigation :current-page="currentPage" :total-page="totalPage" @pageChange="onPageChange"></VPageNavigation>
       </article>
     </section>
   </div>

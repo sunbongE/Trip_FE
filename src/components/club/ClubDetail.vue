@@ -66,6 +66,8 @@ onMounted(async () => {
   // console.log("로그인 유저 : ", loginUser.value);
 
   clubId.value = route.params.clubId;
+
+
   // 개인 clubbyid 로 dto 가져오고
   //clubmember들도 가져오기
   // findclubbyid 로 가져온 dto 안에 planId로 , plan 의 정보까지 가져오기
@@ -182,7 +184,7 @@ const addFriend = () => { // 친구 요청 보내는 함수.
 
     <div class="top">
       <h1>동행 상세</h1>
-      <h2>같이 여행 갈 친구들을 찾아보세요 ! {{ lgnUserId }} {{ clubUserId }}</h2>
+      <h2>같이 여행 갈 친구들을 찾아보세요 !</h2>
     </div>
     <div class="detail-container">
       <div class="detail-header">
@@ -207,7 +209,7 @@ const addFriend = () => { // 친구 요청 보내는 함수.
       <div class="detail-body">
         <div class="body-content">
           <!-- {{ club.content }}
-                                                                                                      <img src="@/assets/images/club/edit_icon.png" alt="" class="edit_icon" /> -->
+                                                                                                                    <img src="@/assets/images/club/edit_icon.png" alt="" class="edit_icon" /> -->
           <div v-if="!editMode" @click="toggleEditMode">{{ club.content }}</div>
           <input v-else v-model="editedContent" @keyup.enter="modify('content')" />
           <img v-show="loginUser.userId === club.userId" v-if="!editMode" src="@/assets/images/club/edit_icon.png" alt=""
@@ -236,7 +238,8 @@ const addFriend = () => { // 친구 요청 보내는 함수.
         </div>
         <div class="common">
           <button class="animate-button" @click="goBack">뒤로</button>
-          <button class="animate-button" @click="callInsertClubStatus(club.userId)">참가</button>
+          <button v-if="club.userId !== lgnUserId" class="animate-button"
+            @click="callInsertClubStatus(club.userId)">참가</button>
         </div>
       </div>
     </div>

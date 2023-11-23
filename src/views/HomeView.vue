@@ -88,6 +88,7 @@ function callGetSearchByPoint() {
       // 어딘가로 이동
       recoStore.searchLists = data;
       router.push("reco")
+      // location.href = "/reco"
 
     },
     (error) => console.log(error)
