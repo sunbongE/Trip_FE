@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { findClubById, searchClubMemberByClubId, deleteClub, updateClub } from "@/api/club";
+import { findClubById, searchClubMemberByClubId, deleteClub, updateClub, insertClubStatus } from "@/api/club";
 import { searchPlanById } from "@/api/plan";
 import { useMemberStore } from "@/stores/member";
 import { findByContentId } from "@/api/tour";
@@ -131,6 +131,15 @@ const modify2 = (type) => {
   editMode2.value = false;
   club.value.subject = editedSubject.value;
 };
+
+const callInsertClubStatus = (id) => {
+  insertClubStatus({
+    fromUserId: memberStore.userInfo.userId,
+    toUserId: id,
+    clubId: route.params.clubId
+  })
+  alert(id+"님에게 동행 참가 요청을 보냈습니다.");
+}
 </script>
 <template>
   <div id='frame'>
@@ -201,7 +210,7 @@ const modify2 = (type) => {
       </div>
       <div class="common">
         <button class="animate-button" @click="goBack">뒤로</button>
-        <button class="animate-button" @click="">참가</button>
+        <button class="animate-button" @click="callInsertClubStatus(club.userId)">참가</button>
       </div>
     </div>
   </div>
