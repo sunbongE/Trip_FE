@@ -2,7 +2,7 @@ $(function () {
 
     $('#fullpage').fullpage({
         //options here
-        anchors: ['section1', 'section2', 'section3', 'section4'],
+        anchors: ['section1', 'section2', 'section3'],
         autoScrolling: true,
         scrollHorizontally: true,
         // sectionsColor: ['#ccc', '#bbb', '#ddd', '#eee', '#fff'],
