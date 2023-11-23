@@ -1,40 +1,40 @@
 .okBtn {
-    background-color: #51abf3 !important;
-    border: 1px solid #51abf3 !important;
-    color: #000000 !important;
-    padding: 6px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
+  background-color: #51abf3 !important;
+  border: 1px solid #51abf3 !important;
+  color: #000000 !important;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  margin-right: 5px;
 }
 
 .okBtn:hover {
-    background-color: #309df6 !important;
+  background-color: #309df6 !important;
 }
 
 .cancelBtn {
-    border: 3px solid #51abf3 !important;
-    background-color: #fff !important;
-    color: black !important;
-    padding: 6px;
-    border-radius: 10px;
-    font-size:18px;
-    font-weight: bold;
+  border: 1px solid #51abf3 !important;
+  background-color: #fff !important;
+  color: black !important;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: bold;
 }
 
-
 .addBtn {
-    background-color: #508D69;
-    border: 1px solid #508D69;
-    color: #000000;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
+  background-color: #508d69;
+  border: 1px solid #508d69;
+  color: #000000;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .addBtn:hover {
-    background-color: #3e7655;
+  background-color: #3e7655;
 }
 *:focus {
-    outline: 0;
+  outline: 0;
 }

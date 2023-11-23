@@ -34,13 +34,14 @@ onMounted(async () => {
       console.log(img_src.value);
     },
     (error) => {
-      img_src.value = "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMTgy/MDAxNjA0MjI4ODc1NDMw.Ex906Mv9nnPEZGCh4SREknadZvzMO8LyDzGOHMKPdwAg.ZAmE6pU5lhEdeOUsPdxg8-gOuZrq_ipJ5VhqaViubI4g.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%95%98%EB%8A%98%EC%83%89.jpg?type=w800";
+      img_src.value =
+        "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMTgy/MDAxNjA0MjI4ODc1NDMw.Ex906Mv9nnPEZGCh4SREknadZvzMO8LyDzGOHMKPdwAg.ZAmE6pU5lhEdeOUsPdxg8-gOuZrq_ipJ5VhqaViubI4g.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%95%98%EB%8A%98%EC%83%89.jpg?type=w800";
       console.log(img_src.value);
     }
   );
 });
 
-// profile image 
+// profile image
 const showForm = ref(false);
 const fileInput = ref([]);
 const formData = new FormData();
@@ -51,14 +52,14 @@ const toggleFormVisibility = () => {
 
 const handleFileChange = (event) => {
   const files = event.target.files;
-  console.log("files : ", files)
-  console.log('파일이 선택되었습니다.');
+  console.log("files : ", files);
+  console.log("파일이 선택되었습니다.");
   fileInput.value = files;
   let boardJson = JSON.stringify({
     userId: memberStore.userInfo.userId,
-  })
+  });
   console.log("fileInput.value : ", fileInput.value);
-  let board = new Blob([boardJson], { type: 'application/json' })
+  let board = new Blob([boardJson], { type: "application/json" });
   formData.append("userId", board);
   formData.append("upfile", fileInput.value[0]);
   console.log("formdata : ", formData);
@@ -66,10 +67,9 @@ const handleFileChange = (event) => {
 
 const uploadFile = () => {
   // 파일 업로드 로직 구현
-  console.log('파일을 업로드합니다.');
+  console.log("파일을 업로드합니다.");
   // 폼 숨기기
   showForm.value = false;
-
 
   registerProfile(
     formData,
@@ -79,7 +79,7 @@ const uploadFile = () => {
     (error) => {
       console.error("파일 업로드 중 오류 발생:", error);
     }
-  )
+  );
 };
 </script>
 
@@ -92,10 +92,22 @@ const uploadFile = () => {
       </button>
 
       <!-- 파일 업로드 폼 -->
-      <form v-show="showForm" @submit.prevent="uploadFile" class="upload-form" enctype="multipart/form-data">
-        <input type="file"  id="upfile" name="upfile" accept="image/*" multiple="multiple" @change="handleFileChange" />
-        <button type="submit" class='okBtn'>업로드</button>
-        <button type="submit" @click="toggleFormVisibility" class='cancelBtn'>취소</button>
+      <form
+        v-show="showForm"
+        @submit.prevent="uploadFile"
+        class="upload-form"
+        enctype="multipart/form-data"
+      >
+        <input
+          type="file"
+          id="upfile"
+          name="upfile"
+          accept="image/*"
+          multiple="multiple"
+          @change="handleFileChange"
+        />
+        <button type="submit" class="okBtn">업로드</button>
+        <button type="submit" @click="toggleFormVisibility" class="cancelBtn">취소</button>
       </form>
     </div>
 
@@ -124,7 +136,7 @@ const uploadFile = () => {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: relative;
+
   height: 90%;
 }
 
@@ -132,12 +144,12 @@ const uploadFile = () => {
   margin-top: 100px;
   width: 260px;
   height: 260px;
-  background-color: skyblue;
   border-radius: 50%;
   z-index: 1;
   display: flex; /* Flexbox를 사용하여 가운데 정렬을 위한 설정 추가 */
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
+  position: relative;
 }
 
 .mypage-home-profile {
@@ -145,6 +157,7 @@ const uploadFile = () => {
   height: 98%;
   border-radius: 50%;
   z-index: 2;
+  border: 5px solid skyblue;
 }
 
 .mypage-nav-bar {
@@ -152,9 +165,6 @@ const uploadFile = () => {
   display: inline-block;
 }
 .custom-button {
-  position: absolute;
-  bottom: 55%; /* 원하는 위치로 조절 */
-  right: 45%; /* 원하는 위치로 조절 */
   border: none;
   text-align: center;
   text-decoration: none;
@@ -165,14 +175,18 @@ const uploadFile = () => {
   background: transparent;
 }
 .image {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
+  width: 36px;
+  height: 36px;
 }
 
 .upload-form {
+  z-index: 5;
   position: absolute;
-  bottom: 55%;
-  right: 25%;
+  right: -450px;
+  bottom: 20px;
   background-color: #fff;
   padding: 10px;
   border: 1px solid #ccc;
@@ -216,13 +230,16 @@ const uploadFile = () => {
     height: 100%;
   }
   .upload-form {
-  position: absolute;
-  bottom: 55%;
-  right: 20%;
-  background-color: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+    position: absolute;
+    bottom: 55%;
+    right: 20%;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .upload-form button {
+  }
 }
 </style>
