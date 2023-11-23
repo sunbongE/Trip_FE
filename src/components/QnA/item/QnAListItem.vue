@@ -1,5 +1,13 @@
 <script setup>
- 
+import { onMounted, ref } from 'vue';
+const lgnUser = ref("");
+onMounted(() => {
+  if (sessionStorage.getItem("memberStore") !== null && JSON.parse(sessionStorage.getItem("memberStore")).isLogin) {
+    lgnUser.value = JSON.parse(sessionStorage.getItem("memberStore")).userInfo.userId
+
+  }
+  
+})
 defineProps({
   qna: Object,
   isAdmin:Number
@@ -18,7 +26,7 @@ defineProps({
     </td>
     
     <td v-else class='sct'>
-      <template v-if='isAdmin==2'>
+      <template v-if='isAdmin==2 || qna.userId === lgnUser '>
         <router-link :to="{ name: 'QnA-view', params: { QnAno: qna.id } }">
         {{ qna.subject }}
       </router-link>
