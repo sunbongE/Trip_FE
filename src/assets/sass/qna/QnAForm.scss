@@ -1,5 +1,5 @@
 section {
-    padding-top: 220px;
+    padding-top: 100px;
     width: 80%;
     max-width: 600px;
     margin: 0 auto;
@@ -7,7 +7,6 @@ section {
   
   article {
     width: 100%;
-    animation: fadein 3s;
   }
   
   #checkframe {
@@ -85,9 +84,10 @@ section {
   }
   
   #btnBox {
-    margin-bottom: 50px;
+    margin-top: 50px ;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+
   }
   
   #btnBox button {
@@ -103,9 +103,4 @@ section {
   #btnBox button:hover {
     cursor: pointer;
   }
-  
-  #btnBox button:nth-child(2) {
-    color: #fff;
-    background: #772cf0;
-    border: 1px solid #772cf0;
-  }
+ 

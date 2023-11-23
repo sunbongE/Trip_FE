@@ -8,7 +8,7 @@ const moveQnaList = () => {
 }
 const Qna = ref(
   {
-    userId: "admin", // 임시값
+    userId: JSON.parse(sessionStorage.getItem('memberStore')).userInfo.userId,
     subject: "",
     content: "",
     open: false
@@ -49,7 +49,7 @@ const writeQnaFunc = () => {
         <h2 id="ment">QnA 작성하기</h2>
 
       </div>
-      <form id="articleForm" method="post">
+      <form id="articleForm" @submit.prevent='writeQnaFunc'>
         <input type="hidden" name="action" value="regist">
         <div id="formBox">
           <input type="hidden" id="userId" name="userId" readonly required="required" :value="Qna.userId" />

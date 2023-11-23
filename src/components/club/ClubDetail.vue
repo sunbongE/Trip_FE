@@ -133,6 +133,8 @@ const modify2 = (type) => {
 };
 </script>
 <template>
+  <div id='frame'>
+
   <div class="top">
     <h1>동행 상세</h1>
     <h2>같이 여행 갈 친구들을 찾아보세요 !</h2>
@@ -200,8 +202,16 @@ const modify2 = (type) => {
       </div>
     </div>
   </div>
+</div>
+
 </template>
 <style scoped>
+#frame{
+  height: 100vh;
+}
+h1,h2{
+  color: #fff !important;
+}
 .detail-container {
   background-color: #ecf7f7;
   width: 70%;
@@ -209,7 +219,7 @@ const modify2 = (type) => {
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   transition: background-color 0.5s ease;
-  height: 100%; /* 100%로 수정 */
+  max-height: 700px; /* 100%로 수정 */
   display: flex;
   flex-direction: column;
   border-radius: 15px;
@@ -222,6 +232,9 @@ const modify2 = (type) => {
 .image {
   width: 40%;
   height: 100%;
+}
+.body-planinfo{
+  overflow: scroll;
 }
 .body-planinfo-item {
   background-color: white;

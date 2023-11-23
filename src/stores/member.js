@@ -52,7 +52,7 @@ export const useMemberStore = defineStore("memberStore", () => {
       decodeToken.userId,
       (response) => {
         if (response.status === httpStatusCode.OK) {
-          console.log("?????"+response)
+          // console.log("?????"+response)
           userInfo.value = response.data.userDto;
         } else {
           console.log("유저 정보 없음!!!!");

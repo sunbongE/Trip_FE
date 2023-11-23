@@ -50,13 +50,15 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="button-pane">
-      <button class="write-button">친구 구하러 가기</button>
-    </div>
   </div>
 </template>
 <style scoped>
+h1,h2{
+  color: #fff !important;
+}
 .club-list-container {
+  padding-top: 100px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,19 +74,9 @@ onMounted(() => {
 .club-list-subline h2 {
   font-size: 45px;
   color: #555;
-  animation: fadeInUp 3s ease; /* fadeInUp 애니메이션 적용 */
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+
 .card-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
