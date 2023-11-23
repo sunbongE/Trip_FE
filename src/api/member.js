@@ -44,6 +44,13 @@ function findProfileByUserId(userId, success, fail) {
 function registerProfile(dto, success, fail) {
     fileAxios.post(`/user/profile/regist`, dto).then(success).catch(fail);
 }
+function isCorrectPwd(dto, success, fail) {
+    local.post(`/user/isCorrectPwd`, JSON.stringify(dto)).then(success).catch(fail);
+}
+
+function update(dto, success, fail) {
+    local.put(`/user/update`, JSON.stringify(dto)).then(success).catch(fail);
+}
 export {
     userConfirm,
     join,
@@ -55,4 +62,6 @@ export {
     checkId,
     findProfileByUserId,
     registerProfile,
+    isCorrectPwd,
+    update,
 };

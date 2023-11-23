@@ -106,6 +106,11 @@ const router = createRouter({
               name: "mypage-alarm",
               component: () => import("@/components/member/mypage/MyPageAlarm.vue")
             },
+            {
+              path: "pwdcheck",
+              name: "mypage-pwdcheck",
+              component: () => import("@/components/member/mypage/MyPagePwdCheck.vue")
+            },
 
           ]
         }

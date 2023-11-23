@@ -1,9 +1,11 @@
 <script setup>
 import { onMounted } from "vue";
 import { useMemberStore } from "@/stores/member";
+import { useRouter, useRoute } from 'vue-router';
 
 const memberStore = useMemberStore();
 
+const router = useRouter();
 // onMounted(async () => {
 //   const accessToken = sessionStorage.getItem("accessToken");
 
@@ -15,6 +17,10 @@ const memberStore = useMemberStore();
 //     }
 //   }
 // });
+// 비밀번호 확인 form
+function callUpdateInfo() {
+  router.push({ name: "mypage-pwdcheck" })
+}
 </script>
 <template>
   <div class="mypage-info">
@@ -35,6 +41,9 @@ const memberStore = useMemberStore();
         <p class="mypage-info-value">
           {{ memberStore.userInfo.emailId }}@{{ memberStore.userInfo.emailDomain }}
         </p>
+      </div>
+      <div>
+        <button @click="callUpdateInfo">회원 정보 수정</button>
       </div>
     </div>
     <div v-else>
