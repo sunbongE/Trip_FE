@@ -115,7 +115,6 @@ function callGetSearchByPoint() {
     </section>
     <section id="sec2" class="section"></section>
     <section id="sec3" class="section"></section>
-    <section id="sec4" class="section"></section>
   </main>
 </template>
 <style scoped>
