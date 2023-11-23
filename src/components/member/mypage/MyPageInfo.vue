@@ -4,17 +4,17 @@ import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
 
-onMounted(async () => {
-  const accessToken = sessionStorage.getItem("accessToken");
+// onMounted(async () => {
+//   const accessToken = sessionStorage.getItem("accessToken");
 
-  if (accessToken && !memberStore.isLogin) {
-    try {
-      await memberStore.getUserInfo(accessToken);
-    } catch (error) {
-      console.error("Failed to fetch user information", error);
-    }
-  }
-});
+//   if (accessToken && !memberStore.isLogin) {
+//     try {
+//       await memberStore.getUserInfo(accessToken);
+//     } catch (error) {
+//       console.error("Failed to fetch user information", error);
+//     }
+//   }
+// });
 </script>
 <template>
   <div class="mypage-info">

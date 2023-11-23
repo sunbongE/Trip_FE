@@ -1,6 +1,7 @@
-import { localAxios } from "@/util/http-commons";
+import { localAxios, localFileAxios} from "@/util/http-commons";
 
 const local = localAxios();
+const fileAxios = localFileAxios();
 
 // Login
 async function userConfirm(param, success, fail) {
@@ -37,6 +38,12 @@ async function findById(userid, success, fail) {
 function checkId(userId, success, fail) {
     local.post("/user/checkId", userId).then(success).then(fail);
 }
+function findProfileByUserId(userId, success, fail) {
+    local.get(`/user/profile/findProfileByUserId/${userId}`).then(success).catch(fail);
+}
+function registerProfile(dto, success, fail) {
+    fileAxios.post(`/user/profile/regist`, dto).then(success).catch(fail);
+}
 export {
     userConfirm,
     join,
@@ -45,5 +52,7 @@ export {
     logout,
     tokenRegeneration,
     findById,
-    checkId
+    checkId,
+    findProfileByUserId,
+    registerProfile,
 };
