@@ -66,12 +66,12 @@ async function callAnswer(receivedId) {
 
   if (received) {
     // received 객체에서 toUserId를 가져와 사용
-    const toUserId = received.toUserId;
-
+    const toUserId = received.fromUserId;
+    console.log(">>>>", memberStore.userInfo.userId, toUserId)
     await answer({
       id: receivedId,
-      fromUserId: memberStore.userInfo.userId,
-      toUserId: toUserId,
+      fromUserId: memberStore.userInfo.userId, //   
+      toUserId: toUserId,                      //  
       status: user_answer.value,
     });
 
@@ -142,6 +142,7 @@ async function callAnswer(receivedId) {
   margin-right: 10px;
   font-size: 16px;
 }
+
 .received-list {
   text-align: center;
 }

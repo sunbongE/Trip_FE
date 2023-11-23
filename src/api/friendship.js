@@ -7,15 +7,20 @@ function getReceived(userId, success, fail) {
 }
 
 function searchByStatus(req, success, fail) {
+    console.log(req)
     local.post(`/friend/list`, JSON.stringify(req)).then(success).catch(fail);
 }
 
 function answer(req, success, fail) {
     local.put(`/friend/answer`, JSON.stringify(req)).then(success).catch(fail);
 }
+function friendRequest(req, success, fail) {
+    local.post(`/friend/friendrequest`, JSON.stringify(req)).then(success).catch(fail);
+}
 
 export {
     getReceived,
     searchByStatus,
     answer,
+    friendRequest,
 }

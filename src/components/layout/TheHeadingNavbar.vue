@@ -1,6 +1,4 @@
 <script setup>
-import { useMenuStore } from "@/stores/menu";
-import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 import { ref, onMounted, computed } from 'vue'
 import { getAlarm, readAlarm, deleteAlarm } from "@/api/alarm.js"
@@ -32,7 +30,7 @@ const getAlarmFunc = () => {
       userId,
       ({ data }) => {
         alarmList.value = data;
-        // console.log(alarmList.value)
+        console.log(alarmList.value)
       },
       (error) => {
         console.log(error)
