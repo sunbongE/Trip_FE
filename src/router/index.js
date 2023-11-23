@@ -204,6 +204,7 @@ const router = createRouter({
         {
           path: "detail/:clubId",
           name: "club-detail",
+          beforeEnter: onlyAuthUser,
           component: () => import("@/components/club/ClubDetail.vue"),
         },
         {

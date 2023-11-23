@@ -30,7 +30,10 @@ const moveQnaWrite = () => {
 }
 onMounted(() => {
   getList();
-  isAdmin.value = JSON.parse(sessionStorage.getItem("memberStore")).userInfo.gradeId
+  if (sessionStorage.getItem("memberStore") !== null && JSON.parse(sessionStorage.getItem("memberStore")).isLogin) {
+
+    isAdmin.value = JSON.parse(sessionStorage.getItem("memberStore")).userInfo.gradeId
+  }
 
 });
 const getList = () => {
