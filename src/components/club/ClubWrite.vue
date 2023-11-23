@@ -117,4 +117,12 @@ function goBack() {
 
 <style scoped>
 @import "@/assets/sass/board/BoardForm.scss";
+label,#ment{
+  color: #fff !important;
+  font-weight: bold;
+}
+#subment{
+  color: #fff !important;
+  font-weight: bold;
+}
 </style>

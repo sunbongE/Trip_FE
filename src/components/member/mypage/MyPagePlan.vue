@@ -17,10 +17,10 @@ const searchPlanByUserIdFunc = () => {
       console.log(data)
       planList.value = data;
       planList.value.forEach((info) => {
-        console.log("요청보냄")
+        // console.log("요청보냄")
         searchTourInfoByPlanId(info.id,
           ({ data }) => {
-            console.log(data)
+            // console.log(data)
             data.forEach((dt) => {
               tourList.value.push(dt)
             })
@@ -45,11 +45,10 @@ onMounted(async () => {
   searchPlanByUserIdFunc();
 });
 
-// 여기얌 준성쨩
 const moveClub = (planId) => {
-  console.log(planId)
-  // router.push({ name: "club-write", params: planId })
+  router.push({ name: "club-write", params: {planId} })
 }
+
 const delFunc = (planId) => {
   deletePlanById(planId,
     (Response) => {
@@ -63,6 +62,7 @@ const delFunc = (planId) => {
     <h1>나의 계획</h1>
     <div id="cardFrame">
       <div class="planCard" v-for="item in planList" :key="item.id">
+    
         <div>
           <h3>여행: {{ item.subject }} </h3>
           <p>설명: {{ item.description }}</p>
@@ -81,6 +81,7 @@ const delFunc = (planId) => {
           <button id="delBtn" @click="delFunc(item.id)">삭제</button>
         </div>
       </div>
+    
     </div>
   </div>
 </template>
