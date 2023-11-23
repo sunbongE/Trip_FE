@@ -50,7 +50,8 @@ const modifyBtn = () => {
   // axios요청
 }
 const deleteBtn = () => {
-  console.log(article.value)
+  // console.log(article.value)
+  // console.log("asdasd", article.value)
   deleteArticle(
     article.value.articleNo,
     (response) => {

@@ -113,7 +113,7 @@ const uploadFile = () => {
 
 <style scoped>
 .c {
-  overflow: hidden;
+  overflow-y: scroll;
   width: 70%;
   height: 800px;
   border: 2px solid skyblue;
