@@ -89,10 +89,15 @@ function callGetSearchByPoint() {
       recoStore.searchLists = data;
       router.push("reco")
       // location.href = "/reco"
-
     },
     (error) => console.log(error)
   );
+}
+const moveClub = () => {
+  location.href = "/club/list"
+}
+const moveTourPlan = () => {
+  location.href = "/tour/plan"
 }
 </script>
 <template>
@@ -106,7 +111,6 @@ function callGetSearchByPoint() {
               <input type="text" id="search" v-model="searchKeyword" @keyup.enter="callGetSearchByPoint"
                 autocomplete="off" />
             </div>
-
             <div>
               <span>가고 싶다.</span>
             </div>
@@ -114,8 +118,35 @@ function callGetSearchByPoint() {
         </div>
       </div>
     </section>
-    <section id="sec2" class="section"></section>
-    <section id="sec3" class="section"></section>
+    <section id="sec2" class="section">
+      <div id="sec2Box">
+        <div id="sec2Frame">
+          <div id="ment1">
+            <h1>함께하는 여행, 더 특별한 경험! </h1>
+          </div>
+          <div id="ment2">
+            <h1>동행을 모집합니다.</h1>
+          </div>
+          <div id="sec2BtnBox">
+            <button class="okBtn" @click="moveClub">바로가기</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <section id="sec3" class="section">
+      <div id="sec2Box">
+        <div id="sec2Frame">
+          <div id="ment1">
+            <h1>유튜브로 여행지를 찾아가세요, </h1>
+          </div>
+          <div id="ment2">
+            <h1>새로운 경험이 여기 있습니다.</h1>
+          </div>
+          <div id="sec2BtnBox"><button class="okBtn" @click="moveTourPlan">바로가기</button></div>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
 <style scoped>
@@ -150,6 +181,10 @@ input:focus {
   outline: none;
 }
 
+input {
+  font-weight: bold;
+}
+
 #search {
   width: 40%;
   font-size: 60px;
@@ -163,6 +198,7 @@ input:focus {
 
 #textbox>div>span {
   font-size: 4em;
+  font-weight: bold;
 }
 
 #textbox>div:first-child {
@@ -178,5 +214,40 @@ input:focus {
 
 #textbox>div {
   text-align: end;
+}
+
+#sec2Frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  grid-gap: 4em;
+}
+
+
+#sec2Box {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#sec2BtnBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end
+}
+
+#sec2BtnBox>button {
+  color: #fff !important;
+  padding: 10px 20px;
+
+}
+
+#ment1>h1,
+#ment2>h1 {
+  font-size: 4em;
+  font-weight: bold;
 }
 </style>
