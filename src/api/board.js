@@ -27,6 +27,10 @@ function modifyArticle(article, success, fail) {
 function deleteArticle(articleno, success, fail) {
   local.delete(`/board/delete/${articleno}`).then(success).catch(fail);
 }
+function fileInfoList(articleno, success, fail) {
+  fileAxios.get(`/board/file/${articleno}`).then(success).catch(fail);
+}
+
 
 export { // 글로벌로 사용할 수 있게 해준다.
   listArticle,
@@ -35,4 +39,5 @@ export { // 글로벌로 사용할 수 있게 해준다.
   getModifyArticle,
   modifyArticle,
   deleteArticle,
+  fileInfoList,
 };
