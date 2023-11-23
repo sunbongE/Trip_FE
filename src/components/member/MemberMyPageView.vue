@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref } from "vue";
 import MyPageNavBar from "./mypage/MyPageNavBar.vue";
 
 import { useMemberStore } from "@/stores/member";
@@ -92,20 +92,8 @@ const uploadFile = () => {
       </button>
 
       <!-- 파일 업로드 폼 -->
-      <form
-        v-show="showForm"
-        @submit.prevent="uploadFile"
-        class="upload-form"
-        enctype="multipart/form-data"
-      >
-        <input
-          type="file"
-          id="upfile"
-          name="upfile"
-          accept="image/*"
-          multiple="multiple"
-          @change="handleFileChange"
-        />
+      <form v-show="showForm" @submit.prevent="uploadFile" class="upload-form" enctype="multipart/form-data">
+        <input type="file" id="upfile" name="upfile" accept="image/*" multiple="multiple" @change="handleFileChange" />
         <button type="submit" class="okBtn">업로드</button>
         <button type="submit" @click="toggleFormVisibility" class="cancelBtn">취소</button>
       </form>
@@ -125,12 +113,15 @@ const uploadFile = () => {
 
 <style scoped>
 .c {
+  overflow: hidden;
   width: 70%;
+  height: 800px;
   border: 2px solid skyblue;
   /* height: 90%; */
   border-radius: 20px;
   transform: translateY(-130px);
 }
+
 .mypage-edgeline {
   display: flex;
   flex-direction: column;
@@ -146,9 +137,12 @@ const uploadFile = () => {
   height: 260px;
   border-radius: 50%;
   z-index: 1;
-  display: flex; /* Flexbox를 사용하여 가운데 정렬을 위한 설정 추가 */
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: center; /* 가로 중앙 정렬 */
+  display: flex;
+  /* Flexbox를 사용하여 가운데 정렬을 위한 설정 추가 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
   position: relative;
 }
 
@@ -164,6 +158,7 @@ const uploadFile = () => {
   width: 100%;
   display: inline-block;
 }
+
 .custom-button {
   border: none;
   text-align: center;
@@ -174,6 +169,7 @@ const uploadFile = () => {
   width: 40px;
   background: transparent;
 }
+
 .image {
   position: absolute;
   right: 0px;
@@ -192,6 +188,7 @@ const uploadFile = () => {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 @media screen and (max-width: 768px) {
   .c {
     width: 70%;
@@ -214,8 +211,10 @@ const uploadFile = () => {
 
   .custom-button {
     position: absolute;
-    bottom: 69%; /* 원하는 위치로 조절 */
-    right: 37%; /* 원하는 위치로 조절 */
+    bottom: 69%;
+    /* 원하는 위치로 조절 */
+    right: 37%;
+    /* 원하는 위치로 조절 */
     border: none;
     text-align: center;
     text-decoration: none;
@@ -225,10 +224,12 @@ const uploadFile = () => {
     width: 30px;
     background: transparent;
   }
+
   .image {
     width: 100%;
     height: 100%;
   }
+
   .upload-form {
     position: absolute;
     bottom: 55%;

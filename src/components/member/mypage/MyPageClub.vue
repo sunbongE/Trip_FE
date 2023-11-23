@@ -104,23 +104,25 @@ const plusPeopleOfMyClubs = function (id) {
   <div class="mypage-club">
     <h1>MY CLUB</h1>
     <h3>내 클럽 목록</h3>
-    <div v-for="mc in myClubs" :key="mc.id">
-      <p>클럽명 : {{ mc.subject }}</p>
-      <p>클럽소개 : {{ mc.content }}</p>
-      <p>현재 상태 : {{ mc.status === 1 ? "모집중" : "모집완료" }}</p>
-      <p>인원 : {{ mc.people }}/{{ mc.totalCnt }}</p>
-      <button class="okBtn">
-        <router-link :to="{ name: 'club-detail', params: { clubId: mc.id } }"> 자세히 </router-link>
-      </button>
+    <div id="clubListFrame">
+      <div class="clubList" v-for="mc in myClubs" :key="mc.id">
+        <p>클럽명 : {{ mc.subject }}</p>
+        <p>클럽소개 : {{ mc.content }}</p>
+        <p>현재 상태 : {{ mc.status === 1 ? "모집중" : "모집완료" }}</p>
+        <div class="footItem">
+          <p>인원 : {{ mc.people }}/{{ mc.totalCnt }}</p>
+          <button class="okBtn">
+            <router-link :to="{ name: 'club-detail', params: { clubId: mc.id } }"> 자세히 </router-link>
+          </button>
+        </div>
+      </div>
     </div>
-
     <h3>나에게 온 요청</h3>
     <div v-for="tm in toMeList" :key="tm.id">
       <div v-show="tm.answer === 103 || tm.answer === 0">
         <p>FROM : {{ tm.fromUserId }}</p>
         <p>TO : {{ tm.toUserId }}</p>
-        <button class="okBtn" @click="acceptEvent(tm)">수락</button
-        ><button @click="rejectEvent(tm)">거절</button>
+        <button class="okBtn" @click="acceptEvent(tm)">수락</button><button @click="rejectEvent(tm)">거절</button>
       </div>
     </div>
     <h3>내가 보낸 요청</h3>
@@ -136,6 +138,7 @@ a {
   text-decoration: none;
   color: white;
 }
+
 .mypage-club {
   display: flex;
   flex-direction: column;
@@ -143,5 +146,38 @@ a {
   justify-content: flex-start;
   width: 100%;
   height: auto;
+}
+
+.clubList {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 300px;
+  border: 1px solid #d3d3d3;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+/* .clubList>button {
+  margin-top: auto;
+  align-self: flex-end;
+} */
+.footItem {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footItem>p {
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+#clubListFrame {
+  margin: 4em 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3em;
 }
 </style>

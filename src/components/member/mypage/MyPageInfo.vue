@@ -21,17 +21,17 @@ const memberStore = useMemberStore();
     <h1>MY INFO</h1>
     <div v-if="memberStore.isLogin" class="mypage-info-container">
       <div class="mypage-info-row">
-        <p class="mypage-info-label">User ID</p>
+        <p class="mypage-info-label">ID : </p>
         <p class="mypage-info-value">{{ memberStore.userInfo.userId }}</p>
       </div>
 
       <div class="mypage-info-row">
-        <p class="mypage-info-label">User Name</p>
+        <p class="mypage-info-label">Name : </p>
         <p class="mypage-info-value">{{ memberStore.userInfo.userName }}</p>
       </div>
 
       <div class="mypage-info-row">
-        <p class="mypage-info-label">Email</p>
+        <p class="mypage-info-label">Email : </p>
         <p class="mypage-info-value">
           {{ memberStore.userInfo.emailId }}@{{ memberStore.userInfo.emailDomain }}
         </p>
@@ -45,6 +45,7 @@ const memberStore = useMemberStore();
 
 <style scoped>
 .mypage-info {
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,7 +68,8 @@ const memberStore = useMemberStore();
 
 .mypage-info-row {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: start;
   margin-bottom: 10px;
 }
 
@@ -77,7 +79,8 @@ const memberStore = useMemberStore();
 }
 
 .mypage-info-value {
-  text-align: center;
-  color: blue; /* 흰색 글자색 */
+  margin-left: 0.5em;
+  color: blue;
+  /* 흰색 글자색 */
 }
 </style>
