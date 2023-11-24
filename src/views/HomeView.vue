@@ -115,7 +115,7 @@ const moveTourPlan = () => {
               <span>가고 싶다.</span>
             </div>
           </div>
-        </div>
+      </div>
       </div>
     </section>
     <section id="sec2" class="section">

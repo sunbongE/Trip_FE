@@ -64,8 +64,8 @@ const delFunc = (planId) => {
       <div class="planCard" v-for="item in planList" :key="item.id">
     
         <div>
-          <h3>여행: {{ item.subject }} </h3>
-          <p>설명: {{ item.description }}</p>
+          <h3> {{ item.subject }} </h3>
+          <p> {{ item.description }}</p>
         </div>
         <div class="tourList">
           <template v-for="tour in tourList" :key="tour.plan_id">

@@ -13,6 +13,8 @@ const { selecList, planList, infos } = storeToRefs(tourPlanStore);
 
 const userId = JSON.parse(sessionStorage.getItem("memberStore")).userInfo.userId
 const makeInfosData = () => {
+    console.log(selecList)
+
     infos.value = []
 
     for (let idx = 0; idx < selecList.value.length; idx++) {
@@ -36,6 +38,7 @@ const writeFunc = async (info) => {
         (Response) => {
             if (Response.status === 201) {
                 planList.value = [];
+                selecList.value = [];
                 if (confirm("나의 여행 계획을 확인하시겠어요?")) {
                     router.push({ name: "mypage-plan" })
                 } else {
