@@ -51,18 +51,78 @@ BE, FE
 - 여행지 검색 : kakaoMap 활용, 여행지 카테고리별 검색, 유튜브 검색, 계획 추가
 - 여행 모집글 : CRUD
 
+---
+### ERD
+<details>
+  <summary>👉열기</summary>
+    <img src="./images/ERD.png" width="600" height="300"/>&nbsp; &nbsp;
+</details>
+</br>
+
+---
 
 # 페이지
 
-## 메인
+## 회원가입
+> 중복이 아닌 아이디로 회원가입을 할 수 있습니다.
 
-## 바로가 검색
+<img src="./images/join.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+
+
+## 로그인
+
+<img src="./images/login.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+
+## 메인
+> 어디에 가고 싶은지 입력하시면 키워드를 포함한 관광지를 추천하며 자신의 위치와 가까운 순으로 정렬하여 정보가 제공됩니다.  
+
+<img src="./images/mainPage.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+</br>
+
+<img src="./images/mainSearch.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+</br>
 
 ## 여행 계획
+> 유튜브, 카테고리 등으로 여행지를 미리 확인할 수 있습니다.
+
+<img src="./images/planSearch.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+</br>
+
+<img src="./images/createPlan.gif" width="600" height="300"/>&nbsp; &nbsp;
+
 
 ## 동행 모집
+> 여행원 모집글 작성
 
-## 알림
+</br>
+
+<img src="./images/createGroup.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+> 여행 참가 요청
+
+</br>
+<img src="./images/joinReq.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+## 마이페이지
+> 개인정보를 수정할 수 있고, 본인이 올린 여행 글 등을 확인할 수 있습니다.
+친구요청 승인, 친구 목록 확인 등을 할 수 있습니다.
+
+</br>
+
+<img src="./images/myPage.gif" width="600" height="300"/>&nbsp; &nbsp;
+
+
+
+
+## QnA, 게시글
+
+<img src="./images/createQnA.gif" width="600" height="300"/>&nbsp; &nbsp;
+<img src="./images/createConten.gif" width="600" height="300"/>&nbsp; &nbsp;
 
 
 
